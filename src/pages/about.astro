@@ -1,0 +1,128 @@
+---
+import Layout from '../components/Layout.astro';
+import Card from '../components/Card.astro';
+import { profile } from '../data/profile';
+import { withBase } from '../utils/paths';
+---
+
+<Layout title="关于我" description="个人介绍、教育经历、研究兴趣、技能栈与联系方式。">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>关于我</h1>
+      <p>{profile.bioShort}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column wide-left">
+      <article class="prose intro-text">
+        <h2>个人介绍</h2>
+        {profile.bioLong.map((paragraph) => <p>{paragraph}</p>)}
+      </article>
+      <aside class="contact-panel">
+        <img src={withBase(profile.avatar)} alt={`${profile.nameCn} 头像占位`} width="128" height="128" />
+        <h2>{profile.nameCn}</h2>
+        <p>{profile.currentRole}</p>
+        <p>{profile.affiliation}</p>
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Education</p>
+        <h2>教育经历</h2>
+      </div>
+      <ol class="education-list">
+        {
+          profile.education.map((item) => (
+            <li>
+              <span class="education-stage">{item.stage}</span>
+              <div>
+                <h3>{item.degree}</h3>
+                <p>{item.institution} · {item.department}</p>
+                <p>{item.period} · {item.location}</p>
+                <p>{item.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Interests</p>
+          <h2>研究兴趣</h2>
+        </div>
+        <div class="card-grid one">
+          {profile.researchInterests.map((interest) => <Card title={interest} description="可在这里继续扩展对应项目、论文或笔记链接。" />)}
+        </div>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Skills</p>
+          <h2>技能栈</h2>
+        </div>
+        <div class="stack">
+          {
+            profile.skills.map((group) => (
+              <article class="skill-block">
+                <h3>{group.name}</h3>
+                <div class="keyword-list">
+                  {group.items.map((skill) => <span>{skill}</span>)}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Research Experience</p>
+          <h2>研究经历</h2>
+        </div>
+        <ol class="compact-list">
+          {
+            profile.researchExperience.map((item) => (
+              <li>
+                <strong>{item.period}</strong>
+                <span>{item.title}</span>
+                <p>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Teaching</p>
+          <h2>助教经历</h2>
+        </div>
+        <ol class="compact-list">
+          {
+            profile.teachingExperience.map((item) => (
+              <li>
+                <strong>{item.period}</strong>
+                <span>{item.title}</span>
+                <p>{item.role} · {item.course}</p>
+                <p>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+</Layout>

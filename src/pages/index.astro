@@ -1,0 +1,179 @@
+---
+import Layout from '../components/Layout.astro';
+import Card from '../components/Card.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import Timeline from '../components/Timeline.astro';
+import WorkItem from '../components/WorkItem.astro';
+import ResourceItem from '../components/ResourceItem.astro';
+import { profile } from '../data/profile';
+import { publications } from '../data/publications';
+import { activities } from '../data/activities';
+import { resources } from '../data/resources';
+import { featuredWorkSlugs, works } from '../data/works';
+import { withBase } from '../utils/paths';
+
+const latestPublications = [...publications].sort((a, b) => b.year - a.year).slice(0, 2);
+const recentActivities = activities.slice(0, 3);
+const featuredWorks = featuredWorkSlugs
+  .map((slug) => works.find((work) => work.slug === slug))
+  .filter((work): work is (typeof works)[number] => Boolean(work))
+  .slice(0, 2);
+const featuredResourceIds = [
+  'fluid-mechanics-ta-homework',
+  'advanced-atmospheric-dynamics',
+  'graduate-course-book'
+];
+const featuredResources = featuredResourceIds
+  .map((id) => resources.find((resource) => resource.id === id))
+  .filter((resource): resource is (typeof resources)[number] => Boolean(resource))
+  .concat(resources)
+  .filter((resource, index, array) => array.findIndex((item) => item.id === resource.id) === index)
+  .slice(0, 3);
+const quickLinks = [
+  { title: 'Academic', href: '/about/', description: '教育经历、研究兴趣与学术身份。' },
+  { title: 'Publications', href: '/publications/', description: '论文、投稿与准备中的研究。' },
+  { title: 'Activities', href: '/activities/', description: '会议汇报、课程报告与科研训练。' },
+  { title: 'Works', href: '/works/', description: '小说、散文、设定集与随笔。' },
+  { title: 'Notes', href: '/notes/', description: '研究笔记、读书笔记与技术笔记。' },
+  { title: 'CV', href: '/cv/', description: 'Academic CV 与可下载简历入口。' }
+];
+---
+
+<Layout>
+  <section class="hero" style={`--hero-image: url('${withBase(profile.heroImage)}')`}>
+    <div class="hero-overlay">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Personal Academic Archive</p>
+          <h1>{profile.nameCn}</h1>
+          <p class="hero-role">{profile.currentRole} · {profile.affiliation}</p>
+          <p>{profile.bioShort}</p>
+          <div class="hero-actions">
+            <a class="button" href={withBase('/publications/')}>查看发表成果</a>
+            <a class="button secondary" href={withBase('/works/')}>阅读文学作品</a>
+          </div>
+        </div>
+        <aside class="profile-panel" aria-label="个人概览">
+          <img src={withBase(profile.avatar)} alt={`${profile.nameCn} 头像占位`} width="160" height="160" />
+          <div>
+            <strong>{profile.nameEn}</strong>
+            <span>{profile.location}</span>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Entrances</p>
+        <h2>主要入口</h2>
+      </div>
+      <div class="card-grid six">
+        {quickLinks.map((item) => <Card href={item.href} title={item.title} description={item.description} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Research</p>
+        <h2>研究方向</h2>
+      </div>
+      <div class="card-grid">
+        {
+          profile.researchInterests.map((interest, index) => (
+            <Card eyebrow={`0${index + 1}`} title={interest} description="后续可在数据文件中补充更详细的研究问题、资料来源与项目链接。" />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Research Experience</p>
+          <h2>研究经历</h2>
+        </div>
+        <ol class="compact-list">
+          {
+            profile.researchExperience.slice(0, 2).map((item) => (
+              <li>
+                <strong>{item.period}</strong>
+                <span>{item.title}</span>
+                <p>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Teaching</p>
+          <h2>助教经历</h2>
+        </div>
+        <ol class="compact-list">
+          {
+            profile.teachingExperience.map((item) => (
+              <li>
+                <strong>{item.period}</strong>
+                <span>{item.title}</span>
+                <p>{item.role} · {item.course}</p>
+                <p>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Publications</p>
+          <h2>最新发表 / 成果</h2>
+        </div>
+        <div class="stack">
+          {latestPublications.map((publication) => <PublicationItem publication={publication} />)}
+        </div>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Activities</p>
+          <h2>最近学术活动</h2>
+        </div>
+        <Timeline items={recentActivities} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section literary-band">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Works</p>
+          <h2>文学作品入口</h2>
+        </div>
+        <div class="stack">
+          {featuredWorks.map((work) => <WorkItem work={work} />)}
+        </div>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow">Resources</p>
+          <h2>课程资料入口</h2>
+        </div>
+        <div class="stack">
+          {featuredResources.map((resource) => <ResourceItem resource={resource} compact />)}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

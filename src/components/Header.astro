@@ -1,0 +1,61 @@
+---
+import { stripBase, withBase } from '../utils/paths';
+
+const navItems = [
+  { href: '/', label: '首页' },
+  { href: '/about/', label: '关于我' },
+  { href: '/cv/', label: '简历' },
+  { href: '/publications/', label: '发表成果' },
+  { href: '/activities/', label: '学术活动' },
+  { href: '/works/', label: '文学作品' },
+  { href: '/resources/', label: '课程资料' },
+  { href: '/notes/', label: '笔记' }
+];
+
+const normalizePath = (path: string) => (path === '/' ? '/' : path.replace(/\/$/, ''));
+const currentPath = normalizePath(stripBase(Astro.url.pathname));
+const isActive = (href: string) => {
+  const normalizedHref = normalizePath(href);
+  return (
+    currentPath === normalizedHref ||
+    (normalizedHref !== '/' && currentPath.startsWith(`${normalizedHref}/`))
+  );
+};
+---
+
+<header class="site-header">
+  <a class="skip-link" href="#main-content">跳到正文</a>
+  <div class="header-inner">
+    <a class="brand" href={withBase('/')} aria-label="返回首页">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">
+        <strong>Academic Archive</strong>
+        <span>Research · Works · Notes</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false" data-nav-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="site-nav" aria-label="主导航" data-site-nav>
+      {
+        navItems.map((item) => (
+          <a href={withBase(item.href)} class:list={[isActive(item.href) && 'is-active']}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open') ?? false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

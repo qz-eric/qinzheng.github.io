@@ -1,0 +1,108 @@
+---
+import Layout from '../components/Layout.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import Timeline from '../components/Timeline.astro';
+import { profile } from '../data/profile';
+import { publications } from '../data/publications';
+import { activities } from '../data/activities';
+import { withBase } from '../utils/paths';
+
+const getResearchInstitution = (item: (typeof profile.researchExperience)[number]) =>
+  'institution' in item ? item.institution : profile.affiliation;
+---
+
+<Layout title="简历" description="Academic CV：教育经历、研究经历、发表成果、会议活动、技能与荣誉。">
+  <section class="page-hero compact">
+    <div class="container cv-header">
+      <div>
+        <p class="eyebrow">Curriculum Vitae</p>
+        <h1>{profile.nameCn}</h1>
+        <p>{profile.currentRole} · {profile.affiliation}</p>
+      </div>
+      <a class="button" href={withBase('/files/cv/cv.pdf')}>下载 CV</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cv-layout">
+      <aside class="cv-sidebar">
+        <h2>联系</h2>
+        <p>{profile.location}</p>
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        <h2>技能</h2>
+        {
+          profile.skills.map((group) => (
+            <div class="sidebar-group">
+              <h3>{group.name}</h3>
+              <p>{group.items.join(' · ')}</p>
+            </div>
+          ))
+        }
+        <h2>荣誉</h2>
+        <ul>
+          {profile.honors.map((honor) => <li>{honor}</li>)}
+        </ul>
+      </aside>
+
+      <div class="cv-main stack">
+        <section>
+          <h2>教育经历</h2>
+          <ol class="compact-list">
+            {
+              profile.education.map((item) => (
+                <li>
+                  <strong>{item.period}</strong>
+                  <span>{item.degree}，{item.institution}，{item.department}</span>
+                  <p>{item.description}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section>
+          <h2>研究经历</h2>
+          <ol class="compact-list">
+            {
+              profile.researchExperience.map((item) => (
+                <li>
+                  <strong>{item.period}</strong>
+                  <span>{item.title}，{getResearchInstitution(item)}</span>
+                  <p>{item.description}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section>
+          <h2>教学与助教经历</h2>
+          <ol class="compact-list">
+            {
+              profile.teachingExperience.map((item) => (
+                <li>
+                  <strong>{item.period}</strong>
+                  <span>{item.title}，{item.role}</span>
+                  <p>{item.course}</p>
+                  <p>{item.description}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section>
+          <h2>发表成果</h2>
+          <div class="stack">
+            {publications.map((publication) => <PublicationItem publication={publication} />)}
+          </div>
+        </section>
+
+        <section>
+          <h2>会议与活动</h2>
+          <Timeline items={activities.slice(0, 4)} />
+        </section>
+      </div>
+    </div>
+  </section>
+</Layout>

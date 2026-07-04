@@ -1,0 +1,77 @@
+---
+import type { Resource } from '../data/resources';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  resource: Resource;
+  compact?: boolean;
+}
+
+const { resource, compact = false } = Astro.props;
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const sections = resource.sections ?? [];
+const visibleSections = compact ? sections.slice(0, 3) : sections;
+const remainingSectionCount = Math.max(sections.length - visibleSections.length, 0);
+const resourceAnchor = `resource-${resource.id}`;
+const resourceDetailHref = `/resources/#${resourceAnchor}`;
+const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
+const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理';
+---
+
+<article class="resource-item" id={resourceAnchor}>
+  <div class="item-heading">
+    <div class="resource-badges">
+      <span class="tag resource">{resource.type}</span>
+      <span class:list={['tag', 'resource-status', resource.status === 'Complete' ? 'complete' : 'todo']}>
+        {statusLabel}
+      </span>
+    </div>
+    <span>{resource.level} · {resource.year}</span>
+  </div>
+  <h3>{resource.title}</h3>
+  <p class="item-theme">{resource.course}</p>
+  <p>{resource.description}</p>
+  <div class="keyword-list">
+    {resource.tags.map((tag) => <span>{tag}</span>)}
+  </div>
+  {
+    resource.fullText && (
+      <a
+        class="text-button"
+        href={hrefFor(resource.fullText.href)}
+        target={isExternal(resource.fullText.href) ? '_blank' : undefined}
+        rel={isExternal(resource.fullText.href) ? 'noopener noreferrer' : undefined}
+      >
+        {resource.fullText.label}
+      </a>
+    )
+  }
+  {
+    visibleSections.length > 0 && (
+      <div class="resource-sections">
+        <p class="resource-sections-title">章节 / 周次</p>
+        <div class="resource-section-list">
+          {visibleSections.map((section) => (
+            <a
+              class="resource-section-link"
+              href={hrefFor(section.href)}
+              target={isExternal(section.href) ? '_blank' : undefined}
+              rel={isExternal(section.href) ? 'noopener noreferrer' : undefined}
+            >
+              <span>{section.label}</span>
+              <strong>{section.title}</strong>
+              {section.description && <small>{section.description}</small>}
+            </a>
+          ))}
+        </div>
+        {
+          remainingSectionCount > 0 && (
+            <a class="resource-more" href={withBase(resourceDetailHref)}>
+              还有 {remainingSectionCount} 个章节，进入课程资料页查看。
+            </a>
+          )
+        }
+      </div>
+    )
+  }
+</article>

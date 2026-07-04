@@ -1,0 +1,21 @@
+---
+import Layout from '../components/Layout.astro';
+import Timeline from '../components/Timeline.astro';
+import { activities } from '../data/activities';
+---
+
+<Layout title="学术活动" description="会议汇报、课程汇报、学术讲座、投稿过程、文献综述与科研训练。">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow">Activities</p>
+      <h1>学术活动</h1>
+      <p>这里归档会议汇报、课程汇报、学术讲座、审稿投稿和论文写作过程中的材料。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <Timeline items={activities} />
+    </div>
+  </section>
+</Layout>

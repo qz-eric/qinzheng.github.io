@@ -1,0 +1,35 @@
+---
+import { withBase } from '../utils/paths';
+
+interface Props {
+  href?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+}
+
+const { href, eyebrow, title, description } = Astro.props;
+const isExternal = href ? /^https?:\/\//.test(href) : false;
+const cardHref = href ? withBase(href) : '';
+---
+
+{
+  href ? (
+    <a
+      class="card link-card"
+      href={cardHref}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+    >
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h3>{title}</h3>
+      {description && <p>{description}</p>}
+    </a>
+  ) : (
+    <article class="card">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h3>{title}</h3>
+      {description && <p>{description}</p>}
+    </article>
+  )
+}

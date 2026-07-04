@@ -1,0 +1,49 @@
+---
+import Layout from '../../../components/Layout.astro';
+import WorkItem from '../../../components/WorkItem.astro';
+import { workCollections, works, type WorkCollection, type WorkMeta } from '../../../data/works';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../../utils/paths';
+
+interface Props {
+  collection: WorkCollection;
+  collectionWorks: WorkMeta[];
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection('works', ({ data }) => !data.draft);
+  const existingSlugs = new Set<string>(entries.map((entry) => entry.slug));
+
+  return workCollections
+    .map((collection) => {
+      const collectionWorks = works
+        .filter((work) => work.collection === collection.slug && existingSlugs.has(work.slug))
+        .sort((a, b) => b.year - a.year);
+
+      return {
+        params: { slug: collection.slug },
+        props: { collection, collectionWorks }
+      };
+    })
+    .filter((path) => path.props.collectionWorks.length > 0);
+}
+
+const { collection, collectionWorks } = Astro.props;
+---
+
+<Layout title={collection.title} description={collection.description} bodyClass="literary-page">
+  <section class="page-hero compact literary-hero">
+    <div class="container">
+      <a class="back-link" href={withBase('/works/')}>返回文学作品</a>
+      <p class="eyebrow">Collection · {collection.coverLabel}</p>
+      <h1>{collection.title}</h1>
+      <p>{collection.description}</p>
+    </div>
+  </section>
+
+  <section class="section literary-band">
+    <div class="container collection-article-list">
+      {collectionWorks.map((work) => <WorkItem work={work} />)}
+    </div>
+  </section>
+</Layout>

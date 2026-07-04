@@ -1,0 +1,52 @@
+---
+import { activityTypeLabels, type Activity } from '../data/activities';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  items: Activity[];
+}
+
+const { items } = Astro.props;
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
+const activityToneClass: Record<Activity['type'], string> = {
+  Conference: 'tone-conference',
+  CourseReport: 'tone-course',
+  Lecture: 'tone-lecture',
+  Submission: 'tone-publication',
+  LiteratureReview: 'tone-review',
+  ResearchTraining: 'tone-training'
+};
+---
+
+<ol class="timeline">
+  {
+    items.map((item) => (
+      <li class:list={['timeline-item', activityToneClass[item.type]]}>
+        <div class="timeline-date">{item.date}</div>
+        <article class="timeline-card">
+          <div class="item-heading">
+            <span class="tag activity-tag">{activityTypeLabels[item.type]}</span>
+            <span>{item.location}</span>
+          </div>
+          <h3>{item.title}</h3>
+          <p class="item-theme">{item.theme}</p>
+          <p>{item.description}</p>
+          {item.links.length > 0 && (
+            <div class="inline-links">
+              {item.links.map((link) => (
+                <a
+                  href={hrefFor(link.href)}
+                  target={isExternal(link.href) ? '_blank' : undefined}
+                  rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </article>
+      </li>
+    ))
+  }
+</ol>

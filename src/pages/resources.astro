@@ -1,0 +1,51 @@
+---
+import Layout from '../components/Layout.astro';
+import ResourceItem from '../components/ResourceItem.astro';
+import { resourceCategories, resources, type ResourceCategory } from '../data/resources';
+
+const categories = resourceCategories.filter((category) =>
+  resources.some((resource) => resource.category === category)
+);
+
+const categoryEyebrows: Record<ResourceCategory, string> = {
+  数学基础: 'Mathematics',
+  大气专业课程: 'Atmospheric Science',
+  助教课程: 'Teaching Assistant',
+  科研写作: 'Scientific Writing',
+  机器学习: 'Machine Learning',
+  LaTeX: 'Typesetting',
+  代码: 'Code & Tools',
+  Book: 'Books'
+};
+---
+
+<Layout title="课程与资料" description="本科、研究生课程资料、book、slides、code 与学习笔记归档。">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow">Resources</p>
+      <h1>课程与资料</h1>
+      <p>课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；Book 分类只保留全文入口。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack large">
+      {
+        categories.map((category) => {
+          const items = resources.filter((resource) => resource.category === category);
+          return (
+            <section>
+              <div class="section-heading">
+                <p class="eyebrow">{categoryEyebrows[category]}</p>
+                <h2>{category}</h2>
+              </div>
+              <div class="resource-grid">
+                {items.map((resource) => <ResourceItem resource={resource} />)}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </section>
+</Layout>

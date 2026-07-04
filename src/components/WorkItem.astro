@@ -1,0 +1,38 @@
+---
+import type { WorkMeta } from '../data/works';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  work: WorkMeta;
+}
+
+const { work } = Astro.props;
+
+const categoryToneMap: Record<WorkMeta['category'], string> = {
+  科幻小说: 'blue',
+  短篇: 'cyan',
+  散文: 'green',
+  设定集: 'plum',
+  随笔: 'amber',
+  创作中: 'plum',
+  书影评: 'red',
+  宇宙声学家: 'cyan',
+  小说: 'blue',
+  杂文: 'amber'
+};
+
+const tone = categoryToneMap[work.category] ?? 'plum';
+---
+
+<article class={`work-item work-${tone}`}>
+  <div class="item-heading">
+    <span class={`tag literary work-tag work-${tone}`}>{work.category}</span>
+    <span>{work.year}</span>
+  </div>
+  <h3><a href={withBase(`/works/${work.slug}/`)}>{work.title}</a></h3>
+  <p class="item-theme">{work.type}</p>
+  <p>{work.summary}</p>
+  <div class="keyword-list">
+    {work.tags.map((tag) => <span>{tag}</span>)}
+  </div>
+</article>

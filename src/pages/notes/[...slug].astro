@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { withBase } from '../../utils/paths';
+
+interface Props {
+  entry: CollectionEntry<'notes'>;
+}
+
+export async function getStaticPaths() {
+  const entries = await getCollection('notes', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title} description={entry.data.summary}>
+  <article class="reading-page">
+    <header class="reading-header">
+      <a class="back-link" href={withBase('/notes/')}>返回笔记列表</a>
+      <p class="eyebrow">{entry.data.category} · {entry.data.date.toLocaleDateString('zh-CN')}</p>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.summary}</p>
+      <div class="keyword-list centered">
+        {entry.data.tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Layout>

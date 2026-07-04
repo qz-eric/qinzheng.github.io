@@ -1,0 +1,107 @@
+---
+import {
+  publicationStatusLabels,
+  type Publication
+} from '../data/publications';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  publication: Publication;
+}
+
+const { publication } = Astro.props;
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
+
+const doiHref = publication.doi
+  ? publication.doi.startsWith('http')
+    ? publication.doi
+    : `https://doi.org/${publication.doi}`
+  : '';
+
+const articleHref =
+  publication.links.article || publication.url || doiHref || publication.links.pdf || '';
+
+const links = [
+  doiHref && { label: 'DOI', href: doiHref },
+  publication.links.article && { label: 'Article', href: publication.links.article },
+  publication.links.pdf && { label: 'PDF', href: publication.links.pdf },
+  publication.links.code && { label: 'Code', href: publication.links.code },
+  publication.links.data && { label: 'Data', href: publication.links.data }
+].filter(Boolean) as Array<{ label: string; href: string }>;
+
+const metaParts = [
+  publication.journal,
+  publication.volume && `Vol. ${publication.volume}`,
+  publication.issue && `No. ${publication.issue}`,
+  publication.pages && publication.pages
+].filter(Boolean);
+---
+
+<article
+  class={`publication-item ${articleHref ? 'is-clickable' : ''}`}
+  data-href={articleHref ? hrefFor(articleHref) : undefined}
+>
+  {
+    articleHref && (
+      <a
+        class="publication-card-link"
+        href={hrefFor(articleHref)}
+        target={isExternal(articleHref) ? '_blank' : undefined}
+        rel={isExternal(articleHref) ? 'noopener noreferrer' : undefined}
+        aria-label={`Open publication: ${publication.title}`}
+      />
+    )
+  }
+
+  <div class="publication-content">
+    <div class="item-heading">
+      <span class="tag">{publicationStatusLabels[publication.status]}</span>
+      <span>{publication.year}</span>
+    </div>
+
+    <h3>{publication.title}</h3>
+
+    <p class="authors">{publication.authors.join(', ')}</p>
+
+    <p class="journal">
+      {metaParts.join(', ')}
+    </p>
+
+    {
+      publication.graphicalAbstract && (
+        <figure class="publication-graphical-abstract">
+          <img
+            src={withBase(publication.graphicalAbstract.image)}
+            alt={publication.graphicalAbstract.alt}
+            loading="lazy"
+          />
+          {publication.graphicalAbstract.caption && (
+            <figcaption>{publication.graphicalAbstract.caption}</figcaption>
+          )}
+        </figure>
+      )
+    }
+
+    <p>{publication.abstract}</p>
+
+    <div class="keyword-list" aria-label="关键词">
+      {publication.keywords.map((keyword) => <span>{keyword}</span>)}
+    </div>
+
+    <div class="inline-links">
+      {
+        links.map((link) => (
+          <a
+            href={hrefFor(link.href)}
+            target={isExternal(link.href) ? '_blank' : undefined}
+            rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import WorkItem from '../../components/WorkItem.astro';
+import { featuredWorkSlugs, workCollections, works } from '../../data/works';
+import { withBase } from '../../utils/paths';
+
+const entries = await getCollection('works', ({ data }) => !data.draft);
+const existingSlugs = new Set<string>(entries.map((entry) => entry.slug));
+const visibleWorks = works.filter((work) => existingSlugs.has(work.slug));
+const visibleCollections = workCollections
+  .map((collection) => ({
+    ...collection,
+    count: visibleWorks.filter((work) => work.collection === collection.slug).length
+  }))
+  .filter((collection) => collection.count > 0);
+const featuredWorks = featuredWorkSlugs
+  .map((slug) => visibleWorks.find((work) => work.slug === slug))
+  .filter((work): work is (typeof visibleWorks)[number] => Boolean(work));
+---
+
+<Layout title="文学作品" description="小说、短篇、散文、设定集与随笔作品集。">
+  <section class="page-hero compact literary-hero">
+    <div class="container">
+      <p class="eyebrow">Works</p>
+      <h1>文学作品</h1>
+      <p>这里放小说、短篇、散文、设定集和随笔。正文来自 Markdown / MDX 文件，适合长期维护。</p>
+    </div>
+  </section>
+
+  <section class="section literary-band">
+    <div class="container stack large">
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Collections</p>
+          <h2>作品集与栏目</h2>
+        </div>
+        <div class="collection-grid">
+          {
+            visibleCollections.map((collection) => (
+              <a class={`collection-card collection-${collection.tone}`} href={withBase(`/works/collections/${collection.slug}/`)}>
+                <span>{collection.coverLabel}</span>
+                <h3>{collection.title}</h3>
+                <p class="item-theme">{collection.subtitle}</p>
+                <p>{collection.description}</p>
+                <small>{collection.count} 篇文章</small>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <p class="eyebrow">Featured</p>
+          <h2>精选文章</h2>
+        </div>
+        <div class="work-grid">
+          {featuredWorks.map((work) => <WorkItem work={work} />)}
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>

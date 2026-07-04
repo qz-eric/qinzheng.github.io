@@ -1,0 +1,30 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <strong>{profile.nameCn}</strong>
+      <p>{profile.affiliation} · {profile.location}</p>
+    </div>
+    <div class="footer-links">
+      {
+        profile.socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target={isExternal(link.href) ? '_blank' : undefined}
+            rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a href={`mailto:${profile.email}`}>Email</a>
+    </div>
+    <p class="footer-note">© {year} {profile.nameEn}. Built with Astro.</p>
+  </div>
+</footer>

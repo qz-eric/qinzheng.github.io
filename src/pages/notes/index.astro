@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { withBase } from '../../utils/paths';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="笔记" description="研究笔记、读书笔记与技术笔记。">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow">Notes</p>
+      <h1>笔记</h1>
+      <p>研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container note-list">
+      {
+        notes.map((note) => (
+          <article class="note-item">
+            <div class="item-heading">
+              <span class="tag">{note.data.category}</span>
+              <time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString('zh-CN')}</time>
+            </div>
+            <h2><a href={withBase(`/notes/${note.slug}/`)}>{note.data.title}</a></h2>
+            <p>{note.data.summary}</p>
+            <div class="keyword-list">
+              {note.data.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

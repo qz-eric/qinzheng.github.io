@@ -1,0 +1,42 @@
+---
+import Layout from '../components/Layout.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import {
+  publications,
+  publicationStatusLabels,
+  type PublicationStatus
+} from '../data/publications';
+
+const groups: PublicationStatus[] = ['Published', 'UnderReview', 'InPreparation'];
+---
+
+<Layout title="发表成果" description="论文列表，包含已发表、投稿中与准备中的研究成果。">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow">Publications</p>
+      <h1>发表成果</h1>
+      <p>论文、投稿与准备中的研究成果均从独立数据文件维护，便于后续替换、排序和扩展。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack large">
+      {
+        groups.map((status) => {
+          const items = publications.filter((publication) => publication.status === status);
+          return (
+            <section class="publication-group">
+              <div class="section-heading">
+                <p class="eyebrow">{status}</p>
+                <h2>{publicationStatusLabels[status]}</h2>
+              </div>
+              <div class="stack">
+                {items.map((publication) => <PublicationItem publication={publication} />)}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </section>
+</Layout>
