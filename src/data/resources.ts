@@ -58,86 +58,46 @@ const section = (label: string, title: string, href: string, description?: strin
 
 export const resources: Resource[] = [
   {
-    id: 'linear-algebra-notes',
-    title: '线性代数讲义与习题',
-    course: '线性代数',
-    category: '数学基础',
-    level: '本科',
-    type: 'PDF',
-    year: 2023,
-    status: 'Todo',
-    description: '矩阵、线性空间、特征值与二次型的课程整理，保留全文版本和分章讲义入口。',
-    fullText: { label: '全文下载', href: '/files/courses/math/linear-algebra/full.pdf' },
-    sections: [
-      section('Chap 1', '矩阵与线性方程组', '/files/courses/math/linear-algebra/chap-01.pdf'),
-      section('Chap 2', '行列式与矩阵分解', '/files/courses/math/linear-algebra/chap-02.pdf'),
-      section('Chap 3', '向量空间与线性相关', '/files/courses/math/linear-algebra/chap-03.pdf'),
-      section('Chap 4', '线性变换与矩阵表示', '/files/courses/math/linear-algebra/chap-04.pdf'),
-      section('Chap 5', '特征值、特征向量与对角化', '/files/courses/math/linear-algebra/chap-05.pdf'),
-      section('Chap 6', '二次型与正定矩阵', '/files/courses/math/linear-algebra/chap-06.pdf')
-    ],
-    tags: ['矩阵', '特征值', '数学基础']
-  },
-  {
     id: 'advanced-calculus-notes',
     title: '高等数学讲义',
     course: '高等数学',
     category: '数学基础',
     level: '本科',
-    type: 'PDF',
+    type: 'Notes',
     year: 2022,
-    status: 'Todo',
-    description: '微积分、级数、多元函数与常微分方程的分章资料占位。',
+    status: 'Complete',
+    description: '一元微积分与常微分方程的分章资料。',
     fullText: { label: '全文下载', href: '/files/courses/math/advanced-calculus/full.pdf' },
     sections: [
-      section('Chap 1', '极限、连续与导数', '/files/courses/math/advanced-calculus/chap-01.pdf'),
-      section('Chap 2', '一元函数积分学', '/files/courses/math/advanced-calculus/chap-02.pdf'),
-      section('Chap 3', '级数与函数展开', '/files/courses/math/advanced-calculus/chap-03.pdf'),
-      section('Chap 4', '多元函数微分学', '/files/courses/math/advanced-calculus/chap-04.pdf'),
-      section('Chap 5', '重积分与曲线曲面积分', '/files/courses/math/advanced-calculus/chap-05.pdf'),
-      section('Chap 6', '常微分方程基础', '/files/courses/math/advanced-calculus/chap-06.pdf')
+      section('Chap 1', '函数', '/files/courses/math/advanced-calculus/chap-01.pdf'),
+      section('Chap 2', '极限与连续', '/files/courses/math/advanced-calculus/chap-02.pdf'),
+      section('Chap 3', '导数与微分', '/files/courses/math/advanced-calculus/chap-03.pdf'),
+      section('Chap 4', '微分中值定理及导数应用', '/files/courses/math/advanced-calculus/chap-04.pdf'),
+      section('Chap 5', '不定积分', '/files/courses/math/advanced-calculus/chap-05.pdf'),
+      section('Chap 6', '定积分', '/files/courses/math/advanced-calculus/chap-06.pdf'),
+      section('Chap 7', '定积分的应用', '/files/courses/math/advanced-calculus/chap-07.pdf'),
+      section('Chap 8', '微分方程', '/files/courses/math/advanced-calculus/chap-08.pdf')
     ],
-    tags: ['微积分', '多元函数', 'ODE']
-  },
-  {
-    id: 'probability-statistics-notes',
-    title: '概率论与数理统计笔记',
-    course: '概率论与数理统计',
-    category: '数学基础',
-    level: '本科',
-    type: 'Notes',
-    year: 2023,
-    status: 'Todo',
-    description: '随机变量、参数估计、假设检验与回归基础的课程整理。',
-    fullText: { label: '全文下载', href: '/files/courses/math/probability-statistics/full.pdf' },
-    sections: [
-      section('Chap 1', '随机事件与概率', '/files/courses/math/probability-statistics/chap-01.pdf'),
-      section('Chap 2', '随机变量及其分布', '/files/courses/math/probability-statistics/chap-02.pdf'),
-      section('Chap 3', '数字特征与极限定理', '/files/courses/math/probability-statistics/chap-03.pdf'),
-      section('Chap 4', '参数估计', '/files/courses/math/probability-statistics/chap-04.pdf'),
-      section('Chap 5', '假设检验', '/files/courses/math/probability-statistics/chap-05.pdf'),
-      section('Chap 6', '回归与相关分析', '/files/courses/math/probability-statistics/chap-06.pdf')
-    ],
-    tags: ['概率', '统计', '回归']
+    tags: ['微积分', '导数', '常微分方程']
   },
   {
     id: 'atmospheric-physics-course',
-    title: '大气物理课程资料',
-    course: '大气物理',
+    title: '大气物理学课程资料',
+    course: '大气物理学',
     category: '大气专业课程',
     level: '本科',
     type: 'Lecture',
-    year: 2024,
-    status: 'Todo',
-    description: '大气热力学、辐射、云降水与边界层过程的课程资料归档。',
+    year: 2021,
+    status: 'Complete',
+    description: '大气概述、大气热力学、辐射、云降水的课程资料归档。',
     fullText: { label: '全文下载', href: '/files/courses/atmos/atmospheric-physics/full.pdf' },
     sections: [
-      section('Lecture 1', '大气组成与状态方程', '/files/courses/atmos/atmospheric-physics/lecture-01.pdf'),
+      section('Lecture 0', '前言', '/files/courses/atmos/atmospheric-physics/lecture-00.pdf'),
+      section('Lecture 1', '大气概述', '/files/courses/atmos/atmospheric-physics/lecture-01.pdf'),
       section('Lecture 2', '大气热力学基础', '/files/courses/atmos/atmospheric-physics/lecture-02.pdf'),
-      section('Lecture 3', '静力平衡与稳定度', '/files/courses/atmos/atmospheric-physics/lecture-03.pdf'),
-      section('Lecture 4', '辐射传输基础', '/files/courses/atmos/atmospheric-physics/lecture-04.pdf'),
-      section('Lecture 5', '云和降水物理过程', '/files/courses/atmos/atmospheric-physics/lecture-05.pdf'),
-      section('Lecture 6', '大气边界层过程', '/files/courses/atmos/atmospheric-physics/lecture-06.pdf')
+      section('Lecture 3', '大气辐射与热量收支', '/files/courses/atmos/atmospheric-physics/lecture-03.pdf'),
+      section('Lecture 4', '云、雾、降水物理学', '/files/courses/atmos/atmospheric-physics/lecture-04.pdf'),
+      section('Homework', '课后习题', '/files/courses/atmos/atmospheric-physics/homework.pdf')
     ],
     tags: ['热力学', '辐射', '边界层']
   },
@@ -374,29 +334,16 @@ export const resources: Resource[] = [
     tags: ['Python', 'NetCDF', '可视化']
   },
   {
-    id: 'graduate-course-book',
-    title: '研究生课程 book',
-    course: '研究生专题课程',
-    category: 'Book',
-    level: '研究生',
-    type: 'Book',
-    year: 2026,
-    status: 'Todo',
-    description: '研究生课程阅读材料、讲义和推导过程的全文归档入口。',
-    fullText: { label: '全文下载', href: '/files/books/graduate-course-book-placeholder.pdf' },
-    tags: ['研究生课程', 'book', '资料归档']
-  },
-  {
     id: 'atmospheric-dynamics-book',
-    title: '大气动力学 book',
-    course: '大气动力学',
+    title: '高等大气动力学',
+    course: '高等大气动力学',
     category: 'Book',
     level: '研究生',
     type: 'Book',
-    year: 2025,
-    status: 'Todo',
+    year: 2024,
+    status: 'Complete',
     description: '大气动力学推导、例题和阅读材料的全文占位版本。',
-    fullText: { label: '全文下载', href: '/files/books/atmospheric-dynamics-book-placeholder.pdf' },
+    fullText: { label: '全文下载', href: '/files/books/atmospheric-dynamics-book.pdf' },
     tags: ['动力学', 'book', '推导']
   },
   {

@@ -65,7 +65,7 @@ export const profile = {
   education: [
     {
       stage: '博士',
-      degree: '大气科学 博士研究生',
+      degree: '地球物理学 博士研究生',
       institution: '中国科学技术大学',
       department: '地球和空间科学学院',
       period: '2025 - 至今',
@@ -93,35 +93,34 @@ export const profile = {
   ] satisfies EducationItem[],
   researchExperience: [
     {
-      title: 'WRF 模式东亚风场模态分析及预测研究',
-      institution: '中国科学技术大学 地球和空间科学学院',
-      period: '2025 - 至今',
-      description:
-        '运行 WRF 模式并结合模态分析方法研究东亚风场结构及其预测问题，整理模式配置、初边值资料处理和结果诊断流程。'
-    },
-    {
       title: '东北冷涡云系云微物理特征研究',
       period: '2025 - 2026',
       description:
-        '基于卫星观测资料分析冷涡背景下云相态、有效半径与云水路径相关特征。'
+        '基于MODIS卫星观测资料分析冷涡背景下云相态、有效半径与云水路径的统计特征及其在冷涡内部的空间结构特征。'
+    },
+    {
+      title: 'WRF 模式东亚风场模态分析及预测研究',
+      period: '2023 - 2025',
+      description:
+        '运行 WRF 模式并结合模态分析方法研究东亚风场结构及其预测问题，整理模式配置、初边值资料处理和结果诊断流程。'
     }
   ] satisfies ResearchExperience[],
   teachingExperience: [
     {
-      title: '流体力学课程助教',
-      course: '流体力学',
-      role: '课程助教 / 作业讲评',
-      period: '2025',
+      title: '云和降水物理学课程助教',
+      course: '云和降水物理学',
+      role: '课程助教',
+      period: '2025春,2026春',
       description:
-        '整理 Week 1 - Week 15 作业解答，参与习题讲评、课程答疑与资料归档。'
+        '协助老师安排课程期末汇报，分数评定'
     },
     {
-      title: '大气动力学与科研数据处理助教资料整理',
-      course: '大气动力学 / Python 大气数据处理',
-      role: '资料整理 / 讨论课支持',
-      period: '2025 - 2026',
+      title: '流体力学课程助教',
+      course: '流体力学',
+      role: '课程助教 / 作业解答 / 习题讲解',
+      period: '2022秋',
       description:
-        '围绕尺度分析、涡度方程、NetCDF 数据处理和地图绘制整理讨论课与示例代码资料。'
+        '整理作业解答，参与习题讲评、课程答疑与资料归档。'
     }
   ] satisfies TeachingExperience[],
   skills: [
