@@ -44,7 +44,7 @@ export const publications: Publication[] = [
     id: 'cloud-microphysics-ne-china-cold-vortex-2026',
     title:
       'Cloud Microphysical Characteristics in the Northeast China Cold Vortex Derived from Satellite Measurements',
-    authors: ['Zheng Qin', 'Qi Liu', 'Yuan Li', 'Zhenci Lu', 'Jiahao Cheng'],
+    authors: ['Zheng Qin', 'Qi Liu*', 'Yuan Li', 'Zhenci Lu', 'Jiahao Cheng'],
     journal: 'Remote Sensing',
     year: 2026,
     status: 'Published',
