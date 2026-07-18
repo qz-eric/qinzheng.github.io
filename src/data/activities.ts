@@ -38,8 +38,8 @@ export const activities: Activity[] = [
     location: '学术会议 / 线下报告',
     theme: '云微物理与区域天气过程',
     description:
-      '围绕冷涡背景下云相态、云光学厚度和有效半径的统计特征进行会议汇报。',
-    links: [{ label: '报告幻灯片', href: '/files/slides/cloud-vortex-conference-placeholder.pdf' }]
+      '围绕冷涡背景下云微物理参数的统计特征及其空间结构进行会议汇报。',
+    links: [{ label: '报告幻灯片', href: '/files/slides/nccv-cloud-spatial-microphysics-conference-202607.pdf' }]
   },
   {
     id: 'submission-remote-sensing',
@@ -60,7 +60,7 @@ export const activities: Activity[] = [
     location: '学术会议 / 线下报告',
     theme: '云微物理与区域天气过程',
     description:
-      '围绕冷涡背景下云微物理参数的统计特征及其空间结构进行会议汇报。',
+      '围绕冷涡背景下云相态、云光学厚度和有效半径的统计特征进行会议汇报。',
     links: [{ label: '报告幻灯片', href: '/files/slides/nccv-cloud-microphysics-conference-202601.pdf' }]
   }
 ];
