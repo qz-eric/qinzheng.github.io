@@ -1,9 +1,5 @@
 ---
-import {
-  publicationStatusLabels,
-  publicationStatusLabelsEn,
-  type Publication
-} from '../data/publications';
+import type { Publication } from '../data/publications';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -11,7 +7,6 @@ interface Props {
 }
 
 const { publication } = Astro.props;
-
 const isExternal = (href: string) => /^https?:\/\//.test(href);
 const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
 
@@ -20,9 +15,6 @@ const doiHref = publication.doi
     ? publication.doi
     : `https://doi.org/${publication.doi}`
   : '';
-
-const articleHref =
-  publication.links.article || publication.url || doiHref || publication.links.pdf || '';
 
 const links = [
   doiHref && { label: 'DOI', href: doiHref },
@@ -34,20 +26,24 @@ const links = [
 
 const metaParts = [
   publication.journal,
+  publication.year,
   publication.volume && `Vol. ${publication.volume}`,
   publication.issue && `No. ${publication.issue}`,
-  publication.pages && publication.pages
+  publication.pages
 ].filter(Boolean);
+
+const articleHref =
+  publication.links.article || publication.url || doiHref || publication.links.pdf || '';
 ---
 
 <article
-  class={`publication-item ${articleHref ? 'is-clickable' : ''}`}
+  class={`selected-publication ${articleHref ? 'is-clickable' : ''}`}
   data-href={articleHref ? hrefFor(articleHref) : undefined}
 >
   {
     articleHref && (
       <a
-        class="publication-card-link"
+        class="selected-publication-card-link"
         href={hrefFor(articleHref)}
         target={isExternal(articleHref) ? '_blank' : undefined}
         rel={isExternal(articleHref) ? 'noopener noreferrer' : undefined}
@@ -55,48 +51,15 @@ const metaParts = [
       />
     )
   }
-
-  <div class="publication-content">
+  <div class="selected-publication-copy">
     <div class="item-heading">
-      <span
-        class="tag"
-        data-lang-zh={publicationStatusLabels[publication.status]}
-        data-lang-en={publicationStatusLabelsEn[publication.status]}
-      >
-        {publicationStatusLabels[publication.status]}
-      </span>
+      <span class="tag" data-lang-zh="代表成果" data-lang-en="Selected Publication">代表成果</span>
       <span>{publication.year}</span>
     </div>
-
     <h3>{publication.title}</h3>
-
     <p class="authors">{publication.authors.join(', ')}</p>
-
-    <p class="journal">
-      {metaParts.join(', ')}
-    </p>
-
-    {
-      publication.graphicalAbstract && (
-        <figure class="publication-graphical-abstract">
-          <img
-            src={withBase(publication.graphicalAbstract.image)}
-            alt={publication.graphicalAbstract.alt}
-            loading="lazy"
-          />
-          {publication.graphicalAbstract.caption && (
-            <figcaption>{publication.graphicalAbstract.caption}</figcaption>
-          )}
-        </figure>
-      )
-    }
-
-    <p>{publication.abstract}</p>
-
-    <div class="keyword-list" aria-label="关键词">
-      {publication.keywords.map((keyword) => <span>{keyword}</span>)}
-    </div>
-
+    <p class="journal">{metaParts.join(', ')}</p>
+    <p>{publication.homeSummary ?? publication.abstract}</p>
     <div class="inline-links">
       {
         links.map((link) => (
@@ -111,4 +74,18 @@ const metaParts = [
       }
     </div>
   </div>
+  {
+    publication.graphicalAbstract && (
+      <figure class="selected-publication-figure">
+        <img
+          src={withBase(publication.graphicalAbstract.image)}
+          alt={publication.graphicalAbstract.alt}
+          loading="lazy"
+        />
+        {publication.graphicalAbstract.caption && (
+          <figcaption>{publication.graphicalAbstract.caption}</figcaption>
+        )}
+      </figure>
+    )
+  }
 </article>

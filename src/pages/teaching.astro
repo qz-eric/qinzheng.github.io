@@ -1,0 +1,83 @@
+---
+import Layout from '../components/Layout.astro';
+import ResourceItem from '../components/ResourceItem.astro';
+import { profile } from '../data/profile';
+import { resources } from '../data/resources';
+import { withBase } from '../utils/paths';
+
+const teachingResources = resources.filter((resource) => resource.category === '助教课程');
+---
+
+<Layout
+  title="教学"
+  description="助教经历、课程资料与教学归档入口。"
+  bodyClass="teaching-page"
+>
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow" data-lang-zh="教学" data-lang-en="Teaching">教学</p>
+      <h1 data-lang-zh="教学" data-lang-en="Teaching">教学</h1>
+      <p
+        data-lang-zh="这里集中归档助教经历、作业解答、讨论课资料和与教学相关的长期材料。"
+        data-lang-en="This page archives teaching-assistant experience, homework solutions, discussion-session materials, and long-term teaching records."
+      >
+        这里集中归档助教经历、作业解答、讨论课资料和与教学相关的长期材料。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow" data-lang-zh="经历" data-lang-en="Experience">经历</p>
+          <h2 data-lang-zh="助教经历" data-lang-en="Teaching Experience">助教经历</h2>
+        </div>
+        <ol class="compact-list teaching-list">
+          {
+            profile.teachingExperience.map((item) => (
+              <li>
+                <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                <span data-lang-zh={item.title} data-lang-en={item.titleEn}>{item.title}</span>
+                <p data-lang-zh={`${item.role} · ${item.course}`} data-lang-en={`${item.roleEn} · ${item.courseEn}`}>
+                  {item.role} · {item.course}
+                </p>
+                <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow" data-lang-zh="课程" data-lang-en="Courses">课程</p>
+          <h2 data-lang-zh="课程资料入口" data-lang-en="Course Material Entry">课程资料入口</h2>
+        </div>
+        <p
+          class="section-summary"
+          data-lang-zh="完整课程资料仍保存在资料与笔记页面，教学页面只集中显示助教相关材料。"
+          data-lang-en="Complete course materials are still kept on the Resources & Notes page; the Teaching page focuses on teaching-assistant materials."
+        >
+          完整课程资料仍保存在资料与笔记页面，教学页面只集中显示助教相关材料。
+        </p>
+        <a class="button secondary" href={withBase('/resources/')} data-lang-zh="查看全部资料" data-lang-en="View all resources">查看全部资料</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    teachingResources.length > 0 && (
+      <section class="section soft-band teaching-band">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-lang-zh="助教" data-lang-en="Teaching Assistant">助教</p>
+            <h2 data-lang-zh="助教资料" data-lang-en="Teaching Assistant Materials">助教资料</h2>
+          </div>
+          <div class="resource-grid">
+            {teachingResources.map((resource) => <ResourceItem resource={resource} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>

@@ -13,8 +13,11 @@ export type WorkCategory =
 export interface WorkCollection {
   slug: string;
   title: string;
+  titleEn: string;
   subtitle: string;
+  subtitleEn: string;
   description: string;
+  descriptionEn: string;
   coverLabel: string;
   tone: 'blue' | 'green' | 'plum' | 'amber' | 'red' | 'cyan';
 }
@@ -35,48 +38,66 @@ export const workCollections: WorkCollection[] = [
   {
     slug: 'reviews',
     title: '与好作品满怀相拥',
+    titleEn: 'Embracing Good Works',
     subtitle: '书影评与艺术评论',
+    subtitleEn: 'Book, film, and art reviews',
     description: '关于影视、绘画和文本作品的评论与阅读札记。',
+    descriptionEn: 'Reviews and reading notes on films, paintings, and written works.',
     coverLabel: 'Reviews',
     tone: 'red'
   },
   {
     slug: 'cosmic-acoustician',
     title: '宇宙声学家',
+    titleEn: 'Cosmic Acoustician',
     subtitle: '音乐、声音与世界形状',
+    subtitleEn: 'Music, sound, and the shape of worlds',
     description: '以音乐和声音为线索，把听觉经验翻译成城市、宇宙与生命尺度的栏目文章。',
+    descriptionEn: 'A column that translates listening experiences into the scales of cities, cosmos, and life.',
     coverLabel: 'Acoustics',
     tone: 'cyan'
   },
   {
     slug: 'fiction',
     title: '小说',
+    titleEn: 'Fiction',
     subtitle: '短篇小说与早期叙事',
+    subtitleEn: 'Short stories and early narratives',
     description: '收纳小说、青春物语、街道夜晚等叙事作品。',
+    descriptionEn: 'Narrative works including short fiction, youth stories, and nighttime streets.',
     coverLabel: 'Fiction',
     tone: 'plum'
   },
   {
     slug: 'essay-classics',
     title: '冰岛夜光云',
+    titleEn: 'Noctilucent Clouds over Iceland',
     subtitle: '城市、生命与求索',
+    subtitleEn: 'Cities, life, and searching',
     description: '收纳代表性散文和长期写作中的抒情文本。',
+    descriptionEn: 'Representative essays and lyrical texts from long-term writing.',
     coverLabel: 'Noctilucent',
     tone: 'green'
   },
   {
     slug: 'miscellany',
     title: '杂文',
+    titleEn: 'Miscellany',
     subtitle: '生活记录、创作思考与技术日常',
+    subtitleEn: 'Life records, creative thoughts, and technical daily notes',
     description: '收纳更松散的随笔、记录和阶段性思考。',
+    descriptionEn: 'Loose essays, records, and stage-by-stage reflections.',
     coverLabel: 'Notes',
     tone: 'amber'
   },
   {
     slug: 'qunqing-universe',
     title: '群青宇宙',
+    titleEn: 'Deep-blue Universe',
     subtitle: '科幻长篇与机器朝圣',
+    subtitleEn: 'Science fiction and a machine pilgrimage',
     description: '围绕星际航行、人工智能、时间闭环与自由意志展开的科幻作品集。',
+    descriptionEn: 'A science-fiction collection around interstellar travel, artificial intelligence, time loops, and free will.',
     coverLabel: 'Deep Blue',
     tone: 'blue'
   }
@@ -87,6 +108,13 @@ export const featuredWorkSlugs = [
   'flowing-beauty-of-life',
   'old-city',
   'tokyo-love-story-review'
+];
+
+export const homeWritingSlugs = [
+  'qunqing-shenchu',
+  'cosmic-acoustician-00',
+  'burgundy-red-in-bloom',
+  'flowing-beauty-of-life'
 ];
 
 export const works: WorkMeta[] = [
@@ -236,12 +264,12 @@ export const works: WorkMeta[] = [
   },
   {
     slug: 'qjiang-and-his-cafe',
-    title: 'Q酱和他的咖啡馆',
+    title: '秦政和他的咖啡馆',
     year: 2020,
     category: '杂文',
     collection: 'miscellany',
     type: '杂文',
-    summary: '一个关于 Q 酱、咖啡馆和讲故事的杂文。',
+    summary: '一个关于秦政、咖啡馆和讲故事的杂文。',
     tags: ['杂文', '咖啡馆', '故事']
   },
   {
@@ -280,8 +308,8 @@ export const works: WorkMeta[] = [
     year: 2026,
     category: '科幻小说',
     collection: 'qunqing-universe',
-    type: '长篇设想 / 小说大纲 / 连载占位',
-    summary: ' 一个地质勘探机器人在失去人类女孩后，穿越星云、黑洞与时间闭环，完成一场由机械服从走向自由意志的星际朝圣。',
+    type: '长篇设想 / 小说大纲 / 连载资料',
+    summary: '一个地质勘探机器人在失去人类女孩后，穿越星云、黑洞与时间闭环，完成一场由机械服从走向自由意志的星际朝圣。',
     tags: ['科幻', '人工智能', '星际', '时间闭环']
   },
   {

@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  note: CollectionEntry<'notes'>;
+}
+
+const { note } = Astro.props;
+const noteCategoryLabels: Record<string, string> = {
+  'Research Note': '研究笔记',
+  'Reading Note': '读书笔记',
+  'Technical Note': '技术笔记'
+};
+const dateZh = note.data.date.toLocaleDateString('zh-CN');
+const dateEn = note.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<article class="note-preview">
+  <div class="item-heading">
+    <span
+      class="tag note-type"
+      data-lang-zh={noteCategoryLabels[note.data.category] ?? note.data.category}
+      data-lang-en={note.data.category}
+    >
+      {noteCategoryLabels[note.data.category] ?? note.data.category}
+    </span>
+    <time datetime={note.data.date.toISOString()} data-lang-zh={dateZh} data-lang-en={dateEn}>{dateZh}</time>
+  </div>
+  <h3>
+    <a
+      href={withBase(`/notes/${note.slug}/`)}
+      data-lang-zh={note.data.title}
+      data-lang-en={note.data.titleEn ?? note.data.title}
+    >
+      {note.data.title}
+    </a>
+  </h3>
+  <p data-lang-zh={note.data.summary} data-lang-en={note.data.summaryEn ?? note.data.summary}>{note.data.summary}</p>
+  <div class="keyword-list">
+    {note.data.tags.map((tag) => <span>{tag}</span>)}
+  </div>
+</article>

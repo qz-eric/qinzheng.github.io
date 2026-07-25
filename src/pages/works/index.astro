@@ -22,9 +22,14 @@ const featuredWorks = featuredWorkSlugs
 <Layout title="文学作品" description="小说、短篇、散文、设定集与随笔作品集。">
   <section class="page-hero compact literary-hero">
     <div class="container">
-      <p class="eyebrow">Works</p>
-      <h1>文学作品</h1>
-      <p>这里放小说、短篇、散文、设定集和随笔。正文来自 Markdown / MDX 文件，适合长期维护。</p>
+      <p class="eyebrow" data-lang-zh="文学作品" data-lang-en="Writing">文学作品</p>
+      <h1 data-lang-zh="文学作品" data-lang-en="Writing">文学作品</h1>
+      <p
+        data-lang-zh="这里放小说、短篇、散文、设定集和随笔。正文来自 Markdown / MDX 文件，适合长期维护。"
+        data-lang-en="This archive contains fiction, short pieces, essays, settings, and reflections. Article bodies are maintained in Markdown or MDX."
+      >
+        这里放小说、短篇、散文、设定集和随笔。正文来自 Markdown / MDX 文件，适合长期维护。
+      </p>
     </div>
   </section>
 
@@ -32,18 +37,20 @@ const featuredWorks = featuredWorkSlugs
     <div class="container stack large">
       <section>
         <div class="section-heading">
-          <p class="eyebrow">Collections</p>
-          <h2>作品集与栏目</h2>
+          <p class="eyebrow" data-lang-zh="作品集" data-lang-en="Collections">作品集</p>
+          <h2 data-lang-zh="作品集与栏目" data-lang-en="Collections and Columns">作品集与栏目</h2>
         </div>
         <div class="collection-grid">
           {
             visibleCollections.map((collection) => (
               <a class={`collection-card collection-${collection.tone}`} href={withBase(`/works/collections/${collection.slug}/`)}>
                 <span>{collection.coverLabel}</span>
-                <h3>{collection.title}</h3>
-                <p class="item-theme">{collection.subtitle}</p>
-                <p>{collection.description}</p>
-                <small>{collection.count} 篇文章</small>
+                <h3 data-lang-zh={collection.title} data-lang-en={collection.titleEn}>{collection.title}</h3>
+                <p class="item-theme" data-lang-zh={collection.subtitle} data-lang-en={collection.subtitleEn}>{collection.subtitle}</p>
+                <p data-lang-zh={collection.description} data-lang-en={collection.descriptionEn}>{collection.description}</p>
+                <small data-lang-zh={`${collection.count} 篇文章`} data-lang-en={`${collection.count} articles`}>
+                  {collection.count} 篇文章
+                </small>
               </a>
             ))
           }
@@ -52,8 +59,8 @@ const featuredWorks = featuredWorkSlugs
 
       <section>
         <div class="section-heading">
-          <p class="eyebrow">Featured</p>
-          <h2>精选文章</h2>
+          <p class="eyebrow" data-lang-zh="精选" data-lang-en="Featured">精选</p>
+          <h2 data-lang-zh="精选文章" data-lang-en="Featured Writing">精选文章</h2>
         </div>
         <div class="work-grid">
           {featuredWorks.map((work) => <WorkItem work={work} />)}

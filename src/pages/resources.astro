@@ -1,7 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
+import NotePreview from '../components/NotePreview.astro';
 import ResourceItem from '../components/ResourceItem.astro';
-import { resourceCategories, resources, type ResourceCategory } from '../data/resources';
+import {
+  resourceCategories,
+  resourceCategoryLabelsEn,
+  resources,
+  type ResourceCategory
+} from '../data/resources';
 
 const categories = resourceCategories.filter((category) =>
   resources.some((resource) => resource.category === category)
@@ -17,16 +24,52 @@ const categoryEyebrows: Record<ResourceCategory, string> = {
   代码: 'Code & Tools',
   Book: 'Books'
 };
+
+const categoryEyebrowsZh: Record<ResourceCategory, string> = {
+  数学基础: '数学',
+  大气专业课程: '大气专业课程',
+  助教课程: '助教课程',
+  科研写作: '科研写作',
+  机器学习: '机器学习',
+  LaTeX: '排版',
+  代码: '代码与工具',
+  Book: '书籍'
+};
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
 
-<Layout title="课程与资料" description="本科、研究生课程资料、book、slides、code 与学习笔记归档。">
+<Layout title="资料与笔记" description="课程资料、助教归档、book、slides、code 与研究笔记归档。">
   <section class="page-hero compact">
     <div class="container">
-      <p class="eyebrow">Resources</p>
-      <h1>课程与资料</h1>
-      <p>课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；Book 分类只保留全文入口。</p>
+      <p class="eyebrow" data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</p>
+      <h1 data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</h1>
+      <p
+        data-lang-zh="课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；研究笔记保留为少量可持续维护的条目。"
+        data-lang-en="Course materials support full downloads and section-level links by Week, Lecture, or Chapter. Research notes are kept as a small maintainable archive."
+      >
+        课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；研究笔记保留为少量可持续维护的条目。
+      </p>
     </div>
   </section>
+
+  {
+    notes.length > 0 && (
+      <section class="section resource-note-band">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
+            <h2 data-lang-zh="研究笔记" data-lang-en="Research Note">研究笔记</h2>
+          </div>
+          <div class="note-list">
+            {notes.map((note) => <NotePreview note={note} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section class="section">
     <div class="container stack large">
@@ -36,8 +79,14 @@ const categoryEyebrows: Record<ResourceCategory, string> = {
           return (
             <section>
               <div class="section-heading">
-                <p class="eyebrow">{categoryEyebrows[category]}</p>
-                <h2>{category}</h2>
+                <p
+                  class="eyebrow"
+                  data-lang-zh={categoryEyebrowsZh[category]}
+                  data-lang-en={categoryEyebrows[category]}
+                >
+                  {categoryEyebrowsZh[category]}
+                </p>
+                <h2 data-lang-zh={category} data-lang-en={resourceCategoryLabelsEn[category]}>{category}</h2>
               </div>
               <div class="resource-grid">
                 {items.map((resource) => <ResourceItem resource={resource} />)}

@@ -14,13 +14,13 @@ interface Props {
 
 const {
   title,
-  description = profile.bioShort,
+  description = '秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、研究笔记、课程资料与文学作品。',
   image = profile.heroImage,
   bodyClass = ''
 } = Astro.props;
 
-const siteName = `${profile.nameCn} | Personal Academic Archive`;
-const pageTitle = title ? `${title} | ${profile.nameCn}` : siteName;
+const siteName = profile.formalName;
+const pageTitle = title ? `${title} | ${profile.formalName}` : `${profile.formalName} | ${profile.siteSubtitle}`;
 const canonical = new URL(withBase(stripBase(Astro.url.pathname)), Astro.site ?? Astro.url).toString();
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
 ---
@@ -35,6 +35,8 @@ const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -42,6 +44,7 @@ const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body class={bodyClass}>
     <Header />

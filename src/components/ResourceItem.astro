@@ -1,5 +1,10 @@
 ---
-import type { Resource } from '../data/resources';
+import {
+  resourceI18n,
+  resourceLevelLabelsEn,
+  resourceStatusLabels,
+  type Resource
+} from '../data/resources';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -15,7 +20,9 @@ const remainingSectionCount = Math.max(sections.length - visibleSections.length,
 const resourceAnchor = `resource-${resource.id}`;
 const resourceDetailHref = `/resources/#${resourceAnchor}`;
 const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
-const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理';
+const i18n = resourceI18n[resource.id];
+const statusLabel = resourceStatusLabels[resource.status];
+const fullTextLabelEn = i18n?.fullTextLabel ?? resource.fullText?.label;
 ---
 
 <article class="resource-item" id={resourceAnchor}>
@@ -23,16 +30,21 @@ const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理
     <div class="resource-badges">
       <span class="tag resource">{resource.type}</span>
       <span class:list={['tag', 'resource-status', resource.status === 'Complete' ? 'complete' : 'todo']}>
-        {statusLabel}
+        <span data-lang-zh={statusLabel.zh} data-lang-en={statusLabel.en}>{statusLabel.zh}</span>
       </span>
     </div>
-    <span>{resource.level} · {resource.year}</span>
+    <span
+      data-lang-zh={`${resource.level} · ${resource.year}`}
+      data-lang-en={`${resourceLevelLabelsEn[resource.level]} · ${resource.year}`}
+    >
+      {resource.level} · {resource.year}
+    </span>
   </div>
-  <h3>{resource.title}</h3>
-  <p class="item-theme">{resource.course}</p>
-  <p>{resource.description}</p>
+  <h3 data-lang-zh={resource.title} data-lang-en={i18n?.title ?? resource.title}>{resource.title}</h3>
+  <p class="item-theme" data-lang-zh={resource.course} data-lang-en={i18n?.course ?? resource.course}>{resource.course}</p>
+  <p data-lang-zh={resource.description} data-lang-en={i18n?.description ?? resource.description}>{resource.description}</p>
   <div class="keyword-list">
-    {resource.tags.map((tag) => <span>{tag}</span>)}
+    {resource.tags.map((tag, index) => <span data-lang-zh={tag} data-lang-en={i18n?.tags[index] ?? tag}>{tag}</span>)}
   </div>
   {
     resource.fullText && (
@@ -41,6 +53,8 @@ const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理
         href={hrefFor(resource.fullText.href)}
         target={isExternal(resource.fullText.href) ? '_blank' : undefined}
         rel={isExternal(resource.fullText.href) ? 'noopener noreferrer' : undefined}
+        data-lang-zh={resource.fullText.label}
+        data-lang-en={fullTextLabelEn}
       >
         {resource.fullText.label}
       </a>
@@ -49,7 +63,7 @@ const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理
   {
     visibleSections.length > 0 && (
       <div class="resource-sections">
-        <p class="resource-sections-title">章节 / 周次</p>
+        <p class="resource-sections-title" data-lang-zh="章节 / 周次" data-lang-en="Sections">章节 / 周次</p>
         <div class="resource-section-list">
           {visibleSections.map((section) => (
             <a
@@ -59,15 +73,20 @@ const statusLabel = resource.status === 'Complete' ? '更新完成' : '待整理
               rel={isExternal(section.href) ? 'noopener noreferrer' : undefined}
             >
               <span>{section.label}</span>
-              <strong>{section.title}</strong>
-              {section.description && <small>{section.description}</small>}
+              <strong data-lang-zh={section.title} data-lang-en={section.label}>{section.title}</strong>
+              {section.description && <small data-lang-zh={section.description} data-lang-en={section.label}>{section.description}</small>}
             </a>
           ))}
         </div>
         {
           remainingSectionCount > 0 && (
-            <a class="resource-more" href={withBase(resourceDetailHref)}>
-              还有 {remainingSectionCount} 个章节，进入课程资料页查看。
+            <a
+              class="resource-more"
+              href={withBase(resourceDetailHref)}
+              data-lang-zh={`还有 ${remainingSectionCount} 个章节，进入资料与笔记页查看。`}
+              data-lang-en={`${remainingSectionCount} more sections. View in Resources & Notes.`}
+            >
+              还有 {remainingSectionCount} 个章节，进入资料与笔记页查看。
             </a>
           )
         }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qz-eric.github.io/qinzheng.github.io/sitemap.xml

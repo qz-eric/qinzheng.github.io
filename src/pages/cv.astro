@@ -9,51 +9,67 @@ import { withBase } from '../utils/paths';
 
 const getResearchInstitution = (item: (typeof profile.researchExperience)[number]) =>
   'institution' in item ? item.institution : profile.affiliation;
+const getResearchInstitutionEn = (item: (typeof profile.researchExperience)[number]) =>
+  'institutionEn' in item && item.institutionEn ? item.institutionEn : profile.affiliationEn;
 ---
 
 <Layout title="简历" description="Academic CV：教育经历、研究经历、发表成果、会议活动、技能与荣誉。">
   <section class="page-hero compact">
     <div class="container cv-header">
       <div>
-        <p class="eyebrow">Curriculum Vitae</p>
-        <h1>{profile.nameCn}</h1>
-        <p>{profile.currentRole} · {profile.affiliation}</p>
+        <p class="eyebrow" data-lang-zh="简历" data-lang-en="Curriculum Vitae">简历</p>
+        <h1 data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</h1>
+        <p
+          data-lang-zh={`${profile.currentRole} · ${profile.affiliation}`}
+          data-lang-en={`${profile.currentRoleEn}, ${profile.affiliationEn}`}
+        >
+          {profile.currentRole} · {profile.affiliation}
+        </p>
       </div>
-      <a class="button" href={withBase('/files/cv/cv.pdf')}>下载 CV</a>
+      <a class="button" href={withBase('/files/cv/cv.pdf')} data-lang-zh="下载 CV" data-lang-en="Download CV">下载 CV</a>
     </div>
   </section>
 
   <section class="section">
     <div class="container cv-layout">
       <aside class="cv-sidebar">
-        <h2>联系</h2>
-        <p>{profile.location}</p>
+        <h2 data-lang-zh="联系" data-lang-en="Contact">联系</h2>
+        <p data-lang-zh={profile.location} data-lang-en={profile.locationEn}>{profile.location}</p>
         <a href={`mailto:${profile.email}`}>{profile.email}</a>
-        <h2>技能</h2>
+        <h2 data-lang-zh="技能" data-lang-en="Skills">技能</h2>
         {
           profile.skills.map((group) => (
             <div class="sidebar-group">
-              <h3>{group.name}</h3>
-              <p>{group.items.join(' · ')}</p>
+              <h3 data-lang-zh={group.name} data-lang-en={group.nameEn}>{group.name}</h3>
+              <p data-lang-zh={group.items.join(' · ')} data-lang-en={group.itemsEn.join(' · ')}>
+                {group.items.join(' · ')}
+              </p>
             </div>
           ))
         }
-        <h2>荣誉</h2>
+        <h2 data-lang-zh="荣誉" data-lang-en="Honors">荣誉</h2>
         <ul>
-          {profile.honors.map((honor) => <li>{honor}</li>)}
+          {profile.honors.map((honor, index) => (
+            <li data-lang-zh={honor} data-lang-en={profile.honorsEn[index] ?? honor}>{honor}</li>
+          ))}
         </ul>
       </aside>
 
       <div class="cv-main stack">
         <section>
-          <h2>教育经历</h2>
-          <ol class="compact-list">
+          <h2 data-lang-zh="教育经历" data-lang-en="Education">教育经历</h2>
+          <ol class="compact-list education-compact-list">
             {
               profile.education.map((item) => (
                 <li>
-                  <strong>{item.period}</strong>
-                  <span>{item.degree}，{item.institution}，{item.department}</span>
-                  <p>{item.description}</p>
+                  <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                  <span
+                    data-lang-zh={`${item.degree}，${item.institution}，${item.department}`}
+                    data-lang-en={`${item.degreeEn}, ${item.institutionEn}, ${item.departmentEn}`}
+                  >
+                    {item.degree}，{item.institution}，{item.department}
+                  </span>
+                  <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
                 </li>
               ))
             }
@@ -61,14 +77,19 @@ const getResearchInstitution = (item: (typeof profile.researchExperience)[number
         </section>
 
         <section>
-          <h2>研究经历</h2>
-          <ol class="compact-list">
+          <h2 data-lang-zh="研究经历" data-lang-en="Research Experience">研究经历</h2>
+          <ol class="compact-list research-list">
             {
               profile.researchExperience.map((item) => (
                 <li>
-                  <strong>{item.period}</strong>
-                  <span>{item.title}，{getResearchInstitution(item)}</span>
-                  <p>{item.description}</p>
+                  <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                  <span
+                    data-lang-zh={`${item.title}，${getResearchInstitution(item)}`}
+                    data-lang-en={`${item.titleEn}, ${getResearchInstitutionEn(item)}`}
+                  >
+                    {item.title}，{getResearchInstitution(item)}
+                  </span>
+                  <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
                 </li>
               ))
             }
@@ -76,15 +97,17 @@ const getResearchInstitution = (item: (typeof profile.researchExperience)[number
         </section>
 
         <section>
-          <h2>教学与助教经历</h2>
-          <ol class="compact-list">
+          <h2 data-lang-zh="教学与助教经历" data-lang-en="Teaching Experience">教学与助教经历</h2>
+          <ol class="compact-list teaching-list">
             {
               profile.teachingExperience.map((item) => (
                 <li>
-                  <strong>{item.period}</strong>
-                  <span>{item.title}，{item.role}</span>
-                  <p>{item.course}</p>
-                  <p>{item.description}</p>
+                  <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                  <span data-lang-zh={`${item.title}，${item.role}`} data-lang-en={`${item.titleEn}, ${item.roleEn}`}>
+                    {item.title}，{item.role}
+                  </span>
+                  <p data-lang-zh={item.course} data-lang-en={item.courseEn}>{item.course}</p>
+                  <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
                 </li>
               ))
             }
@@ -92,14 +115,14 @@ const getResearchInstitution = (item: (typeof profile.researchExperience)[number
         </section>
 
         <section>
-          <h2>发表成果</h2>
+          <h2 data-lang-zh="发表成果" data-lang-en="Publications">发表成果</h2>
           <div class="stack">
             {publications.map((publication) => <PublicationItem publication={publication} />)}
           </div>
         </section>
 
         <section>
-          <h2>会议与活动</h2>
+          <h2 data-lang-zh="会议与活动" data-lang-en="Conferences and Activities">会议与活动</h2>
           <Timeline items={activities.slice(0, 4)} />
         </section>
       </div>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import Card from '../components/Card.astro';
+import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { withBase } from '../utils/paths';
 ---
@@ -8,23 +9,26 @@ import { withBase } from '../utils/paths';
 <Layout title="关于我" description="个人介绍、教育经历、研究兴趣、技能栈与联系方式。">
   <section class="page-hero compact">
     <div class="container">
-      <p class="eyebrow">About</p>
-      <h1>关于我</h1>
-      <p>{profile.bioShort}</p>
+      <p class="eyebrow" data-lang-zh="关于我" data-lang-en="About">关于我</p>
+      <h1 data-lang-zh="关于我" data-lang-en="About Me">关于我</h1>
+      <p data-lang-zh={profile.bioShort} data-lang-en={profile.bioShortEn}>{profile.bioShort}</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container two-column wide-left">
       <article class="prose intro-text">
-        <h2>个人介绍</h2>
-        {profile.bioLong.map((paragraph) => <p>{paragraph}</p>)}
+        <h2 data-lang-zh="个人介绍" data-lang-en="Profile">个人介绍</h2>
+        {profile.bioLong.map((paragraph, index) => (
+          <p data-lang-zh={paragraph} data-lang-en={profile.bioLongEn[index] ?? paragraph}>{paragraph}</p>
+        ))}
       </article>
       <aside class="contact-panel">
-        <img src={withBase(profile.avatar)} alt={`${profile.nameCn} 头像占位`} width="128" height="128" />
-        <h2>{profile.nameCn}</h2>
-        <p>{profile.currentRole}</p>
-        <p>{profile.affiliation}</p>
+        <img src={withBase(profile.avatar)} alt={`${profile.formalNameCn} 个人头像`} width="128" height="128" />
+        <h2 data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</h2>
+        <p data-lang-zh={profile.nameCn} data-lang-en={profile.nameEn}>{profile.nameCn}</p>
+        <p data-lang-zh={profile.currentRole} data-lang-en={profile.currentRoleEn}>{profile.currentRole}</p>
+        <p data-lang-zh={profile.affiliation} data-lang-en={profile.affiliationEn}>{profile.affiliation}</p>
         <a href={`mailto:${profile.email}`}>{profile.email}</a>
       </aside>
     </div>
@@ -33,19 +37,29 @@ import { withBase } from '../utils/paths';
   <section class="section soft-band">
     <div class="container">
       <div class="section-heading">
-        <p class="eyebrow">Education</p>
-        <h2>教育经历</h2>
+        <p class="eyebrow" data-lang-zh="教育经历" data-lang-en="Education">教育经历</p>
+        <h2 data-lang-zh="教育经历" data-lang-en="Education">教育经历</h2>
       </div>
       <ol class="education-list">
         {
           profile.education.map((item) => (
             <li>
-              <span class="education-stage">{item.stage}</span>
+              <span class="education-stage" data-lang-zh={item.stage} data-lang-en={item.stageEn}>{item.stage}</span>
               <div>
-                <h3>{item.degree}</h3>
-                <p>{item.institution} · {item.department}</p>
-                <p>{item.period} · {item.location}</p>
-                <p>{item.description}</p>
+                <h3 data-lang-zh={item.degree} data-lang-en={item.degreeEn}>{item.degree}</h3>
+                <p
+                  data-lang-zh={`${item.institution} · ${item.department}`}
+                  data-lang-en={`${item.institutionEn} · ${item.departmentEn}`}
+                >
+                  {item.institution} · {item.department}
+                </p>
+                <p
+                  data-lang-zh={`${item.period} · ${item.location}`}
+                  data-lang-en={`${item.periodEn} · ${item.locationEn}`}
+                >
+                  {item.period} · {item.location}
+                </p>
+                <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
               </div>
             </li>
           ))
@@ -56,27 +70,31 @@ import { withBase } from '../utils/paths';
 
   <section class="section">
     <div class="container two-column">
-      <div>
+      <div class="research-panel">
         <div class="section-heading">
-          <p class="eyebrow">Interests</p>
-          <h2>研究兴趣</h2>
+          <p class="eyebrow" data-lang-zh="研究兴趣" data-lang-en="Interests">研究兴趣</p>
+          <h2 data-lang-zh="研究问题" data-lang-en="Research Questions">研究问题</h2>
         </div>
         <div class="card-grid one">
-          {profile.researchInterests.map((interest) => <Card title={interest} description="可在这里继续扩展对应项目、论文或笔记链接。" />)}
+          {currentWorks.map((work) => (
+            <Card href={work.href} title={work.titleZh} titleEn={work.title} description={work.summary} descriptionEn={work.summaryEn} />
+          ))}
         </div>
       </div>
-      <div>
+      <div class="skills-panel">
         <div class="section-heading">
-          <p class="eyebrow">Skills</p>
-          <h2>技能栈</h2>
+          <p class="eyebrow" data-lang-zh="技能" data-lang-en="Skills">技能</p>
+          <h2 data-lang-zh="技能栈" data-lang-en="Skills">技能栈</h2>
         </div>
         <div class="stack">
           {
             profile.skills.map((group) => (
               <article class="skill-block">
-                <h3>{group.name}</h3>
+                <h3 data-lang-zh={group.name} data-lang-en={group.nameEn}>{group.name}</h3>
                 <div class="keyword-list">
-                  {group.items.map((skill) => <span>{skill}</span>)}
+                  {group.items.map((skill, index) => (
+                    <span data-lang-zh={skill} data-lang-en={group.itemsEn[index] ?? skill}>{skill}</span>
+                  ))}
                 </div>
               </article>
             ))
@@ -88,36 +106,38 @@ import { withBase } from '../utils/paths';
 
   <section class="section soft-band">
     <div class="container two-column">
-      <div>
+      <div class="research-panel">
         <div class="section-heading">
-          <p class="eyebrow">Research Experience</p>
-          <h2>研究经历</h2>
+          <p class="eyebrow" data-lang-zh="研究经历" data-lang-en="Research Experience">研究经历</p>
+          <h2 data-lang-zh="研究经历" data-lang-en="Research Experience">研究经历</h2>
         </div>
-        <ol class="compact-list">
+        <ol class="compact-list research-list">
           {
             profile.researchExperience.map((item) => (
               <li>
-                <strong>{item.period}</strong>
-                <span>{item.title}</span>
-                <p>{item.description}</p>
+                <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                <span data-lang-zh={item.title} data-lang-en={item.titleEn}>{item.title}</span>
+                <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
               </li>
             ))
           }
         </ol>
       </div>
-      <div>
+      <div class="teaching-panel">
         <div class="section-heading">
-          <p class="eyebrow">Teaching</p>
-          <h2>助教经历</h2>
+          <p class="eyebrow" data-lang-zh="助教经历" data-lang-en="Teaching">助教经历</p>
+          <h2 data-lang-zh="助教经历" data-lang-en="Teaching Experience">助教经历</h2>
         </div>
-        <ol class="compact-list">
+        <ol class="compact-list teaching-list">
           {
             profile.teachingExperience.map((item) => (
               <li>
-                <strong>{item.period}</strong>
-                <span>{item.title}</span>
-                <p>{item.role} · {item.course}</p>
-                <p>{item.description}</p>
+                <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                <span data-lang-zh={item.title} data-lang-en={item.titleEn}>{item.title}</span>
+                <p data-lang-zh={`${item.role} · ${item.course}`} data-lang-en={`${item.roleEn} · ${item.courseEn}`}>
+                  {item.role} · {item.course}
+                </p>
+                <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
               </li>
             ))
           }

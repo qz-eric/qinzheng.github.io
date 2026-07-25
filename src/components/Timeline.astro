@@ -1,5 +1,5 @@
 ---
-import { activityTypeLabels, type Activity } from '../data/activities';
+import { activityTypeLabels, activityTypeLabelsEn, type Activity } from '../data/activities';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -26,12 +26,18 @@ const activityToneClass: Record<Activity['type'], string> = {
         <div class="timeline-date">{item.date}</div>
         <article class="timeline-card">
           <div class="item-heading">
-            <span class="tag activity-tag">{activityTypeLabels[item.type]}</span>
-            <span>{item.location}</span>
+            <span
+              class="tag activity-tag"
+              data-lang-zh={activityTypeLabels[item.type]}
+              data-lang-en={activityTypeLabelsEn[item.type]}
+            >
+              {activityTypeLabels[item.type]}
+            </span>
+            <span data-lang-zh={item.location} data-lang-en={item.locationEn}>{item.location}</span>
           </div>
-          <h3>{item.title}</h3>
-          <p class="item-theme">{item.theme}</p>
-          <p>{item.description}</p>
+          <h3 data-lang-zh={item.title} data-lang-en={item.titleEn}>{item.title}</h3>
+          <p class="item-theme" data-lang-zh={item.theme} data-lang-en={item.themeEn}>{item.theme}</p>
+          <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
           {item.links.length > 0 && (
             <div class="inline-links">
               {item.links.map((link) => (
@@ -40,7 +46,7 @@ const activityToneClass: Record<Activity['type'], string> = {
                   target={isExternal(link.href) ? '_blank' : undefined}
                   rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
                 >
-                  {link.label}
+                  <span data-lang-zh={link.label} data-lang-en={link.labelEn ?? link.label}>{link.label}</span>
                 </a>
               ))}
             </div>

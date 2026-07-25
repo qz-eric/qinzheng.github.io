@@ -1,6 +1,6 @@
 # 个人学术主页 + 文学作品集 + 学习资料归档馆
 
-这是一个基于 Astro + TypeScript 的个人静态网站项目。第一版面向本地运行与后续服务器部署，包含个人主页、Academic CV、发表成果、学术活动、文学作品、课程资料和笔记归档。
+这是一个基于 Astro + TypeScript 的个人静态网站项目。当前版本面向科研展示、学术分享、长期归档与文学作品整理，包含 Research、Publications、Notes、Writing、Teaching、About 等入口。
 
 ## 技术栈
 
@@ -44,7 +44,7 @@ npm run check
 - `honors`
 - `socialLinks`
 
-头像占位文件在 `public/images/avatar-placeholder.svg`，首页背景图在 `public/images/archive-sky-hero.png`。
+个人照片在 `public/images/personal.jpg`，首页插图在 `public/images/Nahida.png`。
 
 ## 添加论文
 
@@ -212,11 +212,11 @@ Astro 会把 `public/` 目录原样复制到站点根目录。比如：
 - `public/files/papers/paper.pdf` 会变成 `/files/papers/paper.pdf`
 - `public/images/photo.jpg` 会变成 `/images/photo.jpg`
 
-第一版提供的 PDF 多为占位文件，你可以直接替换为真实文件并保持路径不变。
+若资料文件仍是临时版本，你可以直接替换为真实文件并保持路径不变。
 
 ## 中英文切换预留
 
-`src/data/profile.ts` 中的 `languages` 字段已经预留中英文结构。第一版页面以中文为主，后续可以扩展为：
+`src/data/profile.ts` 中的 `languages` 字段已经预留中英文结构。当前页面以中文为主，中英文版本可按下面方式逐步拆分：
 
 - 为数据文件添加 `titleEn`、`abstractEn`、`bioLongEn`
 - 在页面中读取当前语言

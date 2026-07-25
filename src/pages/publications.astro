@@ -3,39 +3,62 @@ import Layout from '../components/Layout.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import {
   publications,
-  publicationStatusLabels,
-  type PublicationStatus
+  publicationCategoryLabels,
+  publicationCategoryLabelsEn,
+  type PublicationCategory
 } from '../data/publications';
 
-const groups: PublicationStatus[] = ['Published', 'UnderReview', 'InPreparation'];
+const groups: PublicationCategory[] = ['PeerReviewed', 'Preprint', 'Software', 'Dataset'];
+const visibleGroups = groups
+  .map((category) => ({
+    category,
+    items: publications.filter((publication) => publication.category === category)
+  }))
+  .filter((group) => group.items.length > 0);
 ---
 
-<Layout title="发表成果" description="论文列表，包含已发表、投稿中与准备中的研究成果。">
+<Layout
+  title="Publications"
+  description="正式论文、预印本、研究软件与数据集归档。"
+>
   <section class="page-hero compact">
     <div class="container">
-      <p class="eyebrow">Publications</p>
-      <h1>发表成果</h1>
-      <p>论文、投稿与准备中的研究成果均从独立数据文件维护，便于后续替换、排序和扩展。</p>
+      <p class="eyebrow" data-lang-zh="发表成果" data-lang-en="Publications">发表成果</p>
+      <h1 data-lang-zh="发表成果" data-lang-en="Publications">发表成果</h1>
+      <p
+        data-lang-zh="这里优先归档正式论文，同时为预印本、研究软件和数据集保留清晰的数据结构。"
+        data-lang-en="This page primarily archives peer-reviewed papers while keeping a clear structure for preprints, research software, and datasets."
+      >
+        这里优先归档正式论文，同时为预印本、研究软件和数据集保留清晰的数据结构。
+      </p>
     </div>
   </section>
 
   <section class="section">
     <div class="container stack large">
       {
-        groups.map((status) => {
-          const items = publications.filter((publication) => publication.status === status);
-          return (
-            <section class="publication-group">
-              <div class="section-heading">
-                <p class="eyebrow">{status}</p>
-                <h2>{publicationStatusLabels[status]}</h2>
-              </div>
-              <div class="stack">
-                {items.map((publication) => <PublicationItem publication={publication} />)}
-              </div>
-            </section>
-          );
-        })
+        visibleGroups.map(({ category, items }) => (
+          <section class="publication-group">
+            <div class="section-heading">
+              <p
+                class="eyebrow"
+                data-lang-zh={publicationCategoryLabels[category]}
+                data-lang-en={publicationCategoryLabelsEn[category]}
+              >
+                {publicationCategoryLabels[category]}
+              </p>
+              <h2
+                data-lang-zh={publicationCategoryLabels[category]}
+                data-lang-en={publicationCategoryLabelsEn[category]}
+              >
+                {publicationCategoryLabels[category]}
+              </h2>
+            </div>
+            <div class="stack">
+              {items.map((publication) => <PublicationItem publication={publication} />)}
+            </div>
+          </section>
+        ))
       }
     </div>
   </section>

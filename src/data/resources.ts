@@ -49,6 +49,150 @@ export const resourceCategories: ResourceCategory[] = [
   'Book'
 ];
 
+export const resourceCategoryLabelsEn: Record<ResourceCategory, string> = {
+  数学基础: 'Mathematics',
+  大气专业课程: 'Atmospheric Science Courses',
+  助教课程: 'Teaching Assistant',
+  科研写作: 'Scientific Writing',
+  机器学习: 'Machine Learning',
+  LaTeX: 'LaTeX',
+  代码: 'Code',
+  Book: 'Books'
+};
+
+export const resourceLevelLabelsEn: Record<Resource['level'], string> = {
+  本科: 'Undergraduate',
+  研究生: 'Graduate',
+  通用: 'General'
+};
+
+export const resourceStatusLabels = {
+  Complete: {
+    zh: '更新完成',
+    en: 'Complete'
+  },
+  Todo: {
+    zh: '待整理',
+    en: 'To Organize'
+  }
+} satisfies Record<ResourceStatus, { zh: string; en: string }>;
+
+export interface ResourceI18n {
+  title: string;
+  course: string;
+  description: string;
+  fullTextLabel?: string;
+  tags: string[];
+}
+
+export const resourceI18n: Record<string, ResourceI18n> = {
+  'advanced-calculus-notes': {
+    title: 'Advanced Calculus Notes',
+    course: 'Advanced Calculus',
+    description: 'Chapter-based materials on single-variable calculus and ordinary differential equations.',
+    fullTextLabel: 'Full Download',
+    tags: ['Calculus', 'Derivatives', 'Ordinary Differential Equations']
+  },
+  'atmospheric-physics-course': {
+    title: 'Atmospheric Physics Course Materials',
+    course: 'Atmospheric Physics',
+    description: 'Archived materials on atmospheric overview, thermodynamics, radiation, clouds, and precipitation.',
+    fullTextLabel: 'Full Download',
+    tags: ['Thermodynamics', 'Radiation', 'Boundary Layer']
+  },
+  'atmospheric-observation-course': {
+    title: 'Atmospheric Observation Course Materials',
+    course: 'Atmospheric Observation',
+    description: 'Lecture materials on routine meteorological observation, sounding, radar, satellites, and quality control.',
+    fullTextLabel: 'Full Download',
+    tags: ['Sounding', 'Radar', 'Satellite']
+  },
+  'fluid-mechanics-course': {
+    title: 'Fluid Mechanics Course Materials',
+    course: 'Fluid Mechanics',
+    description: 'Chapter-based materials on continuum mechanics, momentum equations, vorticity, boundary layers, and turbulence.',
+    fullTextLabel: 'Full Download',
+    tags: ['Fluid Mechanics', 'Vorticity', 'Boundary Layer']
+  },
+  'advanced-atmospheric-dynamics': {
+    title: 'Advanced Atmospheric Dynamics Chapters',
+    course: 'Advanced Atmospheric Dynamics',
+    description: 'Graduate-level atmospheric dynamics materials organized from Chapter 1 to Chapter 10.',
+    fullTextLabel: 'Full Download',
+    tags: ['Dynamics', 'Potential Vorticity', 'Modal Analysis']
+  },
+  'cloud-microphysics-course': {
+    title: 'Cloud Microphysics Course Materials',
+    course: 'Cloud Microphysics',
+    description: 'Course materials on mixed-phase clouds, ice-crystal growth, warm-rain processes, and cloud parameterization.',
+    fullTextLabel: 'Full Download',
+    tags: ['Cloud Microphysics', 'Mixed-phase Clouds', 'Satellite Retrieval']
+  },
+  'fluid-mechanics-ta-homework': {
+    title: 'Fluid Mechanics TA Homework Solutions',
+    course: 'Fluid Mechanics TA',
+    description: 'Homework solutions and discussion materials prepared during the Fluid Mechanics teaching-assistant work, listing only weeks with assigned homework.',
+    fullTextLabel: 'Full Download',
+    tags: ['Teaching Assistant', 'Homework Solutions', 'Fluid Mechanics']
+  },
+  'atmospheric-dynamics-ta-discussion': {
+    title: 'Atmospheric Dynamics TA Discussion Sessions',
+    course: 'Atmospheric Dynamics TA',
+    description: 'Discussion materials on scale analysis, geostrophic balance, vorticity equations, and wave problems.',
+    fullTextLabel: 'Full Download',
+    tags: ['Teaching Assistant', 'Discussion Session', 'Atmospheric Dynamics']
+  },
+  'python-atmos-data-ta': {
+    title: 'Python Atmospheric Data Processing TA Materials',
+    course: 'Research Data Processing TA',
+    description: 'Teaching materials on NetCDF reading, regional cropping, batch plotting, and homework Q&A.',
+    fullTextLabel: 'Full Download',
+    tags: ['Teaching Assistant', 'Python', 'NetCDF']
+  },
+  'scientific-writing-materials': {
+    title: 'Scientific Paper Writing Materials',
+    course: 'Scientific Writing',
+    description: 'Materials on paper structure, abstract writing, figure narration, cover letters, and responses to reviewers.',
+    fullTextLabel: 'Full Download',
+    tags: ['Paper Writing', 'Submission', 'Reviewer Response']
+  },
+  'machine-learning-notes': {
+    title: 'Machine Learning Notes',
+    course: 'Machine Learning',
+    description: 'Study notes on classification, regression, cross-validation, feature interpretation, and scientific data modeling.',
+    fullTextLabel: 'Full Download',
+    tags: ['Machine Learning', 'Python', 'Modeling']
+  },
+  'latex-template': {
+    title: 'LaTeX Templates and Typesetting Materials',
+    course: 'Paper and Report Typesetting',
+    description: 'Reusable LaTeX templates for course reports, manuscript drafts, and reading notes.',
+    fullTextLabel: 'Template Download',
+    tags: ['LaTeX', 'Template', 'Typesetting']
+  },
+  'python-data-processing-code': {
+    title: 'Python Data Processing Code',
+    course: 'Research Data Processing',
+    description: 'Example scripts for NetCDF reading, regional cropping, statistics, and plotting workflows.',
+    fullTextLabel: 'Code Download',
+    tags: ['Python', 'NetCDF', 'Visualization']
+  },
+  'atmospheric-dynamics-book': {
+    title: 'Advanced Atmospheric Dynamics',
+    course: 'Advanced Atmospheric Dynamics',
+    description: 'Full archive of derivations, exercises, and reading materials for atmospheric dynamics.',
+    fullTextLabel: 'Full Download',
+    tags: ['Dynamics', 'Book', 'Derivations']
+  },
+  'cloud-microphysics-book': {
+    title: 'Cloud Microphysics Reading Book',
+    course: 'Cloud Microphysics',
+    description: 'Full archive of cloud microphysics literature notes, course derivations, and satellite data documentation.',
+    fullTextLabel: 'Full Download',
+    tags: ['Cloud Microphysics', 'Book', 'Reading']
+  }
+};
+
 const section = (label: string, title: string, href: string, description?: string): ResourceSection => ({
   label,
   title,
@@ -110,7 +254,7 @@ export const resources: Resource[] = [
     type: 'Lecture',
     year: 2024,
     status: 'Todo',
-    description: '常规气象观测、探空、雷达、卫星与资料质量控制的分讲义占位。',
+    description: '常规气象观测、探空、雷达、卫星与资料质量控制的分讲义整理。',
     fullText: { label: '全文下载', href: '/files/courses/atmos/atmospheric-observation/full.pdf' },
     sections: [
       section('Lecture 1', '观测系统与误差来源', '/files/courses/atmos/atmospheric-observation/lecture-01.pdf'),
@@ -227,7 +371,7 @@ export const resources: Resource[] = [
     type: 'Lecture',
     year: 2025,
     status: 'Todo',
-    description: '围绕尺度分析、地转平衡、涡度方程和波动问题整理的讨论课占位资料。',
+    description: '围绕尺度分析、地转平衡、涡度方程和波动问题整理的讨论课资料。',
     fullText: { label: '全文下载', href: '/files/courses/ta/atmospheric-dynamics-discussion/full.pdf' },
     sections: [
       section('Week 1', '尺度分析与量纲检查', '/files/courses/ta/atmospheric-dynamics-discussion/week-01.pdf'),
@@ -247,7 +391,7 @@ export const resources: Resource[] = [
     type: 'Code',
     year: 2026,
     status: 'Todo',
-    description: 'NetCDF 读取、区域裁剪、批处理绘图与作业答疑的教学资料占位。',
+    description: 'NetCDF 读取、区域裁剪、批处理绘图与作业答疑的教学资料。',
     fullText: { label: '全文下载', href: '/files/courses/ta/python-atmos-data/full.pdf' },
     sections: [
       section('Week 1', '环境配置与文件组织', '/files/courses/ta/python-atmos-data/week-01.pdf'),
@@ -306,8 +450,8 @@ export const resources: Resource[] = [
     type: 'LaTeX',
     year: 2026,
     status: 'Todo',
-    description: '课程报告、论文草稿和读书笔记可复用的 LaTeX 模板占位。',
-    fullText: { label: '模板下载', href: '/files/books/latex-template-placeholder.tex' },
+    description: '课程报告、论文草稿和读书笔记可复用的 LaTeX 模板。',
+    fullText: { label: '模板下载', href: '/files/books/latex-template.tex' },
     sections: [
       section('Template 1', '课程报告模板', '/files/courses/latex/templates/course-report-template.tex'),
       section('Template 2', '论文草稿模板', '/files/courses/latex/templates/manuscript-template.tex'),
@@ -342,7 +486,7 @@ export const resources: Resource[] = [
     type: 'Book',
     year: 2024,
     status: 'Complete',
-    description: '大气动力学推导、例题和阅读材料的全文占位版本。',
+    description: '大气动力学推导、例题和阅读材料的全文归档版本。',
     fullText: { label: '全文下载', href: '/files/books/atmospheric-dynamics-book.pdf' },
     tags: ['动力学', 'book', '推导']
   },
@@ -355,9 +499,8 @@ export const resources: Resource[] = [
     type: 'Book',
     year: 2026,
     status: 'Todo',
-    description: '云微物理文献、课程推导和卫星资料说明的全文归档占位。',
-    fullText: { label: '全文下载', href: '/files/books/cloud-microphysics-book-placeholder.pdf' },
+    description: '云微物理文献、课程推导和卫星资料说明的全文归档。',
+    fullText: { label: '全文下载', href: '/files/books/cloud-microphysics-book.pdf' },
     tags: ['云微物理', 'book', '阅读']
   }
 ];
-

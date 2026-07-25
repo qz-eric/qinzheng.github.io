@@ -8,8 +8,13 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 <footer class="site-footer">
   <div class="footer-inner">
     <div>
-      <strong>{profile.nameCn}</strong>
-      <p>{profile.affiliation} · {profile.location}</p>
+      <strong data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</strong>
+      <p
+        data-lang-zh={`${profile.archiveLabel} · ${profile.affiliation} · ${profile.location}`}
+        data-lang-en={`${profile.archiveLabelEn} · ${profile.affiliationEn} · ${profile.locationEn}`}
+      >
+        {profile.archiveLabel} · {profile.affiliation} · {profile.location}
+      </p>
     </div>
     <div class="footer-links">
       {

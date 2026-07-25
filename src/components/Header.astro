@@ -1,15 +1,15 @@
 ---
+import { profile } from '../data/profile';
 import { stripBase, withBase } from '../utils/paths';
 
 const navItems = [
-  { href: '/', label: '首页' },
-  { href: '/about/', label: '关于我' },
-  { href: '/cv/', label: '简历' },
-  { href: '/publications/', label: '发表成果' },
-  { href: '/activities/', label: '学术活动' },
-  { href: '/works/', label: '文学作品' },
-  { href: '/resources/', label: '课程资料' },
-  { href: '/notes/', label: '笔记' }
+  { href: '/', labelZh: '首页', labelEn: 'Home' },
+  { href: '/about/', labelZh: '关于我', labelEn: 'About Me' },
+  { href: '/research/', labelZh: '研究', labelEn: 'Research' },
+  { href: '/publications/', labelZh: '发表成果', labelEn: 'Publications' },
+  { href: '/resources/', labelZh: '资料＆笔记', labelEn: 'Resources & Notes' },
+  { href: '/works/', labelZh: '文学作品', labelEn: 'Writing' },
+  { href: '/teaching/', labelZh: '教学', labelEn: 'Teaching' }
 ];
 
 const normalizePath = (path: string) => (path === '/' ? '/' : path.replace(/\/$/, ''));
@@ -24,13 +24,13 @@ const isActive = (href: string) => {
 ---
 
 <header class="site-header">
-  <a class="skip-link" href="#main-content">跳到正文</a>
+  <a class="skip-link" href="#main-content" data-lang-zh="跳到正文" data-lang-en="Skip to content">跳到正文</a>
   <div class="header-inner">
     <a class="brand" href={withBase('/')} aria-label="返回首页">
-      <span class="brand-mark">A</span>
+      <span class="brand-mark">Q</span>
       <span class="brand-text">
-        <strong>Academic Archive</strong>
-        <span>Research · Works · Notes</span>
+        <strong data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</strong>
+        <span data-lang-zh={profile.siteSubtitle} data-lang-en={profile.siteSubtitleEn}>{profile.siteSubtitle}</span>
       </span>
     </a>
     <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false" data-nav-toggle>
@@ -42,20 +42,51 @@ const isActive = (href: string) => {
       {
         navItems.map((item) => (
           <a href={withBase(item.href)} class:list={[isActive(item.href) && 'is-active']}>
-            {item.label}
+            <span data-lang-zh={item.labelZh} data-lang-en={item.labelEn}>{item.labelZh}</span>
           </a>
         ))
       }
     </nav>
+    <div class="language-switch" aria-label="语言切换">
+      <button type="button" data-lang-option="zh" aria-pressed="true">中文</button>
+      <button type="button" data-lang-option="en" aria-pressed="false">EN</button>
+    </div>
   </div>
 </header>
 
 <script>
   const toggle = document.querySelector('[data-nav-toggle]');
   const nav = document.querySelector('[data-site-nav]');
+  const langButtons = document.querySelectorAll<HTMLButtonElement>('[data-lang-option]');
+  const translatableNodes = document.querySelectorAll<HTMLElement>('[data-lang-zh][data-lang-en]');
+  const languageStorageKey = 'site-language';
+
+  const applyLanguage = (language?: string | null) => {
+    const normalized = language === 'en' ? 'en' : 'zh';
+    document.documentElement.lang = normalized === 'en' ? 'en' : 'zh-CN';
+    translatableNodes.forEach((node) => {
+      node.textContent = normalized === 'en'
+        ? node.dataset.langEn ?? ''
+        : node.dataset.langZh ?? '';
+    });
+    langButtons.forEach((button) => {
+      const isActive = button.dataset.langOption === normalized;
+      button.setAttribute('aria-pressed', String(isActive));
+      button.classList.toggle('is-active', isActive);
+    });
+    sessionStorage.setItem(languageStorageKey, normalized);
+  };
 
   toggle?.addEventListener('click', () => {
     const isOpen = nav?.classList.toggle('is-open') ?? false;
     toggle.setAttribute('aria-expanded', String(isOpen));
   });
+
+  langButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      applyLanguage(button.dataset.langOption);
+    });
+  });
+
+  applyLanguage(sessionStorage.getItem(languageStorageKey) ?? 'zh');
 </script>

@@ -1,63 +1,76 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
-import Card from '../components/Card.astro';
-import PublicationItem from '../components/PublicationItem.astro';
-import Timeline from '../components/Timeline.astro';
+import CurrentWorkCard from '../components/CurrentWorkCard.astro';
+import NotePreview from '../components/NotePreview.astro';
+import SelectedPublication from '../components/SelectedPublication.astro';
 import WorkItem from '../components/WorkItem.astro';
 import ResourceItem from '../components/ResourceItem.astro';
+import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { publications } from '../data/publications';
-import { activities } from '../data/activities';
 import { resources } from '../data/resources';
-import { featuredWorkSlugs, works } from '../data/works';
+import { homeWritingSlugs, works } from '../data/works';
 import { withBase } from '../utils/paths';
 
-const latestPublications = [...publications].sort((a, b) => b.year - a.year).slice(0, 2);
-const recentActivities = activities.slice(0, 3);
-const featuredWorks = featuredWorkSlugs
+const recentNotes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 1);
+
+const selectedPublication =
+  publications.find((publication) => publication.graphicalAbstract?.showOnHome) ??
+  publications.find((publication) => publication.status === 'Published');
+
+const homeWriting = homeWritingSlugs
   .map((slug) => works.find((work) => work.slug === slug))
   .filter((work): work is (typeof works)[number] => Boolean(work))
-  .slice(0, 2);
+  .slice(0, 4);
+
 const featuredResourceIds = [
   'fluid-mechanics-ta-homework',
   'advanced-atmospheric-dynamics',
-  'graduate-course-book'
+  'machine-learning-notes'
 ];
 const featuredResources = featuredResourceIds
   .map((id) => resources.find((resource) => resource.id === id))
-  .filter((resource): resource is (typeof resources)[number] => Boolean(resource))
-  .concat(resources)
-  .filter((resource, index, array) => array.findIndex((item) => item.id === resource.id) === index)
-  .slice(0, 3);
-const quickLinks = [
-  { title: 'Academic', href: '/about/', description: '教育经历、研究兴趣与学术身份。' },
-  { title: 'Publications', href: '/publications/', description: '论文、投稿与准备中的研究。' },
-  { title: 'Activities', href: '/activities/', description: '会议汇报、课程报告与科研训练。' },
-  { title: 'Works', href: '/works/', description: '小说、散文、设定集与随笔。' },
-  { title: 'Notes', href: '/notes/', description: '研究笔记、读书笔记与技术笔记。' },
-  { title: 'CV', href: '/cv/', description: 'Academic CV 与可下载简历入口。' }
-];
+  .filter((resource): resource is (typeof resources)[number] => Boolean(resource));
 ---
 
-<Layout>
+<Layout
+  title="研究 · 笔记 · 写作"
+  description="秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、研究笔记、课程资料与文学作品。"
+>
   <section class="hero" style={`--hero-image: url('${withBase(profile.heroImage)}')`}>
     <div class="hero-overlay">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Personal Academic Archive</p>
-          <h1>{profile.nameCn}</h1>
-          <p class="hero-role">{profile.currentRole} · {profile.affiliation}</p>
-          <p>{profile.bioShort}</p>
+          <p class="eyebrow" data-lang-zh={profile.siteSubtitle} data-lang-en={profile.siteSubtitleEn}>{profile.siteSubtitle}</p>
+          <h1 data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</h1>
+          <p
+            class="hero-role"
+            data-lang-zh={`${profile.currentRole} · ${profile.affiliation}`}
+            data-lang-en={`${profile.currentRoleEn}, ${profile.affiliationEn}`}
+          >
+            {profile.currentRole} · {profile.affiliation}
+          </p>
+          <p class="hero-field" data-lang-zh="大气科学 · 卫星遥感 · 云微物理" data-lang-en="Atmospheric science · Satellite remote sensing · Cloud microphysics">大气科学 · 卫星遥感 · 云微物理</p>
+          <p
+            data-lang-zh={profile.bioShort}
+            data-lang-en={profile.bioShortEn}
+          >
+            {profile.bioShort}
+          </p>
           <div class="hero-actions">
-            <a class="button" href={withBase('/publications/')}>查看发表成果</a>
-            <a class="button secondary" href={withBase('/works/')}>阅读文学作品</a>
+            <a class="button" href={withBase('/research/')} data-lang-zh="研究" data-lang-en="Research">研究</a>
+            <a class="button secondary" href={withBase('/publications/')} data-lang-zh="发表成果" data-lang-en="Publications">发表成果</a>
+            <a class="button secondary" href={withBase('/works/')} data-lang-zh="文学作品" data-lang-en="Writing">文学作品</a>
           </div>
         </div>
         <aside class="profile-panel" aria-label="个人概览">
-          <img src={withBase(profile.avatar)} alt={`${profile.nameCn} 头像占位`} width="160" height="160" />
+          <img class="profile-photo" src={withBase(profile.avatar)} alt={`${profile.formalNameCn} 个人照片`} width="320" height="420" />
           <div>
-            <strong>{profile.nameEn}</strong>
-            <span>{profile.location}</span>
+            <strong data-lang-zh={profile.nameCn} data-lang-en={profile.nameEn}>{profile.nameCn}</strong>
+            <span data-lang-zh={profile.archiveLabel} data-lang-en={profile.archiveLabelEn}>{profile.archiveLabel}</span>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </div>
         </aside>
@@ -68,111 +81,77 @@ const quickLinks = [
   <section class="section">
     <div class="container">
       <div class="section-heading">
-        <p class="eyebrow">Entrances</p>
-        <h2>主要入口</h2>
-      </div>
-      <div class="card-grid six">
-        {quickLinks.map((item) => <Card href={item.href} title={item.title} description={item.description} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft-band">
-    <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Research</p>
-        <h2>研究方向</h2>
+        <p class="eyebrow" data-lang-zh="当前研究" data-lang-en="Current Work">当前研究</p>
+        <h2 data-lang-zh="当前研究" data-lang-en="Current Work">当前研究</h2>
       </div>
       <div class="card-grid">
-        {
-          profile.researchInterests.map((interest, index) => (
-            <Card eyebrow={`0${index + 1}`} title={interest} description="后续可在数据文件中补充更详细的研究问题、资料来源与项目链接。" />
-          ))
-        }
+        {currentWorks.map((work) => <CurrentWorkCard work={work} />)}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container two-column">
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Research Experience</p>
-          <h2>研究经历</h2>
+  <section class="section resource-note-band">
+    <div class="container">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow" data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</p>
+          <h2 data-lang-zh="资料＆笔记" data-lang-en="Resources & Notes">资料＆笔记</h2>
+          <p
+            class="section-summary"
+            data-lang-zh="课程资料、助教归档与研究笔记合并放在这里，作为长期维护的学习和科研入口。"
+            data-lang-en="Course materials, teaching records, and research notes are grouped here as a long-term study and research archive."
+          >
+            课程资料、助教归档与研究笔记合并放在这里，作为长期维护的学习和科研入口。
+          </p>
         </div>
-        <ol class="compact-list">
-          {
-            profile.researchExperience.slice(0, 2).map((item) => (
-              <li>
-                <strong>{item.period}</strong>
-                <span>{item.title}</span>
-                <p>{item.description}</p>
-              </li>
-            ))
-          }
-        </ol>
+        <div class="split-actions">
+          <a class="text-button" href={withBase('/resources/')} data-lang-zh="进入资料馆" data-lang-en="View resources">进入资料馆</a>
+          <a class="text-button" href={withBase('/notes/')} data-lang-zh="查看笔记" data-lang-en="View note">查看笔记</a>
+        </div>
       </div>
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Teaching</p>
-          <h2>助教经历</h2>
-        </div>
-        <ol class="compact-list">
-          {
-            profile.teachingExperience.map((item) => (
-              <li>
-                <strong>{item.period}</strong>
-                <span>{item.title}</span>
-                <p>{item.role} · {item.course}</p>
-                <p>{item.description}</p>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft-band">
-    <div class="container two-column">
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Publications</p>
-          <h2>最新发表 / 成果</h2>
-        </div>
+      <div class="resource-note-grid">
         <div class="stack">
-          {latestPublications.map((publication) => <PublicationItem publication={publication} />)}
-        </div>
-      </div>
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Activities</p>
-          <h2>最近学术活动</h2>
-        </div>
-        <Timeline items={recentActivities} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section literary-band">
-    <div class="container two-column">
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Works</p>
-          <h2>文学作品入口</h2>
-        </div>
-        <div class="stack">
-          {featuredWorks.map((work) => <WorkItem work={work} />)}
-        </div>
-      </div>
-      <div>
-        <div class="section-heading">
-          <p class="eyebrow">Resources</p>
-          <h2>课程资料入口</h2>
+          {recentNotes.map((note) => <NotePreview note={note} />)}
         </div>
         <div class="stack">
           {featuredResources.map((resource) => <ResourceItem resource={resource} compact />)}
         </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    selectedPublication && (
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-lang-zh="代表成果" data-lang-en="Selected Publication">代表成果</p>
+            <h2 data-lang-zh="代表成果" data-lang-en="Selected Publication">代表成果</h2>
+          </div>
+          <SelectedPublication publication={selectedPublication} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section literary-band">
+    <div class="container">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow" data-lang-zh="文学档案" data-lang-en="Writing Archive">文学档案</p>
+          <h2 data-lang-zh="星云档案馆" data-lang-en="Writing Archive">星云档案馆</h2>
+          <p
+            class="section-summary"
+            data-lang-zh="小说、随笔、片段，以及对想象世界的长期记录。"
+            data-lang-en="Fiction, essays, fragments, and records of imagined worlds."
+          >
+            小说、随笔、片段，以及对想象世界的长期记录。
+          </p>
+        </div>
+        <a class="text-button" href={withBase('/works/')} data-lang-zh="进入作品集" data-lang-en="View all writing">进入作品集</a>
+      </div>
+      <div class="work-grid">
+        {homeWriting.map((work) => <WorkItem work={work} />)}
       </div>
     </div>
   </section>

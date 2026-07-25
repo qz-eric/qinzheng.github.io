@@ -1,0 +1,43 @@
+---
+import type { CurrentWork } from '../data/currentWork';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  work: CurrentWork;
+}
+
+const { work } = Astro.props;
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hrefFor = (href: string) => (isExternal(href) ? href : withBase(href));
+const statusLabels: Record<CurrentWork['status'], string> = {
+  Active: '进行中',
+  Ongoing: '持续推进',
+  Exploratory: '探索中'
+};
+---
+
+<article class="current-work-card" id={work.id}>
+  <div class="item-heading">
+    <span class="tag project-status" data-lang-zh={statusLabels[work.status]} data-lang-en={work.status}>
+      {statusLabels[work.status]}
+    </span>
+    <span data-lang-zh={work.titleZh} data-lang-en={work.title}>{work.titleZh}</span>
+  </div>
+  <h3 data-lang-zh={work.titleZh} data-lang-en={work.title}>{work.titleZh}</h3>
+  <p data-lang-zh={work.summary} data-lang-en={work.summaryEn}>{work.summary}</p>
+  <div class="keyword-list">
+    {work.tags.map((tag) => <span>{tag}</span>)}
+  </div>
+  {
+    work.href && (
+      <a
+        class="text-button"
+        href={hrefFor(work.href)}
+        target={isExternal(work.href) ? '_blank' : undefined}
+        rel={isExternal(work.href) ? 'noopener noreferrer' : undefined}
+      >
+        <span data-lang-zh="查看研究脉络" data-lang-en="View research context">查看研究脉络</span>
+      </a>
+    )
+  }
+</article>

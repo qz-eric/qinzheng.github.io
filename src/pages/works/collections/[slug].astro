@@ -34,10 +34,16 @@ const { collection, collectionWorks } = Astro.props;
 <Layout title={collection.title} description={collection.description} bodyClass="literary-page">
   <section class="page-hero compact literary-hero">
     <div class="container">
-      <a class="back-link" href={withBase('/works/')}>返回文学作品</a>
-      <p class="eyebrow">Collection · {collection.coverLabel}</p>
-      <h1>{collection.title}</h1>
-      <p>{collection.description}</p>
+      <a class="back-link" href={withBase('/works/')} data-lang-zh="返回文学作品" data-lang-en="Back to writing">返回文学作品</a>
+      <p
+        class="eyebrow"
+        data-lang-zh={`作品集 · ${collection.coverLabel}`}
+        data-lang-en={`Collection · ${collection.coverLabel}`}
+      >
+        作品集 · {collection.coverLabel}
+      </p>
+      <h1 data-lang-zh={collection.title} data-lang-en={collection.titleEn}>{collection.title}</h1>
+      <p data-lang-zh={collection.description} data-lang-en={collection.descriptionEn}>{collection.description}</p>
     </div>
   </section>
 

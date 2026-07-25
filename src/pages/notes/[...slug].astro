@@ -17,15 +17,28 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+const noteCategoryLabels: Record<string, string> = {
+  'Research Note': '研究笔记',
+  'Reading Note': '读书笔记',
+  'Technical Note': '技术笔记'
+};
+const dateZh = entry.data.date.toLocaleDateString('zh-CN');
+const dateEn = entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <Layout title={entry.data.title} description={entry.data.summary}>
   <article class="reading-page">
     <header class="reading-header">
-      <a class="back-link" href={withBase('/notes/')}>返回笔记列表</a>
-      <p class="eyebrow">{entry.data.category} · {entry.data.date.toLocaleDateString('zh-CN')}</p>
-      <h1>{entry.data.title}</h1>
-      <p>{entry.data.summary}</p>
+      <a class="back-link" href={withBase('/notes/')} data-lang-zh="返回笔记列表" data-lang-en="Back to notes">返回笔记列表</a>
+      <p
+        class="eyebrow"
+        data-lang-zh={`${noteCategoryLabels[entry.data.category] ?? entry.data.category} · ${dateZh}`}
+        data-lang-en={`${entry.data.category} · ${dateEn}`}
+      >
+        {noteCategoryLabels[entry.data.category] ?? entry.data.category} · {dateZh}
+      </p>
+      <h1 data-lang-zh={entry.data.title} data-lang-en={entry.data.titleEn ?? entry.data.title}>{entry.data.title}</h1>
+      <p data-lang-zh={entry.data.summary} data-lang-en={entry.data.summaryEn ?? entry.data.summary}>{entry.data.summary}</p>
       <div class="keyword-list centered">
         {entry.data.tags.map((tag) => <span>{tag}</span>)}
       </div>

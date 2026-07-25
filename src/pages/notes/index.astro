@@ -6,14 +6,25 @@ import { withBase } from '../../utils/paths';
 const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+const noteCategoryLabels: Record<string, string> = {
+  'Research Note': '研究笔记',
+  'Reading Note': '读书笔记',
+  'Technical Note': '技术笔记'
+};
 ---
 
 <Layout title="笔记" description="研究笔记、读书笔记与技术笔记。">
   <section class="page-hero compact">
     <div class="container">
-      <p class="eyebrow">Notes</p>
-      <h1>笔记</h1>
-      <p>研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。</p>
+      <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
+      <h1 data-lang-zh="笔记" data-lang-en="Notes">笔记</h1>
+      <p
+        data-lang-zh="研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。"
+        data-lang-en="Research notes, reading notes, and technical notes can be maintained with Markdown or MDX."
+      >
+        研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。
+      </p>
     </div>
   </section>
 
@@ -23,11 +34,31 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
         notes.map((note) => (
           <article class="note-item">
             <div class="item-heading">
-              <span class="tag">{note.data.category}</span>
-              <time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString('zh-CN')}</time>
+              <span
+                class="tag"
+                data-lang-zh={noteCategoryLabels[note.data.category] ?? note.data.category}
+                data-lang-en={note.data.category}
+              >
+                {noteCategoryLabels[note.data.category] ?? note.data.category}
+              </span>
+              <time
+                datetime={note.data.date.toISOString()}
+                data-lang-zh={note.data.date.toLocaleDateString('zh-CN')}
+                data-lang-en={note.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              >
+                {note.data.date.toLocaleDateString('zh-CN')}
+              </time>
             </div>
-            <h2><a href={withBase(`/notes/${note.slug}/`)}>{note.data.title}</a></h2>
-            <p>{note.data.summary}</p>
+            <h2>
+              <a
+                href={withBase(`/notes/${note.slug}/`)}
+                data-lang-zh={note.data.title}
+                data-lang-en={note.data.titleEn ?? note.data.title}
+              >
+                {note.data.title}
+              </a>
+            </h2>
+            <p data-lang-zh={note.data.summary} data-lang-en={note.data.summaryEn ?? note.data.summary}>{note.data.summary}</p>
             <div class="keyword-list">
               {note.data.tags.map((tag) => <span>{tag}</span>)}
             </div>

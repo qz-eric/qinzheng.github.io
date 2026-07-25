@@ -4,11 +4,14 @@ import { withBase } from '../utils/paths';
 interface Props {
   href?: string;
   eyebrow?: string;
+  eyebrowEn?: string;
   title: string;
+  titleEn?: string;
   description?: string;
+  descriptionEn?: string;
 }
 
-const { href, eyebrow, title, description } = Astro.props;
+const { href, eyebrow, eyebrowEn, title, titleEn, description, descriptionEn } = Astro.props;
 const isExternal = href ? /^https?:\/\//.test(href) : false;
 const cardHref = href ? withBase(href) : '';
 ---
@@ -21,15 +24,15 @@ const cardHref = href ? withBase(href) : '';
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
     >
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-      <h3>{title}</h3>
-      {description && <p>{description}</p>}
+      {eyebrow && <span class="eyebrow" data-lang-zh={eyebrow} data-lang-en={eyebrowEn ?? eyebrow}>{eyebrow}</span>}
+      <h3 data-lang-zh={title} data-lang-en={titleEn ?? title}>{title}</h3>
+      {description && <p data-lang-zh={description} data-lang-en={descriptionEn ?? description}>{description}</p>}
     </a>
   ) : (
     <article class="card">
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-      <h3>{title}</h3>
-      {description && <p>{description}</p>}
+      {eyebrow && <span class="eyebrow" data-lang-zh={eyebrow} data-lang-en={eyebrowEn ?? eyebrow}>{eyebrow}</span>}
+      <h3 data-lang-zh={title} data-lang-en={titleEn ?? title}>{title}</h3>
+      {description && <p data-lang-zh={description} data-lang-en={descriptionEn ?? description}>{description}</p>}
     </article>
   )
 }

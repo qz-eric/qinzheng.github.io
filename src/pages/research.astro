@@ -1,0 +1,126 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../components/Layout.astro';
+import CurrentWorkCard from '../components/CurrentWorkCard.astro';
+import NotePreview from '../components/NotePreview.astro';
+import { currentWorks } from '../data/currentWork';
+import { profile } from '../data/profile';
+import { publications } from '../data/publications';
+import { withBase } from '../utils/paths';
+
+const researchNotes = (await getCollection('notes', ({ data }) => !data.draft))
+  .filter((note) =>
+    note.data.category.includes('Research') ||
+    note.data.category.includes('Method') ||
+    note.data.category.includes('Exploratory')
+  )
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const selectedPublications = publications.filter((publication) => publication.status === 'Published').slice(0, 2);
+---
+
+<Layout
+  title="研究"
+  description="当前研究项目、研究经历、相关笔记和正式成果入口。"
+>
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="eyebrow" data-lang-zh="研究" data-lang-en="Research">研究</p>
+      <h1 data-lang-zh="研究" data-lang-en="Research">研究</h1>
+      <p
+        data-lang-zh="当前研究以卫星观测下的云与降水过程为主线，围绕东北冷涡、云微物理结构和机器学习反演组织。"
+        data-lang-en="My current research centers on cloud and precipitation processes observed by satellites, with a focus on the Northeast China Cold Vortex, cloud microphysical structures, and machine-learning retrieval."
+      >
+        当前研究以卫星观测下的云与降水过程为主线，围绕东北冷涡、云微物理结构和机器学习反演组织。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow" data-lang-zh="当前研究" data-lang-en="Current Work">当前研究</p>
+        <h2 data-lang-zh="当前研究" data-lang-en="Current Work">当前研究</h2>
+      </div>
+      <div class="card-grid">
+        {currentWorks.map((work) => <CurrentWorkCard work={work} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft-band">
+    <div class="container two-column">
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow" data-lang-zh="研究经历" data-lang-en="Experience">研究经历</p>
+          <h2 data-lang-zh="研究经历" data-lang-en="Research Experience">研究经历</h2>
+        </div>
+        <ol class="compact-list">
+          {
+            profile.researchExperience.map((item) => (
+              <li>
+                <strong data-lang-zh={item.period} data-lang-en={item.periodEn}>{item.period}</strong>
+                <span data-lang-zh={item.title} data-lang-en={item.titleEn}>{item.title}</span>
+                <p data-lang-zh={item.description} data-lang-en={item.descriptionEn}>{item.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div>
+        <div class="section-heading">
+          <p class="eyebrow" data-lang-zh="入口" data-lang-en="Records">入口</p>
+          <h2 data-lang-zh="相关入口" data-lang-en="Related Pages">相关入口</h2>
+        </div>
+        <div class="stack">
+          <a class="entry-card" href={withBase('/publications/')} data-lang-zh="发表成果" data-lang-en="Publications">发表成果</a>
+          <a class="entry-card" href={withBase('/activities/')} data-lang-zh="学术活动" data-lang-en="Academic Activities">学术活动</a>
+          <a class="entry-card" href={withBase('/resources/')} data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    researchNotes.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
+              <h2 data-lang-zh="研究笔记" data-lang-en="Research Notes">研究笔记</h2>
+            </div>
+            <a class="text-button" href={withBase('/notes/')} data-lang-zh="查看笔记" data-lang-en="View all notes">查看笔记</a>
+          </div>
+          <div class="note-preview-grid">
+            {researchNotes.map((note) => <NotePreview note={note} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    selectedPublications.length > 0 && (
+      <section class="section soft-band">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-lang-zh="发表成果" data-lang-en="Publications">发表成果</p>
+            <h2 data-lang-zh="正式成果" data-lang-en="Peer-reviewed Publications">正式成果</h2>
+          </div>
+          <div class="compact-publication-list">
+            {
+              selectedPublications.map((publication) => (
+                <article class="entry-card">
+                  <strong>{publication.title}</strong>
+                  <span>{publication.journal}, {publication.year}</span>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>
