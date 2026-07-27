@@ -886,6 +886,41 @@ ol {
   font-size: 1.3rem;
 }
 
+.wechat-section {
+  padding-top: 44px;
+}
+
+.wechat-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 28px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  background: rgba(255, 253, 248, 0.92);
+  padding: 24px;
+}
+
+.wechat-panel h2 {
+  margin-top: 6px;
+  font-size: 1.45rem;
+}
+
+.wechat-panel p:not(.eyebrow) {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.wechat-panel img {
+  width: 220px;
+  height: 220px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: white;
+  object-fit: cover;
+}
+
 .education-list {
   display: grid;
   gap: 16px;
@@ -1615,8 +1650,13 @@ ol {
   }
 
   .cv-header,
-  .footer-inner {
+  .footer-inner,
+  .wechat-panel {
     grid-template-columns: 1fr;
+  }
+
+  .wechat-panel img {
+    justify-self: center;
   }
 
   .footer-links {

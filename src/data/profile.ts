@@ -245,7 +245,7 @@ export const profile = {
   socialLinks: [
     { label: 'Sci Profiles', href: 'https://sciprofiles.com/profile/ZhengQin' },
     { label: 'ORCID', href: 'https://orcid.org/0009-0007-0916-7551' },
-    { label: 'GitHub', href: 'https://github.com/' },
-    { label: '微信公众号', href: 'https://github.com/' }
+    { label: 'GitHub', href: 'https://github.com/qz-eric' },
+    { label: '微信公众号', href: '/about/#wechat-official-account' }
   ]
 } as const;

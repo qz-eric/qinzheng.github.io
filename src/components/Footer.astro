@@ -1,8 +1,10 @@
 ---
 import { profile } from '../data/profile';
+import { withBase } from '../utils/paths';
 
 const year = new Date().getFullYear();
 const isExternal = (href: string) => /^https?:\/\//.test(href);
+const hrefFor = (href: string) => (isExternal(href) || href.startsWith('#') ? href : withBase(href));
 ---
 
 <footer class="site-footer">
@@ -20,7 +22,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
       {
         profile.socialLinks.map((link) => (
           <a
-            href={link.href}
+            href={hrefFor(link.href)}
             target={isExternal(link.href) ? '_blank' : undefined}
             rel={isExternal(link.href) ? 'noopener noreferrer' : undefined}
           >
