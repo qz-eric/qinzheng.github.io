@@ -1,21 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
 import CurrentWorkCard from '../components/CurrentWorkCard.astro';
-import NotePreview from '../components/NotePreview.astro';
 import SelectedPublication from '../components/SelectedPublication.astro';
 import WorkItem from '../components/WorkItem.astro';
 import ResourceItem from '../components/ResourceItem.astro';
 import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { publications } from '../data/publications';
-import { resources } from '../data/resources';
+import { resourceCategories, resourceCategoryLabelsEn, resources, type ResourceCategory } from '../data/resources';
 import { homeWritingSlugs, works } from '../data/works';
 import { withBase } from '../utils/paths';
-
-const recentNotes = (await getCollection('notes', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 1);
 
 const selectedPublication =
   publications.find((publication) => publication.graphicalAbstract?.showOnHome) ??
@@ -34,6 +28,17 @@ const featuredResourceIds = [
 const featuredResources = featuredResourceIds
   .map((id) => resources.find((resource) => resource.id === id))
   .filter((resource): resource is (typeof resources)[number] => Boolean(resource));
+
+const resourceCategorySlugs: Record<ResourceCategory, string> = {
+  数学基础: 'mathematics',
+  大气专业课程: 'atmospheric-science',
+  助教课程: 'teaching-assistant',
+  科研写作: 'scientific-writing',
+  机器学习: 'machine-learning',
+  LaTeX: 'latex',
+  代码: 'code',
+  Book: 'books'
+};
 ---
 
 <Layout
@@ -98,21 +103,30 @@ const featuredResources = featuredResourceIds
           <h2 data-lang-zh="资料＆笔记" data-lang-en="Resources & Notes">资料＆笔记</h2>
           <p
             class="section-summary"
-            data-lang-zh="课程资料、助教归档与研究笔记合并放在这里，作为长期维护的学习和科研入口。"
-            data-lang-en="Course materials, teaching records, and research notes are grouped here as a long-term study and research archive."
+            data-lang-zh="课程资料、助教归档、book、slides 与代码材料集中放在这里，作为长期维护的学习和科研入口。"
+            data-lang-en="Course materials, teaching records, books, slides, and code materials are grouped here as a long-term study and research archive."
           >
-            课程资料、助教归档与研究笔记合并放在这里，作为长期维护的学习和科研入口。
+            课程资料、助教归档、book、slides 与代码材料集中放在这里，作为长期维护的学习和科研入口。
           </p>
         </div>
         <div class="split-actions">
           <a class="text-button" href={withBase('/resources/')} data-lang-zh="进入资料馆" data-lang-en="View resources">进入资料馆</a>
-          <a class="text-button" href={withBase('/notes/')} data-lang-zh="查看笔记" data-lang-en="View note">查看笔记</a>
         </div>
       </div>
-      <div class="resource-note-grid">
-        <div class="stack">
-          {recentNotes.map((note) => <NotePreview note={note} />)}
-        </div>
+      <nav class="resource-home-nav" aria-label="资料分类入口">
+        {
+          resourceCategories.map((category) => (
+            <a
+              href={withBase(`/resources/#resource-${resourceCategorySlugs[category]}`)}
+              data-lang-zh={category}
+              data-lang-en={resourceCategoryLabelsEn[category]}
+            >
+              {category}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="resource-note-grid resources-only">
         <div class="stack">
           {featuredResources.map((resource) => <ResourceItem resource={resource} compact />)}
         </div>

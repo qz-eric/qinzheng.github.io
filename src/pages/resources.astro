@@ -1,7 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
-import NotePreview from '../components/NotePreview.astro';
 import ResourceItem from '../components/ResourceItem.astro';
 import {
   resourceCategories,
@@ -36,65 +34,233 @@ const categoryEyebrowsZh: Record<ResourceCategory, string> = {
   Book: '书籍'
 };
 
-const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const categorySlugs: Record<ResourceCategory, string> = {
+  数学基础: 'mathematics',
+  大气专业课程: 'atmospheric-science',
+  助教课程: 'teaching-assistant',
+  科研写作: 'scientific-writing',
+  机器学习: 'machine-learning',
+  LaTeX: 'latex',
+  代码: 'code',
+  Book: 'books'
+};
+
+const categoryGroups = categories.map((category) => ({
+  category,
+  id: `resource-${categorySlugs[category]}`,
+  eyebrowZh: categoryEyebrowsZh[category],
+  eyebrowEn: categoryEyebrows[category],
+  labelEn: resourceCategoryLabelsEn[category],
+  items: resources.filter((resource) => resource.category === category)
+}));
 ---
 
-<Layout title="资料与笔记" description="课程资料、助教归档、book、slides、code 与研究笔记归档。">
+<Layout title="资料与笔记" description="课程资料、助教归档、book、slides 与 code 归档。">
   <section class="page-hero compact">
     <div class="container">
       <p class="eyebrow" data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</p>
       <h1 data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</h1>
       <p
-        data-lang-zh="课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；研究笔记保留为少量可持续维护的条目。"
-        data-lang-en="Course materials support full downloads and section-level links by Week, Lecture, or Chapter. Research notes are kept as a small maintainable archive."
+        data-lang-zh="课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；不同分类可以横向滑动浏览。"
+        data-lang-en="Course materials support full downloads and section-level links by Week, Lecture, or Chapter. Browse categories horizontally from the archive panels."
       >
-        课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；研究笔记保留为少量可持续维护的条目。
+        课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；不同分类可以横向滑动浏览。
       </p>
     </div>
   </section>
 
-  {
-    notes.length > 0 && (
-      <section class="section resource-note-band">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
-            <h2 data-lang-zh="研究笔记" data-lang-en="Research Note">研究笔记</h2>
-          </div>
-          <div class="note-list">
-            {notes.map((note) => <NotePreview note={note} />)}
-          </div>
+  <section class="section resource-hub" data-resource-hub>
+    <div class="container">
+      <div class="section-heading split-heading resource-hub-heading">
+        <div>
+          <p class="eyebrow" data-lang-zh="分类索引" data-lang-en="Archive Index">分类索引</p>
+          <h2 data-lang-zh="横向资料面板" data-lang-en="Horizontal Resource Panels">横向资料面板</h2>
+          <p
+            class="section-summary"
+            data-lang-zh="点击分类标题可以直接切换到对应资料面板，也可以在下方横向滑动浏览。"
+            data-lang-en="Click a category title to jump to its panel, or swipe horizontally through the archive."
+          >
+            点击分类标题可以直接切换到对应资料面板，也可以在下方横向滑动浏览。
+          </p>
         </div>
-      </section>
-    )
-  }
+        <nav class="resource-top-nav" aria-label="资料分类导航">
+          {
+            categoryGroups.map((group) => (
+              <a
+                href={`#${group.id}`}
+                data-resource-nav
+                data-lang-zh={group.category}
+                data-lang-en={group.labelEn}
+              >
+                {group.category}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
 
-  <section class="section">
-    <div class="container stack large">
-      {
-        categories.map((category) => {
-          const items = resources.filter((resource) => resource.category === category);
-          return (
-            <section>
-              <div class="section-heading">
-                <p
-                  class="eyebrow"
-                  data-lang-zh={categoryEyebrowsZh[category]}
-                  data-lang-en={categoryEyebrows[category]}
-                >
-                  {categoryEyebrowsZh[category]}
-                </p>
-                <h2 data-lang-zh={category} data-lang-en={resourceCategoryLabelsEn[category]}>{category}</h2>
-              </div>
-              <div class="resource-grid">
-                {items.map((resource) => <ResourceItem resource={resource} />)}
-              </div>
-            </section>
-          );
-        })
-      }
+      <div class="resource-side-shell" data-resource-side-shell>
+        <button
+          class="resource-side-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="resource-side-nav"
+          data-resource-side-toggle
+        >
+          <span data-lang-zh="目录" data-lang-en="Index">目录</span>
+        </button>
+        <nav class="resource-side-nav" id="resource-side-nav" aria-label="资料面板目录" data-resource-side-nav>
+          <strong data-lang-zh="资料分类" data-lang-en="Categories">资料分类</strong>
+          {
+            categoryGroups.map((group) => (
+              <a
+                href={`#${group.id}`}
+                data-resource-nav
+                data-lang-zh={group.category}
+                data-lang-en={group.labelEn}
+              >
+                {group.category}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <div class="resource-slide-viewport" data-resource-slider>
+        <div class="resource-slide-track">
+          {
+            categoryGroups.map((group) => (
+              <section class="resource-slide" id={group.id} data-resource-panel tabindex="-1">
+                <div class="resource-slide-header">
+                  <div>
+                    <p
+                      class="eyebrow"
+                      data-lang-zh={group.eyebrowZh}
+                      data-lang-en={group.eyebrowEn}
+                    >
+                      {group.eyebrowZh}
+                    </p>
+                    <h2 data-lang-zh={group.category} data-lang-en={group.labelEn}>{group.category}</h2>
+                  </div>
+                  <span
+                    data-lang-zh={`${group.items.length} 个条目`}
+                    data-lang-en={`${group.items.length} items`}
+                  >
+                    {group.items.length} 个条目
+                  </span>
+                </div>
+                <div class="resource-grid resource-slide-grid">
+                  {group.items.map((resource) => <ResourceItem resource={resource} />)}
+                </div>
+              </section>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  const resourceHub = document.querySelector<HTMLElement>('[data-resource-hub]');
+  const resourceSlider = document.querySelector<HTMLElement>('[data-resource-slider]');
+  const resourceSideShell = document.querySelector<HTMLElement>('[data-resource-side-shell]');
+  const resourceSideNav = document.querySelector<HTMLElement>('[data-resource-side-nav]');
+  const resourceSideToggle = document.querySelector<HTMLButtonElement>('[data-resource-side-toggle]');
+  const resourceNavLinks = document.querySelectorAll<HTMLAnchorElement>('[data-resource-nav]');
+  const resourcePanels = Array.from(document.querySelectorAll<HTMLElement>('[data-resource-panel]'));
+
+  const setResourceNavOpen = (isOpen: boolean) => {
+    resourceSideNav?.classList.toggle('is-open', isOpen);
+    resourceSideToggle?.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  const setActiveResourcePanel = (id: string) => {
+    resourceNavLinks.forEach((link) => {
+      const isActive = link.hash === `#${id}`;
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  };
+
+  const scrollToResourcePanel = (id: string, shouldUpdateHash = true) => {
+    const panel = document.getElementById(id);
+    if (!panel) return;
+
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    setActiveResourcePanel(id);
+
+    if (shouldUpdateHash) {
+      history.replaceState(null, '', `${location.pathname}${location.search}#${id}`);
+    }
+  };
+
+  resourceHub?.addEventListener('mouseenter', () => {
+    resourceSideNav?.classList.add('is-peeking');
+  });
+
+  resourceHub?.addEventListener('mouseleave', () => {
+    window.setTimeout(() => {
+      if (!resourceSideShell?.matches(':hover') && !resourceSideNav?.classList.contains('is-open')) {
+        resourceSideNav?.classList.remove('is-peeking');
+      }
+    }, 180);
+  });
+
+  resourceSideShell?.addEventListener('mouseleave', () => {
+    if (!resourceSideNav?.classList.contains('is-open')) {
+      resourceSideNav?.classList.remove('is-peeking');
+    }
+  });
+
+  resourceSideToggle?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const isOpen = resourceSideNav?.classList.contains('is-open') ?? false;
+    setResourceNavOpen(!isOpen);
+    resourceSideNav?.classList.add('is-peeking');
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    if (resourceSideShell?.contains(target) || resourceHub?.contains(target)) return;
+    setResourceNavOpen(false);
+    resourceSideNav?.classList.remove('is-peeking');
+  });
+
+  resourceNavLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const id = link.hash.slice(1);
+      if (!id) return;
+      event.preventDefault();
+      scrollToResourcePanel(id);
+    });
+  });
+
+  let resourceScrollFrame = 0;
+  resourceSlider?.addEventListener('scroll', () => {
+    window.cancelAnimationFrame(resourceScrollFrame);
+    resourceScrollFrame = window.requestAnimationFrame(() => {
+      const closest = resourcePanels.reduce<HTMLElement | null>((current, panel) => {
+        if (!resourceSlider) return current;
+        if (!current) return panel;
+        const currentDistance = Math.abs(current.offsetLeft - resourceSlider.scrollLeft);
+        const panelDistance = Math.abs(panel.offsetLeft - resourceSlider.scrollLeft);
+        return panelDistance < currentDistance ? panel : current;
+      }, null);
+
+      if (closest?.id) {
+        setActiveResourcePanel(closest.id);
+      }
+    });
+  }, { passive: true });
+
+  if (location.hash) {
+    window.setTimeout(() => scrollToResourcePanel(decodeURIComponent(location.hash.slice(1)), false), 80);
+  } else if (resourcePanels[0]?.id) {
+    setActiveResourcePanel(resourcePanels[0].id);
+  }
+</script>
