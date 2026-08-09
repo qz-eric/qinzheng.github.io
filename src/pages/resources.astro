@@ -4,6 +4,7 @@ import ResourceItem from '../components/ResourceItem.astro';
 import {
   resourceCategories,
   resourceCategoryLabelsEn,
+  resourceCategorySlugs,
   resources,
   type ResourceCategory
 } from '../data/resources';
@@ -34,20 +35,9 @@ const categoryEyebrowsZh: Record<ResourceCategory, string> = {
   Book: '书籍'
 };
 
-const categorySlugs: Record<ResourceCategory, string> = {
-  数学基础: 'mathematics',
-  大气专业课程: 'atmospheric-science',
-  助教课程: 'teaching-assistant',
-  科研写作: 'scientific-writing',
-  机器学习: 'machine-learning',
-  LaTeX: 'latex',
-  代码: 'code',
-  Book: 'books'
-};
-
 const categoryGroups = categories.map((category) => ({
   category,
-  id: `resource-${categorySlugs[category]}`,
+  id: `resource-${resourceCategorySlugs[category]}`,
   eyebrowZh: categoryEyebrowsZh[category],
   eyebrowEn: categoryEyebrows[category],
   labelEn: resourceCategoryLabelsEn[category],
@@ -71,7 +61,7 @@ const categoryGroups = categories.map((category) => ({
 
   <section class="section resource-hub" data-resource-hub>
     <div class="container">
-      <div class="section-heading split-heading resource-hub-heading">
+      <div class="section-heading resource-hub-heading">
         <div>
           <p class="eyebrow" data-lang-zh="分类索引" data-lang-en="Archive Index">分类索引</p>
           <h2 data-lang-zh="横向资料面板" data-lang-en="Horizontal Resource Panels">横向资料面板</h2>
@@ -83,48 +73,22 @@ const categoryGroups = categories.map((category) => ({
             点击分类标题可以直接切换到对应资料面板，也可以在下方横向滑动浏览。
           </p>
         </div>
-        <nav class="resource-top-nav" aria-label="资料分类导航">
-          {
-            categoryGroups.map((group) => (
-              <a
-                href={`#${group.id}`}
-                data-resource-nav
-                data-lang-zh={group.category}
-                data-lang-en={group.labelEn}
-              >
-                {group.category}
-              </a>
-            ))
-          }
-        </nav>
       </div>
 
-      <div class="resource-side-shell" data-resource-side-shell>
-        <button
-          class="resource-side-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="resource-side-nav"
-          data-resource-side-toggle
-        >
-          <span data-lang-zh="目录" data-lang-en="Index">目录</span>
-        </button>
-        <nav class="resource-side-nav" id="resource-side-nav" aria-label="资料面板目录" data-resource-side-nav>
-          <strong data-lang-zh="资料分类" data-lang-en="Categories">资料分类</strong>
-          {
-            categoryGroups.map((group) => (
-              <a
-                href={`#${group.id}`}
-                data-resource-nav
-                data-lang-zh={group.category}
-                data-lang-en={group.labelEn}
-              >
-                {group.category}
-              </a>
-            ))
-          }
-        </nav>
-      </div>
+      <nav class="resource-top-nav resource-page-nav" aria-label="资料分类导航">
+        {
+          categoryGroups.map((group) => (
+            <a
+              href={`#${group.id}`}
+              data-resource-nav
+              data-lang-zh={group.category}
+              data-lang-en={group.labelEn}
+            >
+              {group.category}
+            </a>
+          ))
+        }
+      </nav>
 
       <div class="resource-slide-viewport" data-resource-slider>
         <div class="resource-slide-track">
@@ -162,18 +126,9 @@ const categoryGroups = categories.map((category) => ({
 </Layout>
 
 <script>
-  const resourceHub = document.querySelector<HTMLElement>('[data-resource-hub]');
   const resourceSlider = document.querySelector<HTMLElement>('[data-resource-slider]');
-  const resourceSideShell = document.querySelector<HTMLElement>('[data-resource-side-shell]');
-  const resourceSideNav = document.querySelector<HTMLElement>('[data-resource-side-nav]');
-  const resourceSideToggle = document.querySelector<HTMLButtonElement>('[data-resource-side-toggle]');
   const resourceNavLinks = document.querySelectorAll<HTMLAnchorElement>('[data-resource-nav]');
   const resourcePanels = Array.from(document.querySelectorAll<HTMLElement>('[data-resource-panel]'));
-
-  const setResourceNavOpen = (isOpen: boolean) => {
-    resourceSideNav?.classList.toggle('is-open', isOpen);
-    resourceSideToggle?.setAttribute('aria-expanded', String(isOpen));
-  };
 
   const setActiveResourcePanel = (id: string) => {
     resourceNavLinks.forEach((link) => {
@@ -191,45 +146,15 @@ const categoryGroups = categories.map((category) => ({
     const panel = document.getElementById(id);
     if (!panel) return;
 
-    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    const targetLeft = resourceSlider ? Math.max(panel.offsetLeft - 18, 0) : 0;
+    resourceSlider?.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    panel.focus({ preventScroll: true });
     setActiveResourcePanel(id);
 
     if (shouldUpdateHash) {
       history.replaceState(null, '', `${location.pathname}${location.search}#${id}`);
     }
   };
-
-  resourceHub?.addEventListener('mouseenter', () => {
-    resourceSideNav?.classList.add('is-peeking');
-  });
-
-  resourceHub?.addEventListener('mouseleave', () => {
-    window.setTimeout(() => {
-      if (!resourceSideShell?.matches(':hover') && !resourceSideNav?.classList.contains('is-open')) {
-        resourceSideNav?.classList.remove('is-peeking');
-      }
-    }, 180);
-  });
-
-  resourceSideShell?.addEventListener('mouseleave', () => {
-    if (!resourceSideNav?.classList.contains('is-open')) {
-      resourceSideNav?.classList.remove('is-peeking');
-    }
-  });
-
-  resourceSideToggle?.addEventListener('click', (event) => {
-    event.stopPropagation();
-    const isOpen = resourceSideNav?.classList.contains('is-open') ?? false;
-    setResourceNavOpen(!isOpen);
-    resourceSideNav?.classList.add('is-peeking');
-  });
-
-  document.addEventListener('click', (event) => {
-    const target = event.target as Node;
-    if (resourceSideShell?.contains(target) || resourceHub?.contains(target)) return;
-    setResourceNavOpen(false);
-    resourceSideNav?.classList.remove('is-peeking');
-  });
 
   resourceNavLinks.forEach((link) => {
     link.addEventListener('click', (event) => {

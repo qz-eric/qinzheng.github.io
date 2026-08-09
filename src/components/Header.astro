@@ -1,13 +1,20 @@
 ---
 import { profile } from '../data/profile';
+import { resourceCategories, resourceCategoryLabelsEn, resourceCategorySlugs } from '../data/resources';
 import { stripBase, withBase } from '../utils/paths';
+
+const resourceSubItems = resourceCategories.map((category) => ({
+  href: `/resources/#resource-${resourceCategorySlugs[category]}`,
+  labelZh: category,
+  labelEn: resourceCategoryLabelsEn[category]
+}));
 
 const navItems = [
   { href: '/', labelZh: '首页', labelEn: 'Home' },
   { href: '/about/', labelZh: '关于我', labelEn: 'About Me' },
   { href: '/research/', labelZh: '研究', labelEn: 'Research' },
   { href: '/publications/', labelZh: '发表成果', labelEn: 'Publications' },
-  { href: '/resources/', labelZh: '资料＆笔记', labelEn: 'Resources & Notes' },
+  { href: '/resources/', labelZh: '资料＆笔记', labelEn: 'Resources & Notes', children: resourceSubItems },
   { href: '/works/', labelZh: '文学作品', labelEn: 'Writing' },
   { href: '/teaching/', labelZh: '助教', labelEn: 'TA' }
 ];
@@ -41,9 +48,39 @@ const isActive = (href: string) => {
     <nav class="site-nav" aria-label="主导航" data-site-nav>
       {
         navItems.map((item) => (
-          <a href={withBase(item.href)} class:list={[isActive(item.href) && 'is-active']}>
-            <span data-lang-zh={item.labelZh} data-lang-en={item.labelEn}>{item.labelZh}</span>
-          </a>
+          <div
+            class:list={['nav-item-wrap', item.children && 'has-subnav']}
+            data-resource-menu-parent={item.children ? true : undefined}
+          >
+            <a
+              class:list={['nav-link', isActive(item.href) && 'is-active']}
+              href={withBase(item.href)}
+              data-resource-menu-trigger={item.children ? true : undefined}
+              aria-haspopup={item.children ? 'true' : undefined}
+              aria-expanded={item.children ? 'false' : undefined}
+            >
+              <span data-lang-zh={item.labelZh} data-lang-en={item.labelEn}>{item.labelZh}</span>
+            </a>
+            {
+              item.children && (
+                <div class="nav-submenu" data-header-resource-menu>
+                  <strong data-lang-zh="资料分类" data-lang-en="Resource Sections">资料分类</strong>
+                  <div>
+                    {item.children.map((child) => (
+                      <a
+                        href={withBase(child.href)}
+                        data-resource-subnav-link
+                        data-lang-zh={child.labelZh}
+                        data-lang-en={child.labelEn}
+                      >
+                        {child.labelZh}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+          </div>
         ))
       }
     </nav>
@@ -59,7 +96,15 @@ const isActive = (href: string) => {
   const nav = document.querySelector('[data-site-nav]');
   const langButtons = document.querySelectorAll<HTMLButtonElement>('[data-lang-option]');
   const translatableNodes = document.querySelectorAll<HTMLElement>('[data-lang-zh][data-lang-en]');
+  const resourceMenuParent = document.querySelector<HTMLElement>('[data-resource-menu-parent]');
+  const resourceMenuTrigger = document.querySelector<HTMLAnchorElement>('[data-resource-menu-trigger]');
+  const resourceSubnavLinks = document.querySelectorAll<HTMLAnchorElement>('[data-resource-subnav-link]');
   const languageStorageKey = 'site-language';
+
+  const setHeaderResourceMenuOpen = (isOpen: boolean) => {
+    resourceMenuParent?.classList.toggle('is-subnav-open', isOpen);
+    resourceMenuTrigger?.setAttribute('aria-expanded', String(isOpen));
+  };
 
   const applyLanguage = (language?: string | null) => {
     const normalized = language === 'en' ? 'en' : 'zh';
@@ -80,6 +125,32 @@ const isActive = (href: string) => {
   toggle?.addEventListener('click', () => {
     const isOpen = nav?.classList.toggle('is-open') ?? false;
     toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  resourceMenuParent?.addEventListener('mouseenter', () => {
+    setHeaderResourceMenuOpen(true);
+  });
+
+  resourceMenuTrigger?.addEventListener('focus', () => {
+    setHeaderResourceMenuOpen(true);
+  });
+
+  resourceSubnavLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      setHeaderResourceMenuOpen(false);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    if (resourceMenuParent?.contains(target)) return;
+    setHeaderResourceMenuOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setHeaderResourceMenuOpen(false);
+    }
   });
 
   langButtons.forEach((button) => {

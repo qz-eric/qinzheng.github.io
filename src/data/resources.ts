@@ -60,6 +60,17 @@ export const resourceCategoryLabelsEn: Record<ResourceCategory, string> = {
   Book: 'Books'
 };
 
+export const resourceCategorySlugs: Record<ResourceCategory, string> = {
+  数学基础: 'mathematics',
+  大气专业课程: 'atmospheric-science',
+  助教课程: 'teaching-assistant',
+  科研写作: 'scientific-writing',
+  机器学习: 'machine-learning',
+  LaTeX: 'latex',
+  代码: 'code',
+  Book: 'books'
+};
+
 export const resourceLevelLabelsEn: Record<Resource['level'], string> = {
   本科: 'Undergraduate',
   研究生: 'Graduate',

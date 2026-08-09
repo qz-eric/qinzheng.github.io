@@ -1,28 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
 import CurrentWorkCard from '../components/CurrentWorkCard.astro';
-import NotePreview from '../components/NotePreview.astro';
 import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { publications } from '../data/publications';
 import { withBase } from '../utils/paths';
-
-const researchNotes = (await getCollection('notes', ({ data }) => !data.draft))
-  .filter((note) =>
-    note.data.category.includes('Research') ||
-    note.data.category.includes('Method') ||
-    note.data.category.includes('Exploratory')
-  )
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
 
 const selectedPublications = publications.filter((publication) => publication.status === 'Published').slice(0, 2);
 ---
 
 <Layout
   title="研究"
-  description="当前研究项目、研究经历、相关笔记和正式成果入口。"
+  description="当前研究项目、研究经历和正式成果入口。"
 >
   <section class="page-hero compact">
     <div class="container">
@@ -76,30 +65,11 @@ const selectedPublications = publications.filter((publication) => publication.st
         <div class="stack">
           <a class="entry-card" href={withBase('/publications/')} data-lang-zh="发表成果" data-lang-en="Publications">发表成果</a>
           <a class="entry-card" href={withBase('/activities/')} data-lang-zh="学术活动" data-lang-en="Academic Activities">学术活动</a>
-          <a class="entry-card" href={withBase('/resources/')} data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</a>
+          <a class="entry-card" href={withBase('/resources/')} data-lang-zh="资料归档" data-lang-en="Resources Archive">资料归档</a>
         </div>
       </div>
     </div>
   </section>
-
-  {
-    researchNotes.length > 0 && (
-      <section class="section">
-        <div class="container">
-          <div class="section-heading split-heading">
-            <div>
-              <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
-              <h2 data-lang-zh="研究笔记" data-lang-en="Research Notes">研究笔记</h2>
-            </div>
-            <a class="text-button" href={withBase('/notes/')} data-lang-zh="查看笔记" data-lang-en="View all notes">查看笔记</a>
-          </div>
-          <div class="note-preview-grid">
-            {researchNotes.map((note) => <NotePreview note={note} />)}
-          </div>
-        </div>
-      </section>
-    )
-  }
 
   {
     selectedPublications.length > 0 && (

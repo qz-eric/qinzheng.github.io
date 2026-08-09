@@ -2,9 +2,9 @@
 title: 东北冷涡生命阶段如何划分？
 titleEn: How should the life stages of a Northeast China Cold Vortex be defined?
 date: 2026-06-18
-category: Research Note
+category: Research Record
 summary: 从事件识别、路径变化、强度指标和云微物理响应四个角度整理东北冷涡生命阶段划分思路。
-summaryEn: A short research note on defining NCCV life stages through event detection, track evolution, intensity metrics, and cloud microphysical responses.
+summaryEn: A short research record on defining NCCV life stages through event detection, track evolution, intensity metrics, and cloud microphysical responses.
 tags:
   - 东北冷涡
   - 生命周期

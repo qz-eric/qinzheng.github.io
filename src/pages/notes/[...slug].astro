@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const noteCategoryLabels: Record<string, string> = {
-  'Research Note': '研究笔记',
+  'Research Record': '科研记录',
   'Reading Note': '读书笔记',
   'Technical Note': '技术笔记'
 };

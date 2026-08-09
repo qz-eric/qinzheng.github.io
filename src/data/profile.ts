@@ -54,8 +54,8 @@ export const profile = {
   formalName: '秦政',
   formalNameCn: '秦政',
   formalNameEn: 'Zheng Qin',
-  siteSubtitle: '研究 · 笔记 · 写作',
-  siteSubtitleEn: 'Research · Notes · Writing',
+  siteSubtitle: '研究 · 资料 · 写作',
+  siteSubtitleEn: 'Research · Archive · Writing',
   archiveLabel: '秦政的学术与文学档案',
   archiveLabelEn: 'Academic and literary archive of Zheng Qin',
   currentRole: '博士研究生',
@@ -87,23 +87,23 @@ export const profile = {
     'Scientific writing, academic communication, and knowledge archiving'
   ],
   bioShort:
-    '我研究卫星观测下的云与降水过程，当前关注东北冷涡生命周期、云微物理结构及机器学习反演。这里保存我的论文、研究笔记、课程资料、文学作品与长期思考。',
+    '我研究卫星观测下的云与降水过程，当前关注东北冷涡生命周期、云微物理结构及机器学习反演。这里保存我的论文、科研记录、课程资料、文学作品与长期思考。',
   bioShortEn:
-    'I study cloud and precipitation processes using satellite observations, statistical methods, and machine learning. This website archives my research, notes, teaching materials, literary writing, and long-term ideas.',
+    'I study cloud and precipitation processes using satellite observations, statistical methods, and machine learning. This website archives my research records, teaching materials, literary writing, and long-term ideas.',
 
   bioLong: [
     '我的研究主要围绕卫星遥感观测、云微物理和机器学习展开。目前的工作聚焦东北冷涡背景下的云微物理特征分析，利用卫星数据研究不同天气系统中的云类型、云微物理性质及其空间分布规律。',
 
     '我也在整理基于静止气象卫星的云微物理参数反演与机器学习降水反演思路，关注模型基线、特征解释、资料误差和物理约束如何进入实际科研流程。',
 
-    '这个网站记录我的论文、研究笔记、课程资料和助教归档，也保存文学作品与个人思考。'
+    '这个网站记录我的论文、科研记录、课程资料和助教归档，也保存文学作品与个人思考。'
   ],
   bioLongEn: [
     'My research focuses on satellite remote sensing, cloud microphysics, and machine learning. Current work examines cloud microphysical characteristics under the Northeast China Cold Vortex using satellite data, with attention to cloud types, microphysical properties, and spatial structures within weather systems.',
 
     'I am also organizing ideas on cloud microphysical retrieval and machine-learning-based precipitation estimation using geostationary satellite observations, with interest in baselines, feature interpretation, data uncertainty, and physical constraints in reproducible research workflows.',
 
-    'This website records my papers, research notes, course materials, and teaching archives, while also preserving literary writing and personal reflections.'
+    'This website records my papers, research records, course materials, and teaching archives, while also preserving literary writing and personal reflections.'
   ],
   education: [
     {

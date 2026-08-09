@@ -7,7 +7,7 @@ import ResourceItem from '../components/ResourceItem.astro';
 import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { publications } from '../data/publications';
-import { resourceCategories, resourceCategoryLabelsEn, resources, type ResourceCategory } from '../data/resources';
+import { resourceCategories, resourceCategoryLabelsEn, resourceCategorySlugs, resources } from '../data/resources';
 import { homeWritingSlugs, works } from '../data/works';
 import { withBase } from '../utils/paths';
 
@@ -29,21 +29,11 @@ const featuredResources = featuredResourceIds
   .map((id) => resources.find((resource) => resource.id === id))
   .filter((resource): resource is (typeof resources)[number] => Boolean(resource));
 
-const resourceCategorySlugs: Record<ResourceCategory, string> = {
-  数学基础: 'mathematics',
-  大气专业课程: 'atmospheric-science',
-  助教课程: 'teaching-assistant',
-  科研写作: 'scientific-writing',
-  机器学习: 'machine-learning',
-  LaTeX: 'latex',
-  代码: 'code',
-  Book: 'books'
-};
 ---
 
 <Layout
-  title="研究 · 笔记 · 写作"
-  description="秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、研究笔记、课程资料与文学作品。"
+  title="Qin's Personal Blog"
+  description="秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、科研记录、课程资料与文学作品。"
 >
   <section class="hero" style={`--hero-image: url('${withBase(profile.heroImage)}')`}>
     <div class="hero-overlay">

@@ -8,22 +8,22 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(
 );
 
 const noteCategoryLabels: Record<string, string> = {
-  'Research Note': '研究笔记',
+  'Research Record': '科研记录',
   'Reading Note': '读书笔记',
   'Technical Note': '技术笔记'
 };
 ---
 
-<Layout title="笔记" description="研究笔记、读书笔记与技术笔记。">
+<Layout title="笔记" description="科研记录、读书笔记与技术笔记。">
   <section class="page-hero compact">
     <div class="container">
       <p class="eyebrow" data-lang-zh="笔记" data-lang-en="Notes">笔记</p>
       <h1 data-lang-zh="笔记" data-lang-en="Notes">笔记</h1>
       <p
-        data-lang-zh="研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。"
-        data-lang-en="Research notes, reading notes, and technical notes can be maintained with Markdown or MDX."
+        data-lang-zh="科研记录、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。"
+        data-lang-en="Research records, reading notes, and technical notes can be maintained with Markdown or MDX."
       >
-        研究笔记、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。
+        科研记录、读书笔记和技术笔记都可以用 Markdown / MDX 持续追加。
       </p>
     </div>
   </section>
