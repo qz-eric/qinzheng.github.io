@@ -127,27 +127,47 @@ const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (shouldAnimateReveal) {
-    document.documentElement.classList.add('js-reveal');
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
-    );
+    const initialViewportBottom = window.innerHeight + 48;
+    const revealTarget = (target: HTMLElement) => {
+      target.classList.remove('is-pending');
+      target.classList.add('is-visible');
+    };
+    const resetTarget = (target: HTMLElement) => {
+      target.classList.remove('is-visible');
+      target.classList.add('is-pending');
+    };
+    const updateRevealStates = () => {
+      revealTargets.forEach((target) => {
+        const rect = target.getBoundingClientRect();
+        const isInRevealZone = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+        const isFarOutside = rect.bottom < -96 || rect.top > window.innerHeight + 96;
+
+        if (isInRevealZone) {
+          revealTarget(target);
+        } else if (isFarOutside) {
+          resetTarget(target);
+        }
+      });
+    };
+    let revealFrame = 0;
+    const requestRevealUpdate = () => {
+      window.cancelAnimationFrame(revealFrame);
+      revealFrame = window.requestAnimationFrame(updateRevealStates);
+    };
 
     revealTargets.forEach((target, index) => {
       target.classList.add('scroll-reveal');
-      target.style.setProperty('--reveal-delay', `${Math.min(index % 5, 4) * 32}ms`);
-      revealObserver.observe(target);
+      target.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 24}ms`);
+      if (target.getBoundingClientRect().top < initialViewportBottom) {
+        target.classList.add('is-visible');
+        return;
+      }
+      target.classList.add('is-pending');
     });
 
-    window.setTimeout(() => {
-      revealTargets.forEach((target) => target.classList.add('is-visible'));
-    }, 1800);
+    window.addEventListener('scroll', requestRevealUpdate, { passive: true });
+    window.addEventListener('resize', requestRevealUpdate, { passive: true });
+    window.setTimeout(updateRevealStates, 120);
   } else {
     revealTargets.forEach((target) => target.classList.add('scroll-reveal', 'is-visible'));
   }
