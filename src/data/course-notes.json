@@ -1,0 +1,442 @@
+[
+  {
+    "resource": {
+      "id": "fluid-mechanics-course",
+      "title": "流体力学笔记",
+      "course": "流体力学",
+      "category": "本科专业课程",
+      "level": "本科",
+      "type": "PDF",
+      "year": 2026,
+      "status": "Complete",
+      "description": "流体运动学、守恒方程、涡旋运动、势流、黏性流动与气体动力学的课程笔记。",
+      "fullText": {
+        "label": "完整版笔记",
+        "href": "/files/courses/atmos/fluid-mechanics/notes/full.pdf"
+      },
+      "sections": [
+        {
+          "label": "Chapter 1",
+          "labelZh": "第 1 章",
+          "title": "基本概念、运动学与应力",
+          "titleEn": "Basic Concepts, Kinematics, and Stress",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter1.pdf"
+        },
+        {
+          "label": "Chapter 2",
+          "labelZh": "第 2 章",
+          "title": "流体的平衡",
+          "titleEn": "Fluid Statics",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter2.pdf"
+        },
+        {
+          "label": "Chapter 3",
+          "labelZh": "第 3 章",
+          "title": "流体运动的基本方程",
+          "titleEn": "Governing Equations of Fluid Motion",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter3.pdf"
+        },
+        {
+          "label": "Chapter 4",
+          "labelZh": "第 4 章",
+          "title": "流体的积分关系及其应用",
+          "titleEn": "Integral Relations and Applications",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter4.pdf"
+        },
+        {
+          "label": "Chapter 5",
+          "labelZh": "第 5 章",
+          "title": "涡旋运动",
+          "titleEn": "Vortex Motion",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter5.pdf"
+        },
+        {
+          "label": "Chapter 6",
+          "labelZh": "第 6 章",
+          "title": "不可压缩势流与复势方法",
+          "titleEn": "Incompressible Potential Flow and Complex Potentials",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter6.pdf"
+        },
+        {
+          "label": "Chapter 7",
+          "labelZh": "第 7 章",
+          "title": "黏性流体与典型层流",
+          "titleEn": "Viscous Fluids and Laminar Flows",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter7.pdf"
+        },
+        {
+          "label": "Chapter 8",
+          "labelZh": "第 8 章",
+          "title": "流动稳定性与湍流平均",
+          "titleEn": "Flow Stability and Turbulence Averaging",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter8.pdf"
+        },
+        {
+          "label": "Chapter 9",
+          "labelZh": "第 9 章",
+          "title": "气体动力学基础",
+          "titleEn": "Fundamentals of Gas Dynamics",
+          "href": "/files/courses/atmos/fluid-mechanics/notes/FM_chapter9.pdf"
+        }
+      ],
+      "tags": [
+        "课程笔记",
+        "章节与附录"
+      ]
+    },
+    "i18n": {
+      "title": "Fluid Mechanics Notes",
+      "course": "Fluid Mechanics",
+      "description": "Course notes on kinematics, conservation equations, vorticity, potential flow, viscous flow, and gas dynamics.",
+      "fullTextLabel": "Complete Notes",
+      "tags": [
+        "Course Notes",
+        "Chapters and Appendices"
+      ]
+    }
+  },
+  {
+    "resource": {
+      "id": "atmospheric-physics-course",
+      "title": "大气物理学笔记",
+      "course": "大气物理学",
+      "category": "本科专业课程",
+      "level": "本科",
+      "type": "PDF",
+      "year": 2026,
+      "status": "Complete",
+      "description": "大气概述、热力学、辐射收支与云雾降水物理，附分章作业、参考答案和资料来源。",
+      "fullText": {
+        "label": "完整版笔记",
+        "href": "/files/courses/atmos/atmospheric-physics/notes/full.pdf"
+      },
+      "sections": [
+        {
+          "label": "Preface",
+          "labelZh": "前言",
+          "title": "前言",
+          "titleEn": "Preface",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_chapter0.pdf"
+        },
+        {
+          "label": "Chapter 1",
+          "labelZh": "第 1 章",
+          "title": "大气概述",
+          "titleEn": "Overview of the Atmosphere",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_chapter1.pdf"
+        },
+        {
+          "label": "Chapter 2",
+          "labelZh": "第 2 章",
+          "title": "大气热力学基础",
+          "titleEn": "Fundamentals of Atmospheric Thermodynamics",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_chapter2.pdf"
+        },
+        {
+          "label": "Chapter 3",
+          "labelZh": "第 3 章",
+          "title": "大气辐射与热量收支",
+          "titleEn": "Atmospheric Radiation and Heat Budgets",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_chapter3.pdf"
+        },
+        {
+          "label": "Chapter 4",
+          "labelZh": "第 4 章",
+          "title": "云、雾、降水物理学",
+          "titleEn": "Physics of Clouds, Fog, and Precipitation",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_chapter4.pdf"
+        },
+        {
+          "label": "Appendix A",
+          "labelZh": "附录 A",
+          "title": "分章作业",
+          "titleEn": "Chapter Exercises",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_appendixA.pdf"
+        },
+        {
+          "label": "Appendix B",
+          "labelZh": "附录 B",
+          "title": "作业参考答案",
+          "titleEn": "Exercise Solutions",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_appendixB.pdf"
+        },
+        {
+          "label": "References",
+          "labelZh": "参考资料",
+          "title": "参考资料与计算来源",
+          "titleEn": "References and Computational Sources",
+          "href": "/files/courses/atmos/atmospheric-physics/notes/AP_references.pdf"
+        }
+      ],
+      "tags": [
+        "课程笔记",
+        "章节与附录"
+      ]
+    },
+    "i18n": {
+      "title": "Atmospheric Physics Notes",
+      "course": "Atmospheric Physics",
+      "description": "Notes on the atmosphere, thermodynamics, radiation budgets, and cloud and precipitation physics, with exercises, solutions, and references.",
+      "fullTextLabel": "Complete Notes",
+      "tags": [
+        "Course Notes",
+        "Chapters and Appendices"
+      ]
+    }
+  },
+  {
+    "resource": {
+      "id": "atmospheric-observation-course",
+      "title": "大气探测学笔记",
+      "course": "大气探测学",
+      "category": "本科专业课程",
+      "level": "本科",
+      "type": "PDF",
+      "year": 2026,
+      "status": "Complete",
+      "description": "云、天气现象与地面气象要素观测，以及高空风、温压湿探测，附作业与复习题解答。",
+      "fullText": {
+        "label": "完整版笔记",
+        "href": "/files/courses/atmos/atmospheric-observation/notes/full.pdf"
+      },
+      "sections": [
+        {
+          "label": "Chapter 1",
+          "labelZh": "第 1 章",
+          "title": "绪论",
+          "titleEn": "Introduction",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter1.pdf"
+        },
+        {
+          "label": "Chapter 2",
+          "labelZh": "第 2 章",
+          "title": "云的观测",
+          "titleEn": "Cloud Observation",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter2.pdf"
+        },
+        {
+          "label": "Chapter 3",
+          "labelZh": "第 3 章",
+          "title": "天气现象的观测",
+          "titleEn": "Weather Phenomena",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter3.pdf"
+        },
+        {
+          "label": "Chapter 4",
+          "labelZh": "第 4 章",
+          "title": "能见度的观测",
+          "titleEn": "Visibility Observation",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter4.pdf"
+        },
+        {
+          "label": "Chapter 5",
+          "labelZh": "第 5 章",
+          "title": "温度的测量",
+          "titleEn": "Temperature Measurement",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter5.pdf"
+        },
+        {
+          "label": "Chapter 6",
+          "labelZh": "第 6 章",
+          "title": "空气湿度的测量",
+          "titleEn": "Humidity Measurement",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter6.pdf"
+        },
+        {
+          "label": "Chapter 7",
+          "labelZh": "第 7 章",
+          "title": "气压的测量",
+          "titleEn": "Pressure Measurement",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter7.pdf"
+        },
+        {
+          "label": "Chapter 8",
+          "labelZh": "第 8 章",
+          "title": "地面风的测量",
+          "titleEn": "Surface Wind Measurement",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter8.pdf"
+        },
+        {
+          "label": "Chapter 9",
+          "labelZh": "第 9 章",
+          "title": "降水、积雪与蒸发的测量",
+          "titleEn": "Precipitation, Snow Cover, and Evaporation",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter9.pdf"
+        },
+        {
+          "label": "Chapter 10",
+          "labelZh": "第 10 章",
+          "title": "辐射及日照时数的测量",
+          "titleEn": "Radiation and Sunshine Duration",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter10.pdf"
+        },
+        {
+          "label": "Chapter 11",
+          "labelZh": "第 11 章",
+          "title": "高空风的测量",
+          "titleEn": "Upper-air Wind Measurement",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter11.pdf"
+        },
+        {
+          "label": "Chapter 12",
+          "labelZh": "第 12 章",
+          "title": "高空温、压、湿的测量",
+          "titleEn": "Upper-air Temperature, Pressure, and Humidity",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_chapter12.pdf"
+        },
+        {
+          "label": "Appendix A",
+          "labelZh": "附录 A",
+          "title": "作业题与解题过程",
+          "titleEn": "Homework and Worked Solutions",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_appendixA.pdf"
+        },
+        {
+          "label": "Appendix B",
+          "labelZh": "附录 B",
+          "title": "复习题与参考解答",
+          "titleEn": "Review Questions and Solutions",
+          "href": "/files/courses/atmos/atmospheric-observation/notes/AO_appendixB.pdf"
+        }
+      ],
+      "tags": [
+        "课程笔记",
+        "章节与附录"
+      ]
+    },
+    "i18n": {
+      "title": "Atmospheric Observation Notes",
+      "course": "Atmospheric Observation",
+      "description": "Notes on cloud and weather observations, surface meteorological measurements, and upper-air sounding, with homework and review solutions.",
+      "fullTextLabel": "Complete Notes",
+      "tags": [
+        "Course Notes",
+        "Chapters and Appendices"
+      ]
+    }
+  },
+  {
+    "resource": {
+      "id": "advanced-atmospheric-dynamics",
+      "title": "高等大气动力学笔记",
+      "course": "高等大气动力学",
+      "category": "研究生专业课程",
+      "level": "研究生",
+      "type": "PDF",
+      "year": 2026,
+      "status": "Complete",
+      "description": "大气运动方程、守恒性质、小扰动、地转适应与准平衡演变，附作业题与完整解答。",
+      "fullText": {
+        "label": "完整版笔记",
+        "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/full.pdf"
+      },
+      "sections": [
+        {
+          "label": "Preface",
+          "labelZh": "前言",
+          "title": "序言",
+          "titleEn": "Preface",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_preface.pdf"
+        },
+        {
+          "label": "Chapter 1",
+          "labelZh": "第 1 章",
+          "title": "基本运动方程、初值问题",
+          "titleEn": "Governing Equations and Initial-value Problems",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter1.pdf"
+        },
+        {
+          "label": "Chapter 2",
+          "labelZh": "第 2 章",
+          "title": "大气运动的整体性质",
+          "titleEn": "Global Properties of Atmospheric Motion",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter2.pdf"
+        },
+        {
+          "label": "Chapter 3",
+          "labelZh": "第 3 章",
+          "title": "保守属性、位温与位涡守恒",
+          "titleEn": "Conservation Laws, Potential Temperature, and Potential Vorticity",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter3.pdf"
+        },
+        {
+          "label": "Chapter 4",
+          "labelZh": "第 4 章",
+          "title": "局地平面坐标系下的小扰动及运动分类",
+          "titleEn": "Small Perturbations and Motion Classification in Local Coordinates",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter4.pdf"
+        },
+        {
+          "label": "Chapter 5",
+          "labelZh": "第 5 章",
+          "title": "球面上的小扰动方程",
+          "titleEn": "Perturbation Equations on a Sphere",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter5.pdf"
+        },
+        {
+          "label": "Chapter 6",
+          "labelZh": "第 6 章",
+          "title": "β 平面近似和扰动在近赤道附近的特征",
+          "titleEn": "Beta-plane Approximation and Equatorial Perturbations",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter6.pdf"
+        },
+        {
+          "label": "Chapter 7",
+          "labelZh": "第 7 章",
+          "title": "地转适应过程",
+          "titleEn": "Geostrophic Adjustment",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter7.pdf"
+        },
+        {
+          "label": "Chapter 8",
+          "labelZh": "第 8 章",
+          "title": "演变过程",
+          "titleEn": "Evolution Processes",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter8.pdf"
+        },
+        {
+          "label": "Chapter 9",
+          "labelZh": "第 9 章",
+          "title": "动力过程阶段性、准地转演变和准平衡演变",
+          "titleEn": "Dynamical Stages, Quasi-geostrophic and Quasi-balanced Evolution",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter9.pdf"
+        },
+        {
+          "label": "Chapter 10",
+          "labelZh": "第 10 章",
+          "title": "正压扰动演变过程的一般特性",
+          "titleEn": "General Properties of Barotropic Perturbation Evolution",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter10.pdf"
+        },
+        {
+          "label": "Chapter 11",
+          "labelZh": "第 11 章",
+          "title": "扰动与基本气流的相互作用",
+          "titleEn": "Interactions Between Perturbations and the Basic Flow",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter11.pdf"
+        },
+        {
+          "label": "Appendix A",
+          "labelZh": "附录 A",
+          "title": "作业题与完整解答",
+          "titleEn": "Homework and Complete Solutions",
+          "href": "/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_appendixA.pdf"
+        }
+      ],
+      "tags": [
+        "课程笔记",
+        "章节与附录"
+      ]
+    },
+    "i18n": {
+      "title": "Advanced Atmospheric Dynamics Notes",
+      "course": "Advanced Atmospheric Dynamics",
+      "description": "Graduate notes on atmospheric equations of motion, conservation laws, perturbations, geostrophic adjustment, and balanced evolution, with worked solutions.",
+      "fullTextLabel": "Complete Notes",
+      "tags": [
+        "Course Notes",
+        "Chapters and Appendices"
+      ]
+    }
+  }
+]

@@ -1,0 +1,197 @@
+[
+  {
+    "resource": {
+      "id": "advanced-calculus-notes",
+      "title": "高等数学讲义",
+      "course": "高等数学",
+      "category": "数学基础",
+      "level": "本科",
+      "type": "Notes",
+      "year": 2022,
+      "status": "Complete",
+      "description": "一元微积分与常微分方程的分章资料。",
+      "sections": [
+        {
+          "label": "Chap 1",
+          "title": "函数",
+          "href": "/files/courses/math/advanced-calculus/chap-01.pdf"
+        },
+        {
+          "label": "Chap 2",
+          "title": "极限与连续",
+          "href": "/files/courses/math/advanced-calculus/chap-02.pdf"
+        },
+        {
+          "label": "Chap 3",
+          "title": "导数与微分",
+          "href": "/files/courses/math/advanced-calculus/chap-03.pdf"
+        },
+        {
+          "label": "Chap 4",
+          "title": "微分中值定理及导数应用",
+          "href": "/files/courses/math/advanced-calculus/chap-04.pdf"
+        },
+        {
+          "label": "Chap 5",
+          "title": "不定积分",
+          "href": "/files/courses/math/advanced-calculus/chap-05.pdf"
+        },
+        {
+          "label": "Chap 6",
+          "title": "定积分",
+          "href": "/files/courses/math/advanced-calculus/chap-06.pdf"
+        },
+        {
+          "label": "Chap 7",
+          "title": "定积分的应用",
+          "href": "/files/courses/math/advanced-calculus/chap-07.pdf"
+        },
+        {
+          "label": "Chap 8",
+          "title": "微分方程",
+          "href": "/files/courses/math/advanced-calculus/chap-08.pdf"
+        }
+      ],
+      "tags": [
+        "微积分",
+        "导数",
+        "常微分方程"
+      ]
+    },
+    "i18n": {
+      "title": "Advanced Calculus Notes",
+      "course": "Advanced Calculus",
+      "description": "Chapter-based materials on single-variable calculus and ordinary differential equations.",
+      "fullTextLabel": "Full Download",
+      "tags": [
+        "Calculus",
+        "Derivatives",
+        "Ordinary Differential Equations"
+      ]
+    }
+  },
+  {
+    "resource": {
+      "id": "fluid-mechanics-ta-homework",
+      "title": "流体力学助教作业解答",
+      "course": "流体力学助教",
+      "category": "助教课程",
+      "level": "本科",
+      "type": "Homework",
+      "year": 2025,
+      "status": "Complete",
+      "description": "流体力学助教期间整理的作业解答与讲评资料，仅列出实际布置作业的周次。",
+      "sections": [
+        {
+          "label": "Week 1",
+          "title": "第 1 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-01-solution.pdf"
+        },
+        {
+          "label": "Week 2",
+          "title": "第 2 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-02-solution.pdf"
+        },
+        {
+          "label": "Week 4",
+          "title": "第 4 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-04-solution.pdf"
+        },
+        {
+          "label": "Week 6",
+          "title": "第 6 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-06-solution.pdf"
+        },
+        {
+          "label": "Week 7",
+          "title": "第 7 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-07-solution.pdf"
+        },
+        {
+          "label": "Week 8",
+          "title": "第 8 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-08-solution.pdf"
+        },
+        {
+          "label": "Week 9",
+          "title": "第 9 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-09-solution.pdf"
+        },
+        {
+          "label": "Week 10",
+          "title": "第 10 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-10-solution.pdf"
+        },
+        {
+          "label": "Week 12",
+          "title": "第 12 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-12-solution.pdf"
+        },
+        {
+          "label": "Week 13",
+          "title": "第 13 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-13-solution.pdf"
+        },
+        {
+          "label": "Week 14",
+          "title": "第 14 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-14-solution.pdf"
+        },
+        {
+          "label": "Week 15",
+          "title": "第 15 周作业解答",
+          "href": "/files/courses/ta/fluid-mechanics-homework/week-15-solution.pdf"
+        }
+      ],
+      "tags": [
+        "助教",
+        "作业解答",
+        "流体力学"
+      ]
+    },
+    "i18n": {
+      "title": "Fluid Mechanics TA Homework Solutions",
+      "course": "Fluid Mechanics TA",
+      "description": "Homework solutions and discussion materials prepared during the Fluid Mechanics teaching-assistant work, listing only weeks with assigned homework.",
+      "fullTextLabel": "Full Download",
+      "tags": [
+        "Teaching Assistant",
+        "Homework Solutions",
+        "Fluid Mechanics"
+      ]
+    }
+  },
+  {
+    "resource": {
+      "id": "atmospheric-dynamics-book",
+      "title": "高等大气动力学",
+      "course": "高等大气动力学",
+      "category": "Book",
+      "level": "研究生",
+      "type": "Book",
+      "year": 2024,
+      "status": "Complete",
+      "description": "大气动力学推导、例题和阅读材料的全文归档版本。",
+      "fullText": {
+        "label": "全文下载",
+        "href": "/files/books/atmospheric-dynamics-book.pdf"
+      },
+      "tags": [
+        "动力学",
+        "book",
+        "推导"
+      ]
+    },
+    "i18n": {
+      "title": "Advanced Atmospheric Dynamics",
+      "course": "Advanced Atmospheric Dynamics",
+      "description": "Full archive of derivations, exercises, and reading materials for atmospheric dynamics.",
+      "fullTextLabel": "Full Download",
+      "tags": [
+        "Dynamics",
+        "Book",
+        "Derivations"
+      ]
+    }
+  }
+]

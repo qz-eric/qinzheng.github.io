@@ -134,7 +134,7 @@ draft: false
 
 ## 添加课程资料
 
-修改 `src/data/resources.ts`，新增资源条目。课程资料现在支持两级链接：
+四门整理版课程笔记按下文的同步流程维护。其他资料在 `src/data/archived-resources.json` 中添加 `{ "resource": { ... }, "i18n": { ... } }` 条目；`resource` 保存中文内容，`i18n` 保存英文标题、课程名、简介和标签。资源结构如下，实际 JSON 需使用双引号：
 
 - `fullText`：全文下载入口
 - `sections`：分章节、分 Lecture 或 Week 的入口，页面会把链接加在章节名称上
@@ -151,8 +151,7 @@ draft: false
   type: 'Homework',
   year: 2025,
   status: 'Complete',
-  description: 'Week 1 到 Week 15 作业解答。',
-  fullText: { label: '全文下载', href: '/files/courses/ta/fluid-mechanics-homework/full.pdf' },
+  description: '实际布置作业周次的解答。',
   sections: [
     { label: 'Week 1', title: '第 1 周作业解答', href: '/files/courses/ta/fluid-mechanics-homework/week-01-solution.pdf' }
   ],
@@ -200,7 +199,7 @@ public/files/courses/
 - 简历：`public/files/cv/`
 - 图片或补充材料：`public/files/images/`
 
-链接使用 `/files/...` 开头，例如 `/files/courses/atmos/advanced-atmospheric-dynamics/chap-01.pdf`。
+链接使用 `/files/...` 开头，例如 `/files/courses/atmos/advanced-atmospheric-dynamics/notes/AAD_chapter1.pdf`。
 
 如果某门课程中某些周没有作业，不需要补空文件，也不要在 `sections` 中列出那些 week。
 
@@ -236,12 +235,29 @@ npm run build
 - GitHub Pages / Cloudflare Pages / Netlify / Vercel：连接仓库，构建命令填 `npm run build`，输出目录填 `dist`。
 - 有个人域名时，把 `astro.config.mjs` 里的 `site` 改为真实域名，例如 `https://example.com`，这样 canonical 和 Open Graph 地址会更准确。
 
+## 同步四门课程笔记
+
+四门课程的整理版 PDF 按课程独立存放在 `public/files/courses/atmos/<course>/notes/`，其中 `full.pdf` 为完整版，其余文件保留来源中的章节编号。课程分别为流体力学、大气物理学、大气探测学（本科），以及高等大气动力学（研究生）。
+
+笔记源目录更新后，在项目根目录运行：
+
+```powershell
+node scripts/sync-course-notes.mjs 'E:\Codex\笔记生成'
+pnpm run build
+```
+
+同步脚本仅复制各课程 `整理版笔记` 中的完整版和 `分章节` 目录下的正式 PDF，不复制参考书、历史版本或编译副本。课程简介和中英文章节名称维护在 `scripts/course-notes.json`，同步生成的索引位于 `src/data/course-notes.json`。新增章节时先更新清单，再运行同步命令。
+
+已有高数、助教作业及 Book 资料维护在 `src/data/archived-resources.json`；分类与数据类型维护在 `src/data/resources.ts`。只为真实文件提供下载入口，没有完整版的课程仅展示章节链接。
+
 ## 常改文件速查
 
 - 个人资料：`src/data/profile.ts`
 - 论文：`src/data/publications.ts`
 - 学术活动：`src/data/activities.ts`
-- 课程资料：`src/data/resources.ts`
+- 课程分类与类型：`src/data/resources.ts`
+- 四门笔记的简介与章节：`scripts/course-notes.json`
+- 其他已归档资料：`src/data/archived-resources.json`
 - 文学作品元数据：`src/data/works.ts`
 - 文学正文：`src/content/works/`
 - 笔记正文：`src/content/notes/`

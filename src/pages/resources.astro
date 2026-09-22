@@ -15,23 +15,17 @@ const categories = resourceCategories.filter((category) =>
 
 const categoryEyebrows: Record<ResourceCategory, string> = {
   数学基础: 'Mathematics',
-  大气专业课程: 'Atmospheric Science',
+  本科专业课程: 'Undergraduate Courses',
+  研究生专业课程: 'Graduate Courses',
   助教课程: 'Teaching Assistant',
-  科研写作: 'Scientific Writing',
-  机器学习: 'Machine Learning',
-  LaTeX: 'Typesetting',
-  代码: 'Code & Tools',
   Book: 'Books'
 };
 
 const categoryEyebrowsZh: Record<ResourceCategory, string> = {
   数学基础: '数学',
-  大气专业课程: '大气专业课程',
+  本科专业课程: '本科专业课程',
+  研究生专业课程: '研究生专业课程',
   助教课程: '助教课程',
-  科研写作: '科研写作',
-  机器学习: '机器学习',
-  LaTeX: '排版',
-  代码: '代码与工具',
   Book: '书籍'
 };
 
@@ -45,16 +39,16 @@ const categoryGroups = categories.map((category) => ({
 }));
 ---
 
-<Layout title="资料与笔记" description="课程资料、助教归档、book、slides 与 code 归档。">
+<Layout title="资料与笔记" description="大气科学本科与研究生课程笔记、数学讲义和助教作业解答。">
   <section class="page-hero compact">
     <div class="container">
       <p class="eyebrow" data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</p>
       <h1 data-lang-zh="资料与笔记" data-lang-en="Resources & Notes">资料与笔记</h1>
       <p
-        data-lang-zh="课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；不同分类可以横向滑动浏览。"
-        data-lang-en="Course materials support full downloads and section-level links by Week, Lecture, or Chapter. Browse categories horizontally from the archive panels."
+        data-lang-zh="汇集大气科学本科与研究生课程笔记、数学讲义及助教作业解答。"
+        data-lang-en="Course notes in undergraduate and graduate atmospheric science, mathematics materials, and teaching-assistant homework solutions."
       >
-        课程资料支持全文下载，也支持按 Week、Lecture 或 Chapter 进入分章节资料；不同分类可以横向滑动浏览。
+        汇集大气科学本科与研究生课程笔记、数学讲义及助教作业解答。
       </p>
     </div>
   </section>
@@ -64,14 +58,7 @@ const categoryGroups = categories.map((category) => ({
       <div class="section-heading resource-hub-heading">
         <div>
           <p class="eyebrow" data-lang-zh="分类索引" data-lang-en="Archive Index">分类索引</p>
-          <h2 data-lang-zh="横向资料面板" data-lang-en="Horizontal Resource Panels">横向资料面板</h2>
-          <p
-            class="section-summary"
-            data-lang-zh="点击分类标题可以直接切换到对应资料面板，也可以在下方横向滑动浏览。"
-            data-lang-en="Click a category title to jump to its panel, or swipe horizontally through the archive."
-          >
-            点击分类标题可以直接切换到对应资料面板，也可以在下方横向滑动浏览。
-          </p>
+          <h2 data-lang-zh="课程与学习资料" data-lang-en="Courses & Study Materials">课程与学习资料</h2>
         </div>
       </div>
 
@@ -108,7 +95,7 @@ const categoryGroups = categories.map((category) => ({
                   </div>
                   <span
                     data-lang-zh={`${group.items.length} 个条目`}
-                    data-lang-en={`${group.items.length} items`}
+                    data-lang-en={`${group.items.length} ${group.items.length === 1 ? 'item' : 'items'}`}
                   >
                     {group.items.length} 个条目
                   </span>
@@ -136,6 +123,14 @@ const categoryGroups = categories.map((category) => ({
       link.classList.toggle('is-active', isActive);
       if (isActive) {
         link.setAttribute('aria-current', 'true');
+        const nav = link.parentElement;
+        if (nav) {
+          const linkRect = link.getBoundingClientRect();
+          const navRect = nav.getBoundingClientRect();
+          if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
+            nav.scrollTo({ left: nav.scrollLeft + linkRect.left - navRect.left - 10, behavior: 'smooth' });
+          }
+        }
       } else {
         link.removeAttribute('aria-current');
       }
@@ -143,13 +138,14 @@ const categoryGroups = categories.map((category) => ({
   };
 
   const scrollToResourcePanel = (id: string, shouldUpdateHash = true) => {
-    const panel = document.getElementById(id);
+    const target = document.getElementById(id === 'resource-atmospheric-science' ? 'resource-undergraduate-courses' : id);
+    const panel = target?.closest<HTMLElement>('[data-resource-panel]');
     if (!panel) return;
 
     const targetLeft = resourceSlider ? Math.max(panel.offsetLeft - 18, 0) : 0;
     resourceSlider?.scrollTo({ left: targetLeft, behavior: 'smooth' });
     panel.focus({ preventScroll: true });
-    setActiveResourcePanel(id);
+    setActiveResourcePanel(panel.id);
 
     if (shouldUpdateHash) {
       history.replaceState(null, '', `${location.pathname}${location.search}#${id}`);
@@ -182,6 +178,10 @@ const categoryGroups = categories.map((category) => ({
       }
     });
   }, { passive: true });
+
+  window.addEventListener('hashchange', () => {
+    if (location.hash) scrollToResourcePanel(decodeURIComponent(location.hash.slice(1)), false);
+  });
 
   if (location.hash) {
     window.setTimeout(() => scrollToResourcePanel(decodeURIComponent(location.hash.slice(1)), false), 80);

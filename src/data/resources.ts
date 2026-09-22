@@ -1,28 +1,19 @@
-﻿export type ResourceCategory =
-  | '数学基础'
-  | '大气专业课程'
-  | '助教课程'
-  | '科研写作'
-  | '机器学习'
-  | 'LaTeX'
-  | '代码'
-  | 'Book';
+import courseNotes from './course-notes.json';
+import archivedResources from './archived-resources.json';
 
+export type ResourceCategory = '数学基础' | '本科专业课程' | '研究生专业课程' | '助教课程' | 'Book';
 export type ResourceType = 'PDF' | 'LaTeX' | 'PPT' | 'Code' | 'Notes' | 'Book' | 'Homework' | 'Lecture';
 export type ResourceStatus = 'Complete' | 'Todo';
 
-export interface ResourceLink {
-  label: string;
-  href: string;
-}
-
+export interface ResourceLink { label: string; href: string; }
 export interface ResourceSection {
   label: string;
+  labelZh?: string;
   title: string;
+  titleEn?: string;
   href: string;
   description?: string;
 }
-
 export interface Resource {
   id: string;
   title: string;
@@ -37,57 +28,6 @@ export interface Resource {
   sections?: ResourceSection[];
   tags: string[];
 }
-
-export const resourceCategories: ResourceCategory[] = [
-  '数学基础',
-  '大气专业课程',
-  '助教课程',
-  '科研写作',
-  '机器学习',
-  'LaTeX',
-  '代码',
-  'Book'
-];
-
-export const resourceCategoryLabelsEn: Record<ResourceCategory, string> = {
-  数学基础: 'Mathematics',
-  大气专业课程: 'Atmospheric Science Courses',
-  助教课程: 'Teaching Assistant',
-  科研写作: 'Scientific Writing',
-  机器学习: 'Machine Learning',
-  LaTeX: 'LaTeX',
-  代码: 'Code',
-  Book: 'Books'
-};
-
-export const resourceCategorySlugs: Record<ResourceCategory, string> = {
-  数学基础: 'mathematics',
-  大气专业课程: 'atmospheric-science',
-  助教课程: 'teaching-assistant',
-  科研写作: 'scientific-writing',
-  机器学习: 'machine-learning',
-  LaTeX: 'latex',
-  代码: 'code',
-  Book: 'books'
-};
-
-export const resourceLevelLabelsEn: Record<Resource['level'], string> = {
-  本科: 'Undergraduate',
-  研究生: 'Graduate',
-  通用: 'General'
-};
-
-export const resourceStatusLabels = {
-  Complete: {
-    zh: '更新完成',
-    en: 'Complete'
-  },
-  Todo: {
-    zh: '待整理',
-    en: 'To Organize'
-  }
-} satisfies Record<ResourceStatus, { zh: string; en: string }>;
-
 export interface ResourceI18n {
   title: string;
   course: string;
@@ -95,423 +35,33 @@ export interface ResourceI18n {
   fullTextLabel?: string;
   tags: string[];
 }
-
-export const resourceI18n: Record<string, ResourceI18n> = {
-  'advanced-calculus-notes': {
-    title: 'Advanced Calculus Notes',
-    course: 'Advanced Calculus',
-    description: 'Chapter-based materials on single-variable calculus and ordinary differential equations.',
-    fullTextLabel: 'Full Download',
-    tags: ['Calculus', 'Derivatives', 'Ordinary Differential Equations']
-  },
-  'atmospheric-physics-course': {
-    title: 'Atmospheric Physics Course Materials',
-    course: 'Atmospheric Physics',
-    description: 'Archived materials on atmospheric overview, thermodynamics, radiation, clouds, and precipitation.',
-    fullTextLabel: 'Full Download',
-    tags: ['Thermodynamics', 'Radiation', 'Boundary Layer']
-  },
-  'atmospheric-observation-course': {
-    title: 'Atmospheric Observation Course Materials',
-    course: 'Atmospheric Observation',
-    description: 'Lecture materials on routine meteorological observation, sounding, radar, satellites, and quality control.',
-    fullTextLabel: 'Full Download',
-    tags: ['Sounding', 'Radar', 'Satellite']
-  },
-  'fluid-mechanics-course': {
-    title: 'Fluid Mechanics Course Materials',
-    course: 'Fluid Mechanics',
-    description: 'Chapter-based materials on continuum mechanics, momentum equations, vorticity, boundary layers, and turbulence.',
-    fullTextLabel: 'Full Download',
-    tags: ['Fluid Mechanics', 'Vorticity', 'Boundary Layer']
-  },
-  'advanced-atmospheric-dynamics': {
-    title: 'Advanced Atmospheric Dynamics Chapters',
-    course: 'Advanced Atmospheric Dynamics',
-    description: 'Graduate-level atmospheric dynamics materials organized from Chapter 1 to Chapter 10.',
-    fullTextLabel: 'Full Download',
-    tags: ['Dynamics', 'Potential Vorticity', 'Modal Analysis']
-  },
-  'cloud-microphysics-course': {
-    title: 'Cloud Microphysics Course Materials',
-    course: 'Cloud Microphysics',
-    description: 'Course materials on mixed-phase clouds, ice-crystal growth, warm-rain processes, and cloud parameterization.',
-    fullTextLabel: 'Full Download',
-    tags: ['Cloud Microphysics', 'Mixed-phase Clouds', 'Satellite Retrieval']
-  },
-  'fluid-mechanics-ta-homework': {
-    title: 'Fluid Mechanics TA Homework Solutions',
-    course: 'Fluid Mechanics TA',
-    description: 'Homework solutions and discussion materials prepared during the Fluid Mechanics teaching-assistant work, listing only weeks with assigned homework.',
-    fullTextLabel: 'Full Download',
-    tags: ['Teaching Assistant', 'Homework Solutions', 'Fluid Mechanics']
-  },
-  'atmospheric-dynamics-ta-discussion': {
-    title: 'Atmospheric Dynamics TA Discussion Sessions',
-    course: 'Atmospheric Dynamics TA',
-    description: 'Discussion materials on scale analysis, geostrophic balance, vorticity equations, and wave problems.',
-    fullTextLabel: 'Full Download',
-    tags: ['Teaching Assistant', 'Discussion Session', 'Atmospheric Dynamics']
-  },
-  'python-atmos-data-ta': {
-    title: 'Python Atmospheric Data Processing TA Materials',
-    course: 'Research Data Processing TA',
-    description: 'Teaching materials on NetCDF reading, regional cropping, batch plotting, and homework Q&A.',
-    fullTextLabel: 'Full Download',
-    tags: ['Teaching Assistant', 'Python', 'NetCDF']
-  },
-  'scientific-writing-materials': {
-    title: 'Scientific Paper Writing Materials',
-    course: 'Scientific Writing',
-    description: 'Materials on paper structure, abstract writing, figure narration, cover letters, and responses to reviewers.',
-    fullTextLabel: 'Full Download',
-    tags: ['Paper Writing', 'Submission', 'Reviewer Response']
-  },
-  'machine-learning-notes': {
-    title: 'Machine Learning Notes',
-    course: 'Machine Learning',
-    description: 'Study notes on classification, regression, cross-validation, feature interpretation, and scientific data modeling.',
-    fullTextLabel: 'Full Download',
-    tags: ['Machine Learning', 'Python', 'Modeling']
-  },
-  'latex-template': {
-    title: 'LaTeX Templates and Typesetting Materials',
-    course: 'Paper and Report Typesetting',
-    description: 'Reusable LaTeX templates for course reports, manuscript drafts, and reading notes.',
-    fullTextLabel: 'Template Download',
-    tags: ['LaTeX', 'Template', 'Typesetting']
-  },
-  'python-data-processing-code': {
-    title: 'Python Data Processing Code',
-    course: 'Research Data Processing',
-    description: 'Example scripts for NetCDF reading, regional cropping, statistics, and plotting workflows.',
-    fullTextLabel: 'Code Download',
-    tags: ['Python', 'NetCDF', 'Visualization']
-  },
-  'atmospheric-dynamics-book': {
-    title: 'Advanced Atmospheric Dynamics',
-    course: 'Advanced Atmospheric Dynamics',
-    description: 'Full archive of derivations, exercises, and reading materials for atmospheric dynamics.',
-    fullTextLabel: 'Full Download',
-    tags: ['Dynamics', 'Book', 'Derivations']
-  },
-  'cloud-microphysics-book': {
-    title: 'Cloud Microphysics Reading Book',
-    course: 'Cloud Microphysics',
-    description: 'Full archive of cloud microphysics literature notes, course derivations, and satellite data documentation.',
-    fullTextLabel: 'Full Download',
-    tags: ['Cloud Microphysics', 'Book', 'Reading']
-  }
+export const resourceCategoryLabelsEn: Record<ResourceCategory, string> = {
+  数学基础: 'Mathematics',
+  本科专业课程: 'Undergraduate Courses',
+  研究生专业课程: 'Graduate Courses',
+  助教课程: 'Teaching Assistant',
+  Book: 'Books'
 };
+export const resourceCategorySlugs: Record<ResourceCategory, string> = {
+  数学基础: 'mathematics',
+  本科专业课程: 'undergraduate-courses',
+  研究生专业课程: 'graduate-courses',
+  助教课程: 'teaching-assistant',
+  Book: 'books'
+};
+export const resourceLevelLabelsEn: Record<Resource['level'], string> = {
+  本科: 'Undergraduate', 研究生: 'Graduate', 通用: 'General'
+};
+export const resourceStatusLabels = {
+  Complete: { zh: '更新完成', en: 'Complete' },
+  Todo: { zh: '待整理', en: 'To Organize' }
+} satisfies Record<ResourceStatus, { zh: string; en: string }>;
 
-const section = (label: string, title: string, href: string, description?: string): ResourceSection => ({
-  label,
-  title,
-  href,
-  description
-});
-
-export const resources: Resource[] = [
-  {
-    id: 'advanced-calculus-notes',
-    title: '高等数学讲义',
-    course: '高等数学',
-    category: '数学基础',
-    level: '本科',
-    type: 'Notes',
-    year: 2022,
-    status: 'Complete',
-    description: '一元微积分与常微分方程的分章资料。',
-    fullText: { label: '全文下载', href: '/files/courses/math/advanced-calculus/full.pdf' },
-    sections: [
-      section('Chap 1', '函数', '/files/courses/math/advanced-calculus/chap-01.pdf'),
-      section('Chap 2', '极限与连续', '/files/courses/math/advanced-calculus/chap-02.pdf'),
-      section('Chap 3', '导数与微分', '/files/courses/math/advanced-calculus/chap-03.pdf'),
-      section('Chap 4', '微分中值定理及导数应用', '/files/courses/math/advanced-calculus/chap-04.pdf'),
-      section('Chap 5', '不定积分', '/files/courses/math/advanced-calculus/chap-05.pdf'),
-      section('Chap 6', '定积分', '/files/courses/math/advanced-calculus/chap-06.pdf'),
-      section('Chap 7', '定积分的应用', '/files/courses/math/advanced-calculus/chap-07.pdf'),
-      section('Chap 8', '微分方程', '/files/courses/math/advanced-calculus/chap-08.pdf')
-    ],
-    tags: ['微积分', '导数', '常微分方程']
-  },
-  {
-    id: 'atmospheric-physics-course',
-    title: '大气物理学课程资料',
-    course: '大气物理学',
-    category: '大气专业课程',
-    level: '本科',
-    type: 'Lecture',
-    year: 2021,
-    status: 'Complete',
-    description: '大气概述、大气热力学、辐射、云降水的课程资料归档。',
-    fullText: { label: '全文下载', href: '/files/courses/atmos/atmospheric-physics/full.pdf' },
-    sections: [
-      section('Lecture 0', '前言', '/files/courses/atmos/atmospheric-physics/lecture-00.pdf'),
-      section('Lecture 1', '大气概述', '/files/courses/atmos/atmospheric-physics/lecture-01.pdf'),
-      section('Lecture 2', '大气热力学基础', '/files/courses/atmos/atmospheric-physics/lecture-02.pdf'),
-      section('Lecture 3', '大气辐射与热量收支', '/files/courses/atmos/atmospheric-physics/lecture-03.pdf'),
-      section('Lecture 4', '云、雾、降水物理学', '/files/courses/atmos/atmospheric-physics/lecture-04.pdf'),
-      section('Homework', '课后习题', '/files/courses/atmos/atmospheric-physics/homework.pdf')
-    ],
-    tags: ['热力学', '辐射', '边界层']
-  },
-  {
-    id: 'atmospheric-observation-course',
-    title: '大气探测课程资料',
-    course: '大气探测',
-    category: '大气专业课程',
-    level: '本科',
-    type: 'Lecture',
-    year: 2024,
-    status: 'Todo',
-    description: '常规气象观测、探空、雷达、卫星与资料质量控制的分讲义整理。',
-    fullText: { label: '全文下载', href: '/files/courses/atmos/atmospheric-observation/full.pdf' },
-    sections: [
-      section('Lecture 1', '观测系统与误差来源', '/files/courses/atmos/atmospheric-observation/lecture-01.pdf'),
-      section('Lecture 2', '地面气象观测', '/files/courses/atmos/atmospheric-observation/lecture-02.pdf'),
-      section('Lecture 3', '高空气象探测', '/files/courses/atmos/atmospheric-observation/lecture-03.pdf'),
-      section('Lecture 4', '天气雷达探测', '/files/courses/atmos/atmospheric-observation/lecture-04.pdf'),
-      section('Lecture 5', '卫星遥感观测', '/files/courses/atmos/atmospheric-observation/lecture-05.pdf'),
-      section('Lecture 6', '资料质量控制', '/files/courses/atmos/atmospheric-observation/lecture-06.pdf')
-    ],
-    tags: ['探空', '雷达', '卫星']
-  },
-  {
-    id: 'fluid-mechanics-course',
-    title: '流体力学课程资料',
-    course: '流体力学',
-    category: '大气专业课程',
-    level: '本科',
-    type: 'Lecture',
-    year: 2024,
-    status: 'Todo',
-    description: '连续介质、动量方程、涡度、边界层与湍流基础的分章资料。',
-    fullText: { label: '全文下载', href: '/files/courses/atmos/fluid-mechanics/full.pdf' },
-    sections: [
-      section('Chap 1', '连续介质与流体性质', '/files/courses/atmos/fluid-mechanics/chap-01.pdf'),
-      section('Chap 2', '流体运动学', '/files/courses/atmos/fluid-mechanics/chap-02.pdf'),
-      section('Chap 3', '质量守恒与动量方程', '/files/courses/atmos/fluid-mechanics/chap-03.pdf'),
-      section('Chap 4', 'Navier-Stokes 方程', '/files/courses/atmos/fluid-mechanics/chap-04.pdf'),
-      section('Chap 5', '涡度与环流', '/files/courses/atmos/fluid-mechanics/chap-05.pdf'),
-      section('Chap 6', '势流与波动', '/files/courses/atmos/fluid-mechanics/chap-06.pdf'),
-      section('Chap 7', '边界层理论', '/files/courses/atmos/fluid-mechanics/chap-07.pdf'),
-      section('Chap 8', '湍流基础', '/files/courses/atmos/fluid-mechanics/chap-08.pdf')
-    ],
-    tags: ['流体力学', '涡度', '边界层']
-  },
-  {
-    id: 'advanced-atmospheric-dynamics',
-    title: '高等大气动力学分章资料',
-    course: '高等大气动力学',
-    category: '大气专业课程',
-    level: '研究生',
-    type: 'Lecture',
-    year: 2025,
-    status: 'Todo',
-    description: '研究生大气动力学资料，按 Chap 1 到 Chap 10 组织。',
-    fullText: { label: '全文下载', href: '/files/courses/atmos/advanced-atmospheric-dynamics/full.pdf' },
-    sections: [
-      section('Chap 1', '旋转坐标系与控制方程', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-01.pdf'),
-      section('Chap 2', '尺度分析与准地转近似', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-02.pdf'),
-      section('Chap 3', '位涡理论基础', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-03.pdf'),
-      section('Chap 4', 'Rossby 波与波作用', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-04.pdf'),
-      section('Chap 5', '斜压不稳定', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-05.pdf'),
-      section('Chap 6', '大气能量循环', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-06.pdf'),
-      section('Chap 7', '热带动力学基础', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-07.pdf'),
-      section('Chap 8', '中高纬环流异常', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-08.pdf'),
-      section('Chap 9', '模态分析方法', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-09.pdf'),
-      section('Chap 10', '可预报性与资料诊断', '/files/courses/atmos/advanced-atmospheric-dynamics/chap-10.pdf')
-    ],
-    tags: ['动力学', '位涡', '模态分析']
-  },
-  {
-    id: 'cloud-microphysics-course',
-    title: '云微物理课程资料',
-    course: '云微物理',
-    category: '大气专业课程',
-    level: '研究生',
-    type: 'PPT',
-    year: 2026,
-    status: 'Todo',
-    description: '混合相云、冰晶增长、暖云降水与云参数化相关课程资料。',
-    fullText: { label: '全文下载', href: '/files/courses/atmos/cloud-microphysics/full.pdf' },
-    sections: [
-      section('Lecture 1', '云凝结核与水汽凝结', '/files/courses/atmos/cloud-microphysics/lecture-01.pdf'),
-      section('Lecture 2', '暖云微物理过程', '/files/courses/atmos/cloud-microphysics/lecture-02.pdf'),
-      section('Lecture 3', '冰相过程与混合相云', '/files/courses/atmos/cloud-microphysics/lecture-03.pdf'),
-      section('Lecture 4', '降水形成机制', '/files/courses/atmos/cloud-microphysics/lecture-04.pdf'),
-      section('Lecture 5', '卫星云产品与反演', '/files/courses/atmos/cloud-microphysics/lecture-05.pdf'),
-      section('Lecture 6', '云微物理参数化', '/files/courses/atmos/cloud-microphysics/lecture-06.pdf')
-    ],
-    tags: ['云微物理', '混合相云', '卫星反演']
-  },
-  {
-    id: 'fluid-mechanics-ta-homework',
-    title: '流体力学助教作业解答',
-    course: '流体力学助教',
-    category: '助教课程',
-    level: '本科',
-    type: 'Homework',
-    year: 2025,
-    status: 'Complete',
-    description: '流体力学助教期间整理的作业解答与讲评资料，仅列出实际布置作业的周次。',
-    fullText: { label: '全文下载', href: '/files/courses/ta/fluid-mechanics-homework/full.pdf' },
-    sections: [
-      section('Week 1', '第 1 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-01-solution.pdf'),
-      section('Week 2', '第 2 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-02-solution.pdf'),
-      section('Week 4', '第 4 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-04-solution.pdf'),
-      section('Week 6', '第 6 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-06-solution.pdf'),
-      section('Week 7', '第 7 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-07-solution.pdf'),
-      section('Week 8', '第 8 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-08-solution.pdf'),
-      section('Week 9', '第 9 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-09-solution.pdf'),
-      section('Week 10', '第 10 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-10-solution.pdf'),
-      section('Week 12', '第 12 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-12-solution.pdf'),
-      section('Week 13', '第 13 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-13-solution.pdf'),
-      section('Week 14', '第 14 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-14-solution.pdf'),
-      section('Week 15', '第 15 周作业解答', '/files/courses/ta/fluid-mechanics-homework/week-15-solution.pdf')
-    ],
-    tags: ['助教', '作业解答', '流体力学']
-  },
-  {
-    id: 'atmospheric-dynamics-ta-discussion',
-    title: '大气动力学助教讨论课',
-    course: '大气动力学助教',
-    category: '助教课程',
-    level: '本科',
-    type: 'Lecture',
-    year: 2025,
-    status: 'Todo',
-    description: '围绕尺度分析、地转平衡、涡度方程和波动问题整理的讨论课资料。',
-    fullText: { label: '全文下载', href: '/files/courses/ta/atmospheric-dynamics-discussion/full.pdf' },
-    sections: [
-      section('Week 1', '尺度分析与量纲检查', '/files/courses/ta/atmospheric-dynamics-discussion/week-01.pdf'),
-      section('Week 2', '地转平衡与热成风', '/files/courses/ta/atmospheric-dynamics-discussion/week-02.pdf'),
-      section('Week 3', '涡度方程习题讲评', '/files/courses/ta/atmospheric-dynamics-discussion/week-03.pdf'),
-      section('Week 4', 'Rossby 波例题', '/files/courses/ta/atmospheric-dynamics-discussion/week-04.pdf'),
-      section('Week 5', '期中复习与答疑', '/files/courses/ta/atmospheric-dynamics-discussion/week-05.pdf')
-    ],
-    tags: ['助教', '讨论课', '大气动力学']
-  },
-  {
-    id: 'python-atmos-data-ta',
-    title: 'Python 大气数据处理助教资料',
-    course: '科研数据处理助教',
-    category: '助教课程',
-    level: '通用',
-    type: 'Code',
-    year: 2026,
-    status: 'Todo',
-    description: 'NetCDF 读取、区域裁剪、批处理绘图与作业答疑的教学资料。',
-    fullText: { label: '全文下载', href: '/files/courses/ta/python-atmos-data/full.pdf' },
-    sections: [
-      section('Week 1', '环境配置与文件组织', '/files/courses/ta/python-atmos-data/week-01.pdf'),
-      section('Week 2', 'NetCDF 与 xarray 入门', '/files/courses/ta/python-atmos-data/week-02.pdf'),
-      section('Week 3', '区域平均与时间序列', '/files/courses/ta/python-atmos-data/week-03.pdf'),
-      section('Week 4', '地图绘制与投影', '/files/courses/ta/python-atmos-data/week-04.pdf'),
-      section('Week 5', '批处理脚本与复现实验', '/files/courses/ta/python-atmos-data/week-05.pdf')
-    ],
-    tags: ['助教', 'Python', 'NetCDF']
-  },
-  {
-    id: 'scientific-writing-materials',
-    title: '科技论文写作资料',
-    course: '科研写作',
-    category: '科研写作',
-    level: '研究生',
-    type: 'Notes',
-    year: 2025,
-    status: 'Todo',
-    description: '论文结构、摘要写法、图表叙述、投稿信与审稿意见回复的资料整理。',
-    fullText: { label: '全文下载', href: '/files/courses/writing/scientific-writing/full.pdf' },
-    sections: [
-      section('Part 1', '论文结构与故事线', '/files/courses/writing/scientific-writing/part-01.pdf'),
-      section('Part 2', '摘要、引言与贡献表达', '/files/courses/writing/scientific-writing/part-02.pdf'),
-      section('Part 3', '图表设计与结果叙述', '/files/courses/writing/scientific-writing/part-03.pdf'),
-      section('Part 4', '投稿信与审稿回复', '/files/courses/writing/scientific-writing/part-04.pdf')
-    ],
-    tags: ['论文写作', '投稿', '审稿回复']
-  },
-  {
-    id: 'machine-learning-notes',
-    title: '机器学习笔记',
-    course: '机器学习',
-    category: '机器学习',
-    level: '通用',
-    type: 'Notes',
-    year: 2025,
-    status: 'Todo',
-    description: '分类、回归、交叉验证、特征解释与科研数据建模的学习笔记。',
-    fullText: { label: '全文下载', href: '/files/courses/ml/machine-learning/notes-full.pdf' },
-    sections: [
-      section('Lecture 1', '监督学习与数据切分', '/files/courses/ml/machine-learning/lecture-01.pdf'),
-      section('Lecture 2', '线性模型与正则化', '/files/courses/ml/machine-learning/lecture-02.pdf'),
-      section('Lecture 3', '树模型与集成方法', '/files/courses/ml/machine-learning/lecture-03.pdf'),
-      section('Lecture 4', '交叉验证与指标选择', '/files/courses/ml/machine-learning/lecture-04.pdf'),
-      section('Lecture 5', '可解释性与特征重要性', '/files/courses/ml/machine-learning/lecture-05.pdf')
-    ],
-    tags: ['机器学习', 'Python', '建模']
-  },
-  {
-    id: 'latex-template',
-    title: 'LaTeX 模板与排版资料',
-    course: '论文与报告排版',
-    category: 'LaTeX',
-    level: '通用',
-    type: 'LaTeX',
-    year: 2026,
-    status: 'Todo',
-    description: '课程报告、论文草稿和读书笔记可复用的 LaTeX 模板。',
-    fullText: { label: '模板下载', href: '/files/books/latex-template.tex' },
-    sections: [
-      section('Template 1', '课程报告模板', '/files/courses/latex/templates/course-report-template.tex'),
-      section('Template 2', '论文草稿模板', '/files/courses/latex/templates/manuscript-template.tex'),
-      section('Template 3', '读书笔记模板', '/files/courses/latex/templates/reading-note-template.tex')
-    ],
-    tags: ['LaTeX', '模板', '排版']
-  },
-  {
-    id: 'python-data-processing-code',
-    title: 'Python 数据处理代码',
-    course: '科研数据处理',
-    category: '代码',
-    level: '通用',
-    type: 'Code',
-    year: 2026,
-    status: 'Todo',
-    description: 'NetCDF 读取、区域裁剪、统计和绘图流程的示例脚本。',
-    fullText: { label: '代码下载', href: '/files/code/python-data-processing.py' },
-    sections: [
-      section('Script 1', 'NetCDF 读取与变量检查', '/files/courses/code/python-data-processing/read-netcdf.py'),
-      section('Script 2', '区域裁剪与平均', '/files/courses/code/python-data-processing/regional-average.py'),
-      section('Script 3', '地图绘制模板', '/files/courses/code/python-data-processing/map-plot-template.py')
-    ],
-    tags: ['Python', 'NetCDF', '可视化']
-  },
-  {
-    id: 'atmospheric-dynamics-book',
-    title: '高等大气动力学',
-    course: '高等大气动力学',
-    category: 'Book',
-    level: '研究生',
-    type: 'Book',
-    year: 2024,
-    status: 'Complete',
-    description: '大气动力学推导、例题和阅读材料的全文归档版本。',
-    fullText: { label: '全文下载', href: '/files/books/atmospheric-dynamics-book.pdf' },
-    tags: ['动力学', 'book', '推导']
-  },
-  {
-    id: 'cloud-microphysics-book',
-    title: '云微物理阅读 book',
-    course: '云微物理',
-    category: 'Book',
-    level: '研究生',
-    type: 'Book',
-    year: 2026,
-    status: 'Todo',
-    description: '云微物理文献、课程推导和卫星资料说明的全文归档。',
-    fullText: { label: '全文下载', href: '/files/books/cloud-microphysics-book.pdf' },
-    tags: ['云微物理', 'book', '阅读']
-  }
-];
+const entries = [...courseNotes, ...archivedResources];
+export const resources = entries.map((entry) => entry.resource) as Resource[];
+export const resourceI18n: Record<string, ResourceI18n> = Object.fromEntries(
+  entries.map((entry) => [entry.resource.id, entry.i18n])
+);
+export const resourceCategories = (
+  ['本科专业课程', '研究生专业课程', '数学基础', '助教课程', 'Book'] as ResourceCategory[]
+).filter((category) => resources.some((resource) => resource.category === category));

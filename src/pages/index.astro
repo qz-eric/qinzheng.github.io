@@ -21,9 +21,10 @@ const homeWriting = homeWritingSlugs
   .slice(0, 4);
 
 const featuredResourceIds = [
-  'fluid-mechanics-ta-homework',
+  'fluid-mechanics-course',
+  'atmospheric-physics-course',
+  'atmospheric-observation-course',
   'advanced-atmospheric-dynamics',
-  'machine-learning-notes'
 ];
 const featuredResources = featuredResourceIds
   .map((id) => resources.find((resource) => resource.id === id))
@@ -93,10 +94,10 @@ const featuredResources = featuredResourceIds
           <h2 data-lang-zh="资料＆笔记" data-lang-en="Resources & Notes">资料＆笔记</h2>
           <p
             class="section-summary"
-            data-lang-zh="课程资料、助教归档、book、slides 与代码材料集中放在这里，作为长期维护的学习和科研入口。"
-            data-lang-en="Course materials, teaching records, books, slides, and code materials are grouped here as a long-term study and research archive."
+            data-lang-zh="分享流体力学、大气物理学、大气探测学与高等大气动力学笔记，并归档数学讲义与助教资料。"
+            data-lang-en="Notes on fluid mechanics, atmospheric physics, atmospheric observation, and advanced atmospheric dynamics, alongside mathematics and teaching materials."
           >
-            课程资料、助教归档、book、slides 与代码材料集中放在这里，作为长期维护的学习和科研入口。
+            分享流体力学、大气物理学、大气探测学与高等大气动力学笔记，并归档数学讲义与助教资料。
           </p>
         </div>
         <div class="split-actions">

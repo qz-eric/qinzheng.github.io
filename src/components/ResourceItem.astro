@@ -72,8 +72,8 @@ const fullTextLabelEn = i18n?.fullTextLabel ?? resource.fullText?.label;
               target={isExternal(section.href) ? '_blank' : undefined}
               rel={isExternal(section.href) ? 'noopener noreferrer' : undefined}
             >
-              <span>{section.label}</span>
-              <strong data-lang-zh={section.title} data-lang-en={section.label}>{section.title}</strong>
+              <span data-lang-zh={section.labelZh ?? section.label} data-lang-en={section.label}>{section.labelZh ?? section.label}</span>
+              <strong data-lang-zh={section.title} data-lang-en={section.titleEn ?? section.label}>{section.title}</strong>
               {section.description && <small data-lang-zh={section.description} data-lang-en={section.label}>{section.description}</small>}
             </a>
           ))}

@@ -1,0 +1,78 @@
+[
+  {
+    "source": "流体力学", "slug": "fluid-mechanics", "id": "fluid-mechanics-course", "prefix": "FM", "level": "本科",
+    "nameEn": "Fluid Mechanics",
+    "description": "流体运动学、守恒方程、涡旋运动、势流、黏性流动与气体动力学的课程笔记。",
+    "descriptionEn": "Course notes on kinematics, conservation equations, vorticity, potential flow, viscous flow, and gas dynamics.",
+    "sections": [
+      ["chapter1", "基本概念、运动学与应力", "Basic Concepts, Kinematics, and Stress"],
+      ["chapter2", "流体的平衡", "Fluid Statics"],
+      ["chapter3", "流体运动的基本方程", "Governing Equations of Fluid Motion"],
+      ["chapter4", "流体的积分关系及其应用", "Integral Relations and Applications"],
+      ["chapter5", "涡旋运动", "Vortex Motion"],
+      ["chapter6", "不可压缩势流与复势方法", "Incompressible Potential Flow and Complex Potentials"],
+      ["chapter7", "黏性流体与典型层流", "Viscous Fluids and Laminar Flows"],
+      ["chapter8", "流动稳定性与湍流平均", "Flow Stability and Turbulence Averaging"],
+      ["chapter9", "气体动力学基础", "Fundamentals of Gas Dynamics"]
+    ]
+  },
+  {
+    "source": "大气物理学", "slug": "atmospheric-physics", "id": "atmospheric-physics-course", "prefix": "AP", "level": "本科",
+    "nameEn": "Atmospheric Physics",
+    "description": "大气概述、热力学、辐射收支与云雾降水物理，附分章作业、参考答案和资料来源。",
+    "descriptionEn": "Notes on the atmosphere, thermodynamics, radiation budgets, and cloud and precipitation physics, with exercises, solutions, and references.",
+    "sections": [
+      ["chapter0", "前言", "Preface"],
+      ["chapter1", "大气概述", "Overview of the Atmosphere"],
+      ["chapter2", "大气热力学基础", "Fundamentals of Atmospheric Thermodynamics"],
+      ["chapter3", "大气辐射与热量收支", "Atmospheric Radiation and Heat Budgets"],
+      ["chapter4", "云、雾、降水物理学", "Physics of Clouds, Fog, and Precipitation"],
+      ["appendixA", "分章作业", "Chapter Exercises"],
+      ["appendixB", "作业参考答案", "Exercise Solutions"],
+      ["references", "参考资料与计算来源", "References and Computational Sources"]
+    ]
+  },
+  {
+    "source": "大气探测学", "slug": "atmospheric-observation", "id": "atmospheric-observation-course", "prefix": "AO", "level": "本科",
+    "nameEn": "Atmospheric Observation",
+    "description": "云、天气现象与地面气象要素观测，以及高空风、温压湿探测，附作业与复习题解答。",
+    "descriptionEn": "Notes on cloud and weather observations, surface meteorological measurements, and upper-air sounding, with homework and review solutions.",
+    "sections": [
+      ["chapter1", "绪论", "Introduction"],
+      ["chapter2", "云的观测", "Cloud Observation"],
+      ["chapter3", "天气现象的观测", "Weather Phenomena"],
+      ["chapter4", "能见度的观测", "Visibility Observation"],
+      ["chapter5", "温度的测量", "Temperature Measurement"],
+      ["chapter6", "空气湿度的测量", "Humidity Measurement"],
+      ["chapter7", "气压的测量", "Pressure Measurement"],
+      ["chapter8", "地面风的测量", "Surface Wind Measurement"],
+      ["chapter9", "降水、积雪与蒸发的测量", "Precipitation, Snow Cover, and Evaporation"],
+      ["chapter10", "辐射及日照时数的测量", "Radiation and Sunshine Duration"],
+      ["chapter11", "高空风的测量", "Upper-air Wind Measurement"],
+      ["chapter12", "高空温、压、湿的测量", "Upper-air Temperature, Pressure, and Humidity"],
+      ["appendixA", "作业题与解题过程", "Homework and Worked Solutions"],
+      ["appendixB", "复习题与参考解答", "Review Questions and Solutions"]
+    ]
+  },
+  {
+    "source": "高等大气动力学", "slug": "advanced-atmospheric-dynamics", "id": "advanced-atmospheric-dynamics", "prefix": "AAD", "level": "研究生",
+    "nameEn": "Advanced Atmospheric Dynamics",
+    "description": "大气运动方程、守恒性质、小扰动、地转适应与准平衡演变，附作业题与完整解答。",
+    "descriptionEn": "Graduate notes on atmospheric equations of motion, conservation laws, perturbations, geostrophic adjustment, and balanced evolution, with worked solutions.",
+    "sections": [
+      ["preface", "序言", "Preface"],
+      ["chapter1", "基本运动方程、初值问题", "Governing Equations and Initial-value Problems"],
+      ["chapter2", "大气运动的整体性质", "Global Properties of Atmospheric Motion"],
+      ["chapter3", "保守属性、位温与位涡守恒", "Conservation Laws, Potential Temperature, and Potential Vorticity"],
+      ["chapter4", "局地平面坐标系下的小扰动及运动分类", "Small Perturbations and Motion Classification in Local Coordinates"],
+      ["chapter5", "球面上的小扰动方程", "Perturbation Equations on a Sphere"],
+      ["chapter6", "β 平面近似和扰动在近赤道附近的特征", "Beta-plane Approximation and Equatorial Perturbations"],
+      ["chapter7", "地转适应过程", "Geostrophic Adjustment"],
+      ["chapter8", "演变过程", "Evolution Processes"],
+      ["chapter9", "动力过程阶段性、准地转演变和准平衡演变", "Dynamical Stages, Quasi-geostrophic and Quasi-balanced Evolution"],
+      ["chapter10", "正压扰动演变过程的一般特性", "General Properties of Barotropic Perturbation Evolution"],
+      ["chapter11", "扰动与基本气流的相互作用", "Interactions Between Perturbations and the Basic Flow"],
+      ["appendixA", "作业题与完整解答", "Homework and Complete Solutions"]
+    ]
+  }
+]
