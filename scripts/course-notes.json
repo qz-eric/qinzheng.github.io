@@ -74,5 +74,21 @@
       ["chapter11", "扰动与基本气流的相互作用", "Interactions Between Perturbations and the Basic Flow"],
       ["appendixA", "作业题与完整解答", "Homework and Complete Solutions"]
     ]
+  },
+  {
+    "source": "计算流体力学", "slug": "computational-fluid-dynamics", "id": "computational-fluid-dynamics", "prefix": "CFD", "level": "研究生",
+    "nameEn": "Computational Fluid Dynamics",
+    "description": "偏微分方程、有限差分方法、代数方程组求解、可压缩与不可压缩流动数值方法、高分辨率格式与湍流数值模拟。",
+    "descriptionEn": "Graduate notes on partial differential equations, finite differences, algebraic solvers, numerical methods for compressible and incompressible flows, high-resolution schemes, and turbulence simulation.",
+    "sections": [
+      ["chapter0", "课程介绍", "Course Introduction"],
+      ["chapter1", "绪论与偏微分方程", "Introduction and Partial Differential Equations"],
+      ["chapter2", "有限差分方法基础", "Fundamentals of Finite Difference Methods"],
+      ["chapter3", "代数方程组的求解", "Solving Systems of Algebraic Equations"],
+      ["chapter4", "可压缩 N-S 方程的差分方法", "Finite Difference Methods for Compressible Navier-Stokes Equations"],
+      ["chapter5", "不可压缩 N-S 方程的差分方法", "Finite Difference Methods for Incompressible Navier-Stokes Equations"],
+      ["chapter6", "高分辨率格式", "High-resolution Schemes"],
+      ["chapter7", "湍流的数值模拟", "Numerical Simulation of Turbulence"]
+    ]
   }
 ]

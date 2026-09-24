@@ -134,7 +134,7 @@ draft: false
 
 ## 添加课程资料
 
-四门整理版课程笔记按下文的同步流程维护。其他资料在 `src/data/archived-resources.json` 中添加 `{ "resource": { ... }, "i18n": { ... } }` 条目；`resource` 保存中文内容，`i18n` 保存英文标题、课程名、简介和标签。资源结构如下，实际 JSON 需使用双引号：
+整理版课程笔记按下文的同步流程维护。其他资料在 `src/data/archived-resources.json` 中添加 `{ "resource": { ... }, "i18n": { ... } }` 条目；`resource` 保存中文内容，`i18n` 保存英文标题、课程名、简介和标签。资源结构如下，实际 JSON 需使用双引号：
 
 - `fullText`：全文下载入口
 - `sections`：分章节、分 Lecture 或 Week 的入口，页面会把链接加在章节名称上
@@ -235,9 +235,9 @@ npm run build
 - GitHub Pages / Cloudflare Pages / Netlify / Vercel：连接仓库，构建命令填 `npm run build`，输出目录填 `dist`。
 - 有个人域名时，把 `astro.config.mjs` 里的 `site` 改为真实域名，例如 `https://example.com`，这样 canonical 和 Open Graph 地址会更准确。
 
-## 同步四门课程笔记
+## 同步课程笔记
 
-四门课程的整理版 PDF 按课程独立存放在 `public/files/courses/atmos/<course>/notes/`，其中 `full.pdf` 为完整版，其余文件保留来源中的章节编号。课程分别为流体力学、大气物理学、大气探测学（本科），以及高等大气动力学（研究生）。
+课程的整理版 PDF 按课程独立存放在 `public/files/courses/atmos/<course>/notes/`，其中 `full.pdf` 为完整版，其余文件保留来源中的章节编号。课程分别为流体力学、大气物理学、大气探测学（本科），以及高等大气动力学、计算流体力学（研究生）。计算流体力学使用 `CFD_chapter0.pdf` 至 `CFD_chapter7.pdf`。
 
 笔记源目录更新后，在项目根目录运行：
 
@@ -256,7 +256,7 @@ pnpm run build
 - 论文：`src/data/publications.ts`
 - 学术活动：`src/data/activities.ts`
 - 课程分类与类型：`src/data/resources.ts`
-- 四门笔记的简介与章节：`scripts/course-notes.json`
+- 课程笔记的简介与章节：`scripts/course-notes.json`
 - 其他已归档资料：`src/data/archived-resources.json`
 - 文学作品元数据：`src/data/works.ts`
 - 文学正文：`src/content/works/`

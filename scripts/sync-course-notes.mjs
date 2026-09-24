@@ -21,7 +21,7 @@ for (const course of courses) {
   const sections = course.sections.map(([key, title, titleEn]) => {
     const filename = `${course.prefix}_${key}.pdf`;
     transfers.push([path.join(source, '分章节', filename), `${base}/${filename}`]);
-    const chapter = /^chapter([1-9]\d*)$/.exec(key);
+    const chapter = (key === 'chapter0' && course.prefix === 'AP') ? null : /^chapter(\d+)$/.exec(key);
     const appendix = /^appendix([A-Z])$/.exec(key);
     const label = chapter ? `Chapter ${chapter[1]}` : appendix ? `Appendix ${appendix[1]}` : key === 'references' ? 'References' : 'Preface';
     const labelZh = chapter ? `第 ${chapter[1]} 章` : appendix ? `附录 ${appendix[1]}` : key === 'references' ? '参考资料' : '前言';

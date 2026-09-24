@@ -438,5 +438,94 @@
         "Chapters and Appendices"
       ]
     }
+  },
+  {
+    "resource": {
+      "id": "computational-fluid-dynamics",
+      "title": "计算流体力学笔记",
+      "course": "计算流体力学",
+      "category": "研究生专业课程",
+      "level": "研究生",
+      "type": "PDF",
+      "year": 2026,
+      "status": "Complete",
+      "description": "偏微分方程、有限差分方法、代数方程组求解、可压缩与不可压缩流动数值方法、高分辨率格式与湍流数值模拟。",
+      "fullText": {
+        "label": "完整版笔记",
+        "href": "/files/courses/atmos/computational-fluid-dynamics/notes/full.pdf"
+      },
+      "sections": [
+        {
+          "label": "Chapter 0",
+          "labelZh": "第 0 章",
+          "title": "课程介绍",
+          "titleEn": "Course Introduction",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter0.pdf"
+        },
+        {
+          "label": "Chapter 1",
+          "labelZh": "第 1 章",
+          "title": "绪论与偏微分方程",
+          "titleEn": "Introduction and Partial Differential Equations",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter1.pdf"
+        },
+        {
+          "label": "Chapter 2",
+          "labelZh": "第 2 章",
+          "title": "有限差分方法基础",
+          "titleEn": "Fundamentals of Finite Difference Methods",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter2.pdf"
+        },
+        {
+          "label": "Chapter 3",
+          "labelZh": "第 3 章",
+          "title": "代数方程组的求解",
+          "titleEn": "Solving Systems of Algebraic Equations",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter3.pdf"
+        },
+        {
+          "label": "Chapter 4",
+          "labelZh": "第 4 章",
+          "title": "可压缩 N-S 方程的差分方法",
+          "titleEn": "Finite Difference Methods for Compressible Navier-Stokes Equations",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter4.pdf"
+        },
+        {
+          "label": "Chapter 5",
+          "labelZh": "第 5 章",
+          "title": "不可压缩 N-S 方程的差分方法",
+          "titleEn": "Finite Difference Methods for Incompressible Navier-Stokes Equations",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter5.pdf"
+        },
+        {
+          "label": "Chapter 6",
+          "labelZh": "第 6 章",
+          "title": "高分辨率格式",
+          "titleEn": "High-resolution Schemes",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter6.pdf"
+        },
+        {
+          "label": "Chapter 7",
+          "labelZh": "第 7 章",
+          "title": "湍流的数值模拟",
+          "titleEn": "Numerical Simulation of Turbulence",
+          "href": "/files/courses/atmos/computational-fluid-dynamics/notes/CFD_chapter7.pdf"
+        }
+      ],
+      "tags": [
+        "课程笔记",
+        "章节与附录"
+      ]
+    },
+    "i18n": {
+      "title": "Computational Fluid Dynamics Notes",
+      "course": "Computational Fluid Dynamics",
+      "description": "Graduate notes on partial differential equations, finite differences, algebraic solvers, numerical methods for compressible and incompressible flows, high-resolution schemes, and turbulence simulation.",
+      "fullTextLabel": "Complete Notes",
+      "tags": [
+        "Course Notes",
+        "Chapters and Appendices"
+      ]
+    }
   }
 ]
