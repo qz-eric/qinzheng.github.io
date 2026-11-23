@@ -48,7 +48,7 @@ const ogImage = image && new URL(withBase(image), Astro.site ?? Astro.url).toStr
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
-  <body class:list={[bodyClass, 'backdrop-page']}>
+  <body class:list={[bodyClass, 'backdrop-page', backdrop === '/images/arctic-sea-ice.webp' && 'ice-page']}>
     <div
       class="page-backdrop"
       style={`--page-backdrop-image: url('${withBase(backdrop)}')`}
