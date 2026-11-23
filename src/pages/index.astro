@@ -26,8 +26,8 @@ const featuredResources = featuredResourceIds
 
 ---
 
-<Layout>
-  <section class="hero" style={`--hero-image: url('${withBase(profile.heroImage)}')`}>
+<Layout bodyClass="home-page" backdrop={profile.heroImage}>
+  <section class="hero">
     <div class="hero-overlay">
       <div class="container hero-grid">
         <div class="hero-copy">

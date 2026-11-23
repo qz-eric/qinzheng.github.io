@@ -481,11 +481,61 @@ ol {
   background: var(--primary-strong);
 }
 
+.has-page-backdrop {
+  --backdrop-position: center;
+  --section-wash: rgba(249, 251, 246, 0.91);
+  isolation: isolate;
+}
+
+.page-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--page-backdrop-wash), var(--page-backdrop-image) var(--backdrop-position) / cover no-repeat;
+}
+
+.home-page {
+  --backdrop-position: right center;
+  --page-backdrop-wash: linear-gradient(90deg, rgba(243, 246, 238, 0.25), rgba(243, 246, 238, 0.06));
+}
+
+.orbit-page {
+  --backdrop-position: 66% center;
+  --page-backdrop-wash: linear-gradient(90deg, rgba(11, 33, 39, 0.64), rgba(11, 33, 39, 0.15));
+  background: #162f38;
+}
+
+.orbit-page .page-hero {
+  min-height: clamp(360px, 58vh, 640px);
+  display: grid;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(11, 33, 39, 0.88), rgba(11, 33, 39, 0.56) 62%, transparent);
+  color: #fff;
+}
+
+.orbit-page .page-hero .eyebrow {
+  color: #c8eadc;
+}
+
+.orbit-page .page-hero.compact p:not(.eyebrow) {
+  color: #f1faf6;
+}
+
+.has-page-backdrop main > .section {
+  background: var(--section-wash);
+}
+
+.has-page-backdrop main > .soft-band {
+  background: rgba(225, 239, 234, 0.92);
+}
+
+.has-page-backdrop main > .resource-note-band {
+  background: linear-gradient(135deg, rgba(220, 236, 246, 0.94), rgba(242, 229, 207, 0.90));
+}
+
 .hero {
   min-height: 620px;
-  background-image: var(--hero-image);
-  background-size: cover;
-  background-position: right center;
   border-bottom: 1px solid var(--line);
 }
 
@@ -2030,7 +2080,15 @@ ol {
 
   .hero-overlay {
     padding: 76px 0 52px;
-    background: rgba(245, 248, 244, 0.9);
+    background: linear-gradient(180deg, rgba(245, 248, 244, 0.90), rgba(245, 248, 244, 0.72));
+  }
+
+  .home-page {
+    --backdrop-position: 73% center;
+  }
+
+  .orbit-page .page-hero {
+    background: rgba(11, 33, 39, 0.67);
   }
 
   .hero h1,
