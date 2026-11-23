@@ -10,12 +10,12 @@ const hrefFor = (href: string) => (isExternal(href) || href.startsWith('#') ? hr
 <footer class="site-footer">
   <div class="footer-inner">
     <div>
-      <strong data-lang-zh={profile.formalNameCn} data-lang-en={profile.formalNameEn}>{profile.formalNameCn}</strong>
+      <strong data-lang-zh={profile.siteName} data-lang-en={profile.siteNameEn}>{profile.siteName}</strong>
       <p
-        data-lang-zh={`${profile.archiveLabel} · ${profile.affiliation} · ${profile.location}`}
-        data-lang-en={`${profile.archiveLabelEn} · ${profile.affiliationEn} · ${profile.locationEn}`}
+        data-lang-zh={`${profile.affiliation} · ${profile.location}`}
+        data-lang-en={`${profile.affiliationEn} · ${profile.locationEn}`}
       >
-        {profile.archiveLabel} · {profile.affiliation} · {profile.location}
+        {profile.affiliation} · {profile.location}
       </p>
     </div>
     <div class="footer-links">

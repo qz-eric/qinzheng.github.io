@@ -54,10 +54,8 @@ export const profile = {
   formalName: '秦政',
   formalNameCn: '秦政',
   formalNameEn: 'Zheng Qin',
-  siteSubtitle: '研究 · 资料',
-  siteSubtitleEn: 'Research · Archive',
-  archiveLabel: '秦政的学术档案',
-  archiveLabelEn: 'Academic archive of Zheng Qin',
+  siteName: '科研与学习',
+  siteNameEn: 'Research and Learning',
   currentRole: '博士研究生',
   currentRoleEn: 'PhD',
   affiliation: '中国科学技术大学 地球和空间科学学院',
@@ -66,7 +64,6 @@ export const profile = {
   locationEn: 'China',
   email: 'qzklj007@mail.ustc.edu.cn',
   avatar: '/images/personal.jpg',
-  heroImage: '/images/Nahida.png',
   languages: {
     default: 'zh-CN',
     available: [

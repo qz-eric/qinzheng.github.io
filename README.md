@@ -1,6 +1,6 @@
-# 个人学术主页 + 学习资料归档馆
+# 科研与学习
 
-这是一个基于 Astro + TypeScript 的个人静态网站项目。当前版本面向科研展示、学术分享与长期归档，包含 Research、Publications、Notes、Teaching、About 等入口。
+这是一个基于 Astro + TypeScript 的科研与学习网站。当前版本面向科研展示、学术分享与长期归档，包含 Research、Publications、Notes、Teaching、About 等入口。
 
 ## 技术栈
 
@@ -44,7 +44,7 @@ npm run check
 - `honors`
 - `socialLinks`
 
-个人照片在 `public/images/personal.jpg`，首页插图在 `public/images/Nahida.png`。
+关于页面的个人照片在 `public/images/personal.jpg`。
 
 ## 添加论文
 
