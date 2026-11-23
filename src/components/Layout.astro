@@ -14,7 +14,7 @@ interface Props {
 
 const {
   title,
-  description = '秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、科研记录、课程资料与文学作品。',
+  description = '秦政的个人学术主页，记录大气科学、卫星遥感、云微物理与降水机器学习反演研究，并分享科研记录和课程资料。',
   image = profile.heroImage,
   bodyClass = ''
 } = Astro.props;
@@ -103,8 +103,6 @@ const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
         'main .current-work-card',
         'main .publication-item',
         'main .selected-publication',
-        'main .work-item',
-        'main .collection-card',
         'main .resource-item',
         'main .resource-slide-header',
         'main .note-item',

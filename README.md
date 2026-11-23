@@ -1,6 +1,6 @@
-# 个人学术主页 + 文学作品集 + 学习资料归档馆
+# 个人学术主页 + 学习资料归档馆
 
-这是一个基于 Astro + TypeScript 的个人静态网站项目。当前版本面向科研展示、学术分享、长期归档与文学作品整理，包含 Research、Publications、Notes、Writing、Teaching、About 等入口。
+这是一个基于 Astro + TypeScript 的个人静态网站项目。当前版本面向科研展示、学术分享与长期归档，包含 Research、Publications、Notes、Teaching、About 等入口。
 
 ## 技术栈
 
@@ -70,49 +70,6 @@ npm run check
 ```
 
 `status` 可选值为 `Published`、`UnderReview`、`InPreparation`。
-
-## 添加文学作品
-
-文学作品由两部分组成：
-
-1. 在 `src/data/works.ts` 中新增元数据，包含 `slug`、标题、年份、分类和简介。
-2. 在 `src/content/works/` 中新建同名 Markdown 文件，例如 `my-story.md`。
-
-作品集 / 栏目也在 `src/data/works.ts` 中维护。先在 `workCollections` 里添加栏目，再给作品设置对应的 `collection`：
-
-```ts
-{
-  slug: 'my-story',
-  title: '我的作品',
-  year: 2026,
-  category: '短篇',
-  collection: 'cloud-footnotes',
-  type: '短篇小说',
-  summary: '作品简介。',
-  tags: ['标签'],
-  featured: true
-}
-```
-
-Markdown frontmatter 示例：
-
-```md
----
-title: 我的作品
-year: 2026
-category: 短篇
-collection: cloud-footnotes
-type: 短篇小说
-summary: 作品简介。
-tags:
-  - 标签
-draft: false
----
-
-正文从这里开始。
-```
-
-`slug` 需要与文件名一致，例如 `src/content/works/my-story.md` 对应 `/works/my-story/`。
 
 ## 添加笔记
 
@@ -258,7 +215,5 @@ pnpm run build
 - 课程分类与类型：`src/data/resources.ts`
 - 课程笔记的简介与章节：`scripts/course-notes.json`
 - 其他已归档资料：`src/data/archived-resources.json`
-- 文学作品元数据：`src/data/works.ts`
-- 文学正文：`src/content/works/`
 - 笔记正文：`src/content/notes/`
 - 全局样式：`src/styles/global.css`

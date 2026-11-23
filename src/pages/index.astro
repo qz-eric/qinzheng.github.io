@@ -2,23 +2,16 @@
 import Layout from '../components/Layout.astro';
 import CurrentWorkCard from '../components/CurrentWorkCard.astro';
 import SelectedPublication from '../components/SelectedPublication.astro';
-import WorkItem from '../components/WorkItem.astro';
 import ResourceItem from '../components/ResourceItem.astro';
 import { currentWorks } from '../data/currentWork';
 import { profile } from '../data/profile';
 import { publications } from '../data/publications';
 import { resourceCategories, resourceCategoryLabelsEn, resourceCategorySlugs, resources } from '../data/resources';
-import { homeWritingSlugs, works } from '../data/works';
 import { withBase } from '../utils/paths';
 
 const selectedPublication =
   publications.find((publication) => publication.graphicalAbstract?.showOnHome) ??
   publications.find((publication) => publication.status === 'Published');
-
-const homeWriting = homeWritingSlugs
-  .map((slug) => works.find((work) => work.slug === slug))
-  .filter((work): work is (typeof works)[number] => Boolean(work))
-  .slice(0, 4);
 
 const featuredResourceIds = [
   'fluid-mechanics-course',
@@ -35,7 +28,7 @@ const featuredResources = featuredResourceIds
 
 <Layout
   title="Qin's Personal Blog"
-  description="秦政的个人科研与文学主页，记录大气科学、卫星遥感、云微物理、降水机器学习反演、科研记录、课程资料与文学作品。"
+  description="秦政的个人学术主页，记录大气科学、卫星遥感、云微物理与降水机器学习反演研究，并分享科研记录和课程资料。"
 >
   <section class="hero" style={`--hero-image: url('${withBase(profile.heroImage)}')`}>
     <div class="hero-overlay">
@@ -60,7 +53,6 @@ const featuredResources = featuredResourceIds
           <div class="hero-actions">
             <a class="button" href={withBase('/research/')} data-lang-zh="研究" data-lang-en="Research">研究</a>
             <a class="button secondary" href={withBase('/publications/')} data-lang-zh="发表成果" data-lang-en="Publications">发表成果</a>
-            <a class="button secondary" href={withBase('/works/')} data-lang-zh="文学作品" data-lang-en="Writing">文学作品</a>
           </div>
         </div>
         <aside class="profile-panel" aria-label="个人概览">
@@ -139,26 +131,4 @@ const featuredResources = featuredResourceIds
       </section>
     )
   }
-
-  <section class="section literary-band">
-    <div class="container">
-      <div class="section-heading split-heading">
-        <div>
-          <p class="eyebrow" data-lang-zh="文学档案" data-lang-en="Writing Archive">文学档案</p>
-          <h2 data-lang-zh="星云档案馆" data-lang-en="Writing Archive">星云档案馆</h2>
-          <p
-            class="section-summary"
-            data-lang-zh="小说、随笔、片段，以及对想象世界的长期记录。"
-            data-lang-en="Fiction, essays, fragments, and records of imagined worlds."
-          >
-            小说、随笔、片段，以及对想象世界的长期记录。
-          </p>
-        </div>
-        <a class="text-button" href={withBase('/works/')} data-lang-zh="进入作品集" data-lang-en="View all writing">进入作品集</a>
-      </div>
-      <div class="work-grid">
-        {homeWriting.map((work) => <WorkItem work={work} />)}
-      </div>
-    </div>
-  </section>
 </Layout>
