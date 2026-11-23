@@ -18,7 +18,7 @@ const {
   description = '大气科学、卫星遥感、云微物理与降水机器学习反演研究，以及课程资料和学习笔记。',
   image,
   bodyClass = '',
-  backdrop
+  backdrop = '/images/stratosphere.webp'
 } = Astro.props;
 
 const siteName = profile.siteName;
@@ -48,14 +48,12 @@ const ogImage = image && new URL(withBase(image), Astro.site ?? Astro.url).toStr
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
-  <body class:list={[bodyClass, backdrop && 'has-page-backdrop']}>
-    {backdrop && (
-      <div
-        class="page-backdrop"
-        style={`--page-backdrop-image: url('${withBase(backdrop)}')`}
-        aria-hidden="true"
-      />
-    )}
+  <body class:list={[bodyClass, 'backdrop-page']}>
+    <div
+      class="page-backdrop"
+      style={`--page-backdrop-image: url('${withBase(backdrop)}')`}
+      aria-hidden="true"
+    />
     <Header />
     <main id="main-content">
       <slot />
