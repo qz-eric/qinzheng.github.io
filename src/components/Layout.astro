@@ -97,6 +97,8 @@ const ogImage = image && new URL(withBase(image), Astro.site ?? Astro.url).toStr
     document.querySelectorAll<HTMLElement>(
       [
         'main .section-heading',
+        'main .hero-copy > *',
+        'main .profile-panel',
         'main .card',
         'main .current-work-card',
         'main .publication-item',

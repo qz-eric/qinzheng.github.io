@@ -44,7 +44,7 @@ npm run check
 - `honors`
 - `socialLinks`
 
-关于页面的个人照片在 `public/images/personal.jpg`。
+首页和关于页面使用的个人照片在 `public/images/personal.jpg`，首页个人展示区的背景在 `public/images/Nahida.png`。
 
 ## 添加论文
 

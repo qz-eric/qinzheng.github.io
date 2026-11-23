@@ -64,6 +64,7 @@ export const profile = {
   locationEn: 'China',
   email: 'qzklj007@mail.ustc.edu.cn',
   avatar: '/images/personal.jpg',
+  heroImage: '/images/Nahida.png',
   languages: {
     default: 'zh-CN',
     available: [
